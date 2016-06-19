@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/menu_item_selector"
+    android:clickable="true"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemview"
+        >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/menu_department"
+            android:layout_margin="10dp"
+            android:id="@+id/menu_img"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item"
+            android:text="部门排序"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:alpha="0.8"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/menu_img"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white"
+        android:alpha="0.8"
+        android:layout_alignLeft="@+id/menu1_img"
+        android:layout_alignRight="@+id/itemview"
+
+        android:layout_below="@+id/itemview"
+        />
+
+</RelativeLayout>

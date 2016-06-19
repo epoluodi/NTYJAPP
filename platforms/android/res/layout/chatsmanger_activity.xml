@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/bluebtn">
+
+        <ImageView
+            android:id="@+id/btnreturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/back_bar_left_selector" />
+
+        <TextView
+            android:id="@+id/chatsname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="聊天信息"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <GridLayout
+        android:id="@+id/chatergrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:scrollbars="none">
+
+        <!--<ImageView-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="2dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@drawable/logo" />-->
+
+        <include
+            layout="@layout/chat_item_view"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp" />
+
+
+    </GridLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_chatname"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/info1"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu1_img"
+            android:text="群聊名称"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="刘备"
+            android:textAlignment="center"
+            android:textColor="#555555"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_msgset1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/info1"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu1_img"
+            android:text="消息免打扰"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="14dp" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:textOff="关闭"
+
+            android:textOn="打开" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_msgset2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/info1"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu1_img"
+            android:text="聊天置顶"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="14dp" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:textOff="关闭"
+            android:textOn="打开" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_msgclear"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/info1"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/userinfo_menu_selector"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu1_img"
+            android:text="清除聊天记录"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/menu_delete"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/menu_aboutsoft"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_style_red"
+        android:clickable="true"
+        android:text="删除并退出"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

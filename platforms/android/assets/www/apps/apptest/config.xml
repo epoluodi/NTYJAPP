@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<stereo-config>
+
+	<stereo-app-config>
+
+		<!-- app code定义 -->
+		<stereo-app-code>100000</stereo-app-code>
+		<!-- app版本号-->
+		<stereo-app-ver>1.0</stereo-app-ver>
+		<stereo-app-id>1</stereo-app-id>
+		<!-- app名称定义，该名称将会作为默认title -->
+		<stereo-app-name>零散低压用户新装</stereo-app-name>
+		<!-- 业务图标-->
+		<stereo-app-png>img/icons/app_title.png</stereo-app-png>
+		<!-- app名称定义，该名称将会作为默认title -->
+		<stereo-app-introduce>介绍：用户办理业务</stereo-app-introduce>
+		<!--http://192.168.0.12:7002/stereo-console/api/-->
+		<stereo-app-request1-http>http://om.suypower.com/stereo-dispatch/app/</stereo-app-request1-http>
+		<stereo-app-request2-http>http://om.suypower.com/stereo-dispatch/auth/</stereo-app-request2-http>
+		<stereo-app-request3-http>http://om.suypower.com/stereo-dispatch/api/</stereo-app-request3-http>
+		<stereo-app-request4-http>http://192.168.0.178/stereo-dispatch/auth/</stereo-app-request4-http>
+		<!-- app界面布局定义 -->
+		<stereo-layout>
+			<stereo-mainframe>
+				<!-- 主界面布局插件定义 -->
+				<stereo-frame-plugin>
+					<!-- 插件对应class -->
+					<stereo-plugin-calss>com.suypower.pms.view.plugin.MainTabBarPlugin</stereo-plugin-calss>
+					<!-- 插件配置项定义 -->
+					<stereo-plugin-config>
+						<!-- 插件主界面 tabs定义 -->
+						<stereo-tabs>
+							<!-- 单个tab定义 -->
+							<!--<stereo-tab>-->
+								<!--&lt;!&ndash; tab id&ndash;&gt;-->
+								<!--<stereo-tab-id>0</stereo-tab-id>-->
+								<!--&lt;!&ndash; tab默认图标定义 &ndash;&gt;-->
+								<!--<stereo-tab-default-icon>www/apps/apptest/img/icons/tab1_default.png</stereo-tab-default-icon>-->
+								<!--&lt;!&ndash; tab选中图标定义 &ndash;&gt;-->
+								<!--<stereo-tab-active-icon>www/apps/apptest/img/icons/tab1_active.png</stereo-tab-active-icon>-->
+								<!--&lt;!&ndash; tab 链接URI &ndash;&gt;-->
+								<!--<stereo-tab-uri>stereo://stereo.native.cordovawebviewPlugin</stereo-tab-uri>-->
+								<!--&lt;!&ndash; URL首页&ndash;&gt;-->
+								<!--<stereo-tab-url>html/dyyhkk/dyyhkk.html</stereo-tab-url>-->
+							<!--</stereo-tab>-->
+							<stereo-tab>
+								<!-- tab id-->
+								<stereo-tab-id>0</stereo-tab-id>
+								<!-- tab默认图标定义 -->
+								<stereo-tab-default-icon>www/apps/apptest/img/icons/tab1_default.png</stereo-tab-default-icon>
+								<!-- tab选中图标定义 -->
+								<stereo-tab-active-icon>www/apps/apptest/img/icons/tab1_active.png</stereo-tab-active-icon>
+								<!-- tab 链接URI -->
+								<stereo-tab-uri>stereo://stereo.native.cordovawebviewPlugin</stereo-tab-uri>
+								<!-- URL首页-->
+								<stereo-tab-url>index.html</stereo-tab-url>
+								<!--www/apps/apptest/-->
+
+							</stereo-tab>
+
+							<!--&lt;!&ndash; 单个tab定义 &ndash;&gt;-->
+							<!--<stereo-tab>-->
+								<!--&lt;!&ndash; tab id&ndash;&gt;-->
+								<!--<stereo-tab-id>2</stereo-tab-id>-->
+								<!--&lt;!&ndash; tab默认图标定义 &ndash;&gt;-->
+								<!--<stereo-tab-default-icon>www/apps/apptest/img/icons/tab1_default.png</stereo-tab-default-icon>-->
+								<!--&lt;!&ndash; tab选中图标定义 &ndash;&gt;-->
+								<!--<stereo-tab-active-icon>www/apps/apptest/img/icons/tab1_active.png</stereo-tab-active-icon>-->
+								<!--&lt;!&ndash; tab 链接URI &ndash;&gt;-->
+								<!--<stereo-tab-uri>stereo://stereo.native.userprofilePlugin</stereo-tab-uri>-->
+							<!--</stereo-tab>-->
+						</stereo-tabs>
+					</stereo-plugin-config>
+				</stereo-frame-plugin>
+			</stereo-mainframe>
+		</stereo-layout>
+	</stereo-app-config>
+</stereo-config>

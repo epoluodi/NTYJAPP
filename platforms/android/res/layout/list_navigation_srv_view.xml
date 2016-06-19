@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_naviagation_selector"
+    android:gravity="center_vertical"
+
+    android:descendantFocusability="blocksDescendants"
+    >
+
+<ImageView
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:background="@drawable/ico_logo"
+    android:id="@+id/image"
+    android:layout_marginBottom="20dp"
+    />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:text="项目名称"
+        android:textSize="34dp"
+        android:singleLine="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:id="@+id/title"
+        android:layout_toRightOf="@+id/image"
+        android:layout_alignTop="@+id/image"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_marginRight="20dp"
+
+        android:text="合同号：123456"
+        android:textSize="22dp"
+        android:singleLine="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:layout_below="@+id/title"
+        android:id="@+id/memo"
+
+
+
+
+        />
+
+</RelativeLayout>

@@ -1,0 +1,3 @@
+jQuery.smix.view = {
+
+};

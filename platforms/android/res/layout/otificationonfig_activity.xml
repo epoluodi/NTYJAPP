@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+
+
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/menu_person"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/headview"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/userinfo_menu_selector"
+
+        android:clickable="true"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu1_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/notification_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu1_img"
+            android:text="通知"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:checked="true"
+            android:textOn="打开"
+            android:textOff="关闭"
+            android:id="@+id/notificationswitch"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/menu_notification"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_person"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu2_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/setting_arremind" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu2_img"
+            android:text="智能提醒"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:checked="true"
+            android:textOn="打开"
+            android:textOff="关闭"
+            android:id="@+id/zntxswitch"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_clearbuffer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_notification"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu3_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/setting_msgremind" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu3_img"
+            android:text="消息通知"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:checked="true"
+            android:textOn="打开"
+            android:textOff="关闭"
+            android:id="@+id/msgtxswitch"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu_clearbuffer"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/blackTransparent5"
+        android:text="说明：本软件会自动接收来自平台的消息，公告,流程的通知信息，通过设定开关可以关闭和打开，"
+        />
+
+
+
+
+</RelativeLayout>

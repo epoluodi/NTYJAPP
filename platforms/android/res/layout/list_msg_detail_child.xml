@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_msg_child_selector"
+    android:gravity="center_vertical"
+    android:id="@+id/rmain"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginTop="3dp"
+    >
+
+
+<View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@color/blackTransparent5"
+
+    android:alpha="0.5"
+    />
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:id="@+id/r1"
+            >
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/ico_logo"
+                android:layout_margin="5dp"
+                android:id="@+id/image"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/r1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+
+        android:maxLines="2"
+        android:text="合同号：12同号：同号：同号：："
+        android:textSize="22dp"
+
+        android:textColor="#333333"
+
+        android:id="@+id/title"
+        android:layout_centerVertical="true"
+
+
+
+        />
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@+id/r1"
+
+        />
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+        <shape>
+            <!--<corners android:radius="260dp" />-->
+            <!--<gradient-->
+                <!--android:startColor="#20000000"-->
+                <!--android:centerColor="#20000000"-->
+                <!--android:centerY="0.75"-->
+                <!--android:endColor="#20000000"-->
+                <!--android:angle="270"-->
+                <!--/>-->
+            <solid android:color="@color/transparent"/>
+            <!--<stroke android:width="1dp" android:color="@color/blue"-->
+                    <!--/>-->
+        </shape>
+    </item>
+
+    <!--<item android:id="@android:id/secondaryProgress">-->
+        <!--<clip>-->
+            <!--<shape>-->
+                <!--<corners android:radius="260dp" />-->
+                <!--<gradient-->
+                    <!--android:startColor="@color/cornflowerblue"-->
+                    <!--android:centerColor="@color/royalblue"-->
+                    <!--android:centerY="0.75"-->
+                    <!--android:endColor="@color/white"-->
+                    <!--android:angle="90"-->
+                    <!--/>-->
+            <!--</shape>-->
+        <!--</clip>-->
+    <!--</item>-->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <!--<corners-->
+                    <!--android:radius="260dp" />-->
+                <!--<gradient-->
+                    <!--android:startColor="@color/yellow"-->
+                    <!--android:centerColor="@color/gold"-->
+                    <!--android:endColor="@color/navajowhite"-->
+                    <!--android:angle="90" />-->
+                <solid android:color="#27ae61"/>
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

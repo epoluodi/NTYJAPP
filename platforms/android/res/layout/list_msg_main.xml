@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_naviagation_selector"
+    android:gravity="center_vertical"
+
+    android:descendantFocusability="blocksDescendants"
+    >
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+
+        android:id="@+id/image"
+        android:layout_centerVertical="true"
+
+
+        >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/ico_logo"
+                android:layout_margin="5dp"
+                android:id="@+id/menu1_main_tabbar"
+
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_tabbar_mark2"
+            android:layout_gravity="right"
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal"
+            android:id="@+id/txtmark"
+            android:textSize="22dp"
+            android:text="9+"
+            android:maxWidth="40dp"
+            android:minWidth="35dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            />
+    </FrameLayout>
+
+
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal"
+    android:layout_toRightOf="@+id/image"
+    android:id="@+id/l1"
+    android:gravity="center_vertical"
+    android:layout_marginRight="20dp"
+    >
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:text="项目名称"
+        android:textSize="32dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:id="@+id/title"
+
+        android:layout_weight="1"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="123123123"
+        android:textSize="20dp"
+        android:singleLine="true"
+        android:layout_marginLeft="10dp"
+
+        android:textColor="@color/gray"
+        android:id="@+id/dt"
+
+        android:gravity="right"
+
+
+        />
+</LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_marginRight="20dp"
+       android:maxLines="2"
+        android:text="合同号：1231231231231232"
+        android:textSize="22dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/gray"
+        android:layout_below="@+id/l1"
+        android:id="@+id/memo"
+
+
+
+
+        />
+
+
+
+
+
+</RelativeLayout>

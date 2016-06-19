@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>Stereo平台Demo</title>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+   <style type="text/css">
+  .forshow_img {float: left;width: 25%;height:70px;overflow: hidden;margin-bottom: 10px;text-align: center;}
+    .forshow_img i{vertical-align: middle;}
+    .forshow_img div{width: 70px;height: 70px;overflow: hidden;margin:0 auto;}
+
+    .picker{border:1px dashed #aaa;}
+    .picker img{vertical-align: middle;padding: 20px;}
+    .has_picked_img {
+      vertical-align: middle; 
+     }
+     .clear{clear: both;}
+
+      .long_button{
+      display:block;
+      border: 1px solid;
+      font-weight: 700;
+      margin: 5px;
+      height: 33px;
+      line-height: 33px;
+      text-align: center;
+      letter-spacing: 0.5em;
+      color: #fff;
+      background-color: #0a7e81;
+    }
+
+    </style>
+
+	<script src="./js/jquery-1.9.1.min.js"></script>
+	
+<script type="text/javascript" src="../../cordova.js"></script></head>
+<body>
+<div class="wrapper">
+    <h4>照片选择</h4>
+    <div id="content">
+	  
+   	</div>
+	<div class="forshow_img" onclick="photo()" >
+      <i><div class="picker" style="height:68px;"><img src="./img/icons/plus.svg" /></div>
+      </i>
+  </div>
+  <div class='clear'></div>
+
+  <a class="long_button  "  onclick="uploadImages()">上传</a>
+    <a class="long_button" onclick="back()">返回</a>
+</div>
+</body>
+<script type="text/javascript">
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+        stereo.menu.create(
+        {
+           placement : 3,
+           items :                // 菜单数组
+               [
+                   {
+                       icon : 'www/apps/apptest/img/icons/icon_optionmenu1.png',
+                       menuKey : 'M_TAKE_PHOTO',     // 菜单KEY
+                       name : "拍照",   //菜单名称
+                       uri : 'stereo://stereo.native.cameraPlugin'          // 参考 4.2
+                   },
+                   {
+                       icon : 'www/apps/apptest/img/icons/icon_optionmenu1.png',
+                       menuKey : 'M_BAIDU',     // 菜单KEY
+                       name : '搜索',   //菜单名称
+                       uri : 'http://www.baidu.com'          // 参考 4.2
+                   },
+                    {
+                       icon : 'www/apps/apptest/img/icons/icon_optionmenu1.png',
+                       menuKey : 'M_BAIDU',     // 菜单KEY
+                       name : '刷新',   //菜单名称
+                       uri : 'file:////storage/sdcard0/suyuan/www/apps/apptest/index.html'          // 参考 4.2
+                   }
+               ]
+           }
+        ,error,success);
+}
+
+	function  back(){
+
+		stereo.system.goback(null,
+		null, null);
+	}
+
+
+function photo(){
+   stereo.camera.chooseImage({
+               "chooseModel" : "all",
+               "imageCount" : "10"
+             },CameraResult,error);
+}
+function browser(){
+	stereo.camera.chooseImage({
+              "chooseModel" : "camera",
+              "imageCount" : "1"
+            },error,CameraResult);
+}
+//上传
+var photoJson;
+function uploadImages(){
+  upload(photoJson);
+}
+function upload(photoJson){
+  stereo.camera.imageUpload({
+               "images" : photoJson
+  },error,UploadPhotoResult);
+}
+
+   
+function success(str){
+	//$("#result").val(str);
+	alert(str);
+}
+function error(str){
+    //alert("err");
+    alert(str);
+}
+
+function CameraResult(data){
+	photoJson = JSON.stringify(data);
+	var contacthtml = "";
+	if(data.photos == 0){
+		alert("尚未选择图片")
+		return;
+	}
+	for ( var i = 0; i < data.photofile.length; i++) {
+		var imgAddr = data.photofile[i];
+		alert(imgAddr);
+		contacthtml += "<div class='forshow_img'><i><div><img src='"+imgAddr+"' name='pickerImage' class='has_picked_img'/></div></i></div>";
+	}
+	$("#content").html(contacthtml);
+  autoImage();  
+}
+
+autoImage();  
+function autoImage(){
+  var iHeight = 68;
+  $('img[name="pickerImage"]').each(function(){
+    $(this).load(function(){
+      var w = this.width;
+      var h = this.height;
+      console.log(this);
+      var zpex = 1;
+      var imgpex = w/h; 
+      if(zpex>imgpex){
+          //设置图片的高  竖图
+        $(this).attr("width",iHeight);
+      }else{
+        //设置图片的宽 横图
+        $(this).attr("height",iHeight);
+      }
+    }); 
+  });
+}
+//预览
+//上传 回调方法
+function UploadPhotoResult(data){
+    //["imageid","imageid","imageid"]
+    var photoJson = JSON.stringify(data);
+    alert(photoJson)
+}
+</script>
+</html>

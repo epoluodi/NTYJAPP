@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA">
+
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/profile_bg">
+        <ImageView
+            android:id="@+id/nickimg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:src="@drawable/default_avatar_big" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/nickimg"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/nickimg"
+            android:text="雍正"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/name"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/name"
+            android:text="前端工程师"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/nickimg"
+            android:text="软件三部"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/incompanydate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+
+            android:layout_marginLeft="20dp"
+            android:visibility="invisible"
+            android:text="2015年04月07日入职"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/userinfo_level"
+            android:gravity="center_vertical"
+            android:text="新手出道"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_person"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/headview"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/userinfo_menu_selector"
+
+        android:clickable="true"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu1_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/personalinfo_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu1_img"
+            android:text="个人信息"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/menu_notification"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_person"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+        android:visibility="gone"
+        >
+
+
+        <ImageView
+            android:id="@+id/menu2_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/notification_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu2_img"
+            android:text="通知提醒"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_clearbuffer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_person"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu3_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/clearbuffer_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu3_img"
+            android:text="清除缓存"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_checkupdate"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_clearbuffer"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu4_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/checkupdate_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu4_img"
+            android:text="检查更新"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/menu_aboutsoft"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_checkupdate"
+        android:background="@drawable/userinfo_menu_selector"
+        android:clickable="true"
+        >
+
+
+        <ImageView
+            android:id="@+id/menu5_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/aboutsoft_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu5_img"
+            android:text="关于"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/menu_exit"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_aboutsoft"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+        android:layout_marginTop="10dp"
+        >
+
+
+        <ImageView
+            android:id="@+id/menu6_img"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/exit_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu6_img"
+            android:text="注销"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

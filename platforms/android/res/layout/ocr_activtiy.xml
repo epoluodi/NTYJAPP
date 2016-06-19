@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    >
+
+    <ImageView
+        android:layout_width="480dp"
+        android:layout_height="320dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:id="@+id/iamgeocr"
+        
+        />
+
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/iamgeocr"
+        android:layout_alignLeft="@+id/iamgeocr"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imagename"
+
+        />
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/imagename"
+        android:layout_alignLeft="@+id/iamgeocr"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imagesex"
+
+        />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/imagesex"
+        android:layout_alignLeft="@+id/iamgeocr"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageaddress"
+
+        />
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/imageaddress"
+        android:layout_alignLeft="@+id/iamgeocr"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageid"
+
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blackTransparent8"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical"
+        >
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="70dp"
+            android:id="@+id/anayle"
+            android:background="@drawable/setting_notice_ico"
+            />
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="70dp"
+            android:background="@drawable/setting_notice_ico"
+            android:id="@+id/cancel"
+            android:layout_marginLeft="40dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

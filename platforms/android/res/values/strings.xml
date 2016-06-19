@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">企航</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+    
+    
+    <string name="service_init_err">初始化SuyService失败！</string>
+    <string name="login_failed">登录失败！</string>
+    <string name="id_or_pwd_err">帐号或密码错误，请重新输入。</string>
+    <string name="pwdtxthint">密码</string>
+    <string name="loginbtntext">登  录</string>
+    <string name="forgot_pwd"><u>忘记密码？</u></string>
+    <string name="loading">登录中</string>
+    <string name="enter_id">请输入用户名</string>
+    <string name="enter_pwd">请输入密码</string>
+
+    <string name="verify_result">验证码不正确</string>
+    <string name="get_msg_pic_code">获取图片验证码</string>
+    <string name="get_msg_verify_code">获取短信验证码</string>
+    <string name="enter_msg_verify_code">请输入验证码</string>
+    <string name="input_msg_verify_code">验证码</string>
+    <string name="input_user_name">用户名</string>
+    <string name="input_user_password">密码</string>
+
+    <string name="strPoint">strPoint</string>
+</resources>

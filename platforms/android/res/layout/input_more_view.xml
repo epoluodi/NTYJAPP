@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ghostwhite"
+    android:id="@+id/input_more"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_picture"/>
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_camera"/>
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_createmeetting"/>
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_createvote"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_Sign"/>
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_sendgps"/>
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_mpty1" />
+        <include layout="@layout/input_item_view"
+            android:id="@+id/item_mpty2"/>
+    </LinearLayout>
+</LinearLayout>

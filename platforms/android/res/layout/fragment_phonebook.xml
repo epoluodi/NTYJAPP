@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+    android:id="@+id/relativeLayout">
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/bluebtn">
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bar_search_selector"
+            android:id="@+id/btnsearch" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="通讯录"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/title" />
+        <ImageView
+            android:id="@+id/btnmore"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bar_more_selector" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:id="@+id/searchtxt"
+            android:singleLine="true"
+            android:maxLength="5"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:layout_toLeftOf="@+id/btncancel" />
+        <ImageView
+            android:id="@+id/btncancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bar_cancel_selector"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/frameview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headview">
+        <com.suypower.pms.view.CustomView.ListForRefresh
+            android:id="@+id/listEx"
+            style="@style/List"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.suypower.pms.view.CustomView.LinearViewPY
+            android:id="@+id/listpy"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/phonebook_py_list"
+            android:orientation="vertical"
+            android:scrollbars="none">
+        </com.suypower.pms.view.CustomView.LinearViewPY>
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="loging_activity_iconWidth">120dp</dimen>
+    <dimen name="loging_activity_iconHeight">120dp</dimen>
+    <dimen name="loging_activity_marginTop">120dp</dimen>
+    <dimen name="loging_activity_etHeight">60dp</dimen>
+    <dimen name="loging_activity_veiwSpace">10dp</dimen>
+    <dimen name="loging_activity_verifyCodeWidth">120dp</dimen>
+    
+    <!-- 登录忙对话框边距及大小 -->
+    <dimen name="cyloginingdlg">42dp</dimen>
+    <dimen name="loginingdlg_lr_margin">10dp</dimen>
+    <dimen name="loginingdlg_t_margin">20dp</dimen>
+
+    <!-- optionmenu -->
+    <dimen name="optionmenu_width">140dp</dimen>
+    <dimen name="optionmenu_image">25dp</dimen>
+    <dimen name="optionmenu_list_height">30dp</dimen>
+
+
+    <!-- bottom 菜单-->
+    <dimen name="bottommenu_view_height">180dp</dimen>
+    <dimen name="bottommenu_btn">50dp</dimen>
+</resources>

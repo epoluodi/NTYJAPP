@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ui="http://schemas.android.com/apk/res/com.suypower.stereo"
+    android:orientation="vertical"
+    android:background="@color/loginbg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@drawable/profile_bg"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="奥特曼"
+            android:layout_marginTop="25dp"
+            android:textSize="44dp"
+            android:singleLine="true"
+            android:id="@+id/setting_name"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/setting_name"
+            android:textStyle="bold"
+            android:id="@+id/main_setting_photo"
+            android:src="@drawable/photo_circle"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+            android:layout_below="@+id/main_setting_photo"
+
+            android:textSize="38dp"
+            android:singleLine="true"
+
+            android:text="部门经理"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:id="@+id/department"
+
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28dp"
+            android:singleLine="true"
+            android:layout_below="@+id/department"
+            android:text="南京供电公司 软件三部"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:id="@+id/usercompany"
+            android:layout_centerHorizontal="true"
+            />
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/setting_image"
+            android:id="@+id/image_setting"
+            android:clickable="true"
+            />
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:id="@+id/image_message"
+            android:clickable="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_above="@+id/image_setting"
+            >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/message"
+                    android:id="@+id/menu1_main_tabbar"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:background="@drawable/main_tabbar_mark1"
+                android:layout_gravity="right"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="2dp"
+                android:id="@+id/mark1_main_image_tabbar"
+                android:visibility="invisible"
+                />
+        </FrameLayout>
+
+    </RelativeLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    >
+<ListView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    style="@style/List"
+    android:id="@+id/list"
+
+    />
+
+
+</LinearLayout>
+
+
+
+</LinearLayout>

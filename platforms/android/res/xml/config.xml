@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.suypower.pms" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="Battery">
+        <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
+    </feature>
+    <feature name="Accelerometer">
+        <param name="android-package" value="org.apache.cordova.devicemotion.AccelListener" />
+    </feature>
+    <feature name="Compass">
+        <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
+    </feature>
+    <!--<feature name="Camera">-->
+        <!--<param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />-->
+    <!--</feature>-->
+
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Capture">
+        <param name="android-package" value="org.apache.cordova.mediacapture.Capture" />
+    </feature>
+    <feature name="Media">
+        <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
+    <feature name="Vibration">
+        <param name="android-package" value="org.apache.cordova.vibration.Vibration" />
+    </feature>
+    <feature name="Contacts">
+        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
+    </feature>
+    <feature name="Globalization">
+        <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <!-- 异步请求插件 -->
+    <feature name="AnyscRequest">
+        <param name="android-package" value="org.apache.cordova.anysc.AnyscRequest" />
+    </feature>
+    <!-- 自定义菜单插件-->
+    <feature name="MenuRequest">
+        <param name="android-package" value="org.apache.cordova.menu.MenuRequest" />
+    </feature>
+    <!--拍照功能插件-->
+    <feature name="CameraRequest">
+        <param name="android-package" value="org.apache.cordova.camera.CameraRequest" />
+    </feature>
+    <!--扫描插件-->
+    <feature name="ScanRequest">
+        <param name="android-package" value="org.apache.cordova.scan.ScanRequest" />
+    </feature>
+    <!-- Word 控制操作类-->
+    <feature name="WordRequest">
+        <param name="android-package" value="org.apache.cordova.word.WordRequest" />
+    </feature>
+    <feature name="FileExRequest">
+        <param name="android-package" value="org.apache.cordova.fileEx.FileExRequest" />
+    </feature>
+    <feature name="ConfigRequest">
+        <param name="android-package" value="org.apache.cordova.config.ConfigRequest" />
+    </feature>
+    <feature name="UpdateRequest">
+        <param name="android-package" value="org.apache.cordova.update.UpdateRequest" />
+    </feature>
+    <feature name="SystemRequest">
+        <param name="android-package" value="org.apache.cordova.system.SystemRequest" />
+    </feature>
+    <name>stereo</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

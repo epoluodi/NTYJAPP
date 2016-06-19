@@ -1,0 +1,164 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+* {
+    outline: none;
+}
+
+.user-center {
+    background: rgb(0, 171, 243);
+    color: #FFFFFF;
+    display: -webkit-flex;
+    -webkit-flex: auto 2;
+}
+
+.user-center .photo {
+    margin: 15px 5px 15px 30px;
+}
+
+.user-center .photo img {
+    width: 70px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+}
+
+.user-summary {
+    margin: 25px 5px 15px 5px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.user-summary ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+.main-list {
+
+    height: calc(100% - 106px)
+
+}
+
+
+.main_grid{
+
+    height: 368px;
+    -webkit-columns:auto 3;
+}
+
+.ctl img {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ctl span {
+    width: 0;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.borad {
+    columns: auto 3;
+    -moz-columns: auto 3; /* Firefox */
+    -webkit-columns: auto 3; /* Safari 和 Chrome */
+    -moz-column-gap: 0; /* Firefox */
+    -webkit-column-gap: 0; /* Safari and Chrome */
+    column-gap: 0;
+}
+
+.content_wapper {
+    background: #fff;
+    margin-top: 15px;
+    border-top: 1px solid #ECEFF7;
+}
+
+.cell {
+    height: 80px;
+    padding: 10px;
+    border-left: 1px solid #ECEFF7;
+    border-bottom: 1px solid #ECEFF7;
+    text-align: center;
+    color: #4c4c4c;
+}
+
+.cell:ACTIVE {
+    background: rgba(100, 198, 255, 0.58);
+}
+
+.cell div {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cell img {
+    height: 45px;
+    margin: auto;
+    padding: auto;
+}
+
+.cell span {
+    width: 0;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.cell p {
+    font-size: 12px;
+}
+
+@-webkit-keyframes sacleIn {
+    from {
+        transform: scale(0, 0);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+.track:nth-child(1) p {
+    padding-top: 15px;
+}
+
+.track:nth-child(2) p {
+    padding-top: 15px;
+    margin-left: -10px;
+}
+
+.track:nth-child(3) p {
+    padding-top: 15px;
+    margin-left: -10px;
+}
+
+
+
+
+
+.morr span:nth-child(1) {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.morr span:nth-child(2) {
+    font-size: 12px;
+    margin-left: 10px;
+}

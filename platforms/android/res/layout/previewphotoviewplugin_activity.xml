@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#EAEAEA"
+    android:layout_width="match_parent"
+    android:id="@+id/preview_view"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+                <GridLayout
+                    android:layout_width="fill_parent"
+                    android:id="@+id/photogrid"
+                    android:columnCount="4"
+                    android:scrollbars="vertical"
+                    android:background="@color/transparent"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:layout_height="match_parent">
+                </GridLayout>
+        </ScrollView>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/bluebtn"
+            android:alpha="0.8">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="所有照片"
+                android:textSize="18dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/title_text"
+                android:layout_toLeftOf="@+id/pre_left_title_btn"
+                android:singleLine="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@+id/title_left_menu_image"
+                />
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/title_left_menu_image"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back_bar_left_selector"/>
+    </FrameLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/ghostwhite"
+
+        >
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/left_bottombar_text"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="预览"
+            android:textColor="@color/black"
+            />
+
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toStartOf="@+id/right_bottombar_text"
+            android:id="@+id/right_number_bottombar_text"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="0"
+            android:textColor="@color/white"
+            android:background="@drawable/previewphoto_number_mark1"
+            />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:id="@+id/right_bottombar_text"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="确定"
+
+            android:textColor="@color/forestgreen"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

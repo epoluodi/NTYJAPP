@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <Button
+        android:id="@+id/btncopy"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="复制"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+    <Button
+        android:id="@+id/btndel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="删除"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+    <Button
+        android:id="@+id/btntransend"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="转发"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+</LinearLayout>

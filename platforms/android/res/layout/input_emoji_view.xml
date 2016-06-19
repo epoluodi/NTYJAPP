@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ghostwhite"
+    android:id="@+id/input_more"
+
+    android:orientation="vertical">
+
+
+    <android.support.v4.view.ViewPager
+
+        android:id="@+id/viewpager"
+        android:background="@color/ghostwhite"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"/>
+
+    <LinearLayout
+        android:id="@+id/viewpager_mark"
+
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
+

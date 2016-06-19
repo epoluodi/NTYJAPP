@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="复制"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="转发"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="收藏"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="删除"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <View
+        android:layout_width="2px"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/msg_menu_button_selector"
+        android:text="更多"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>

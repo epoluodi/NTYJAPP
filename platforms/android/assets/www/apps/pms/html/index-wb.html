@@ -1,0 +1,891 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+<title>电力需求侧</title>
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="cache-control" content="no-cache,must-revalidate"/>
+<meta http-equiv="Expires" content="0" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0" />
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="cordova.js" charset="utf-8" type="text/javascript"></script>
+<script src="js/public.js"></script>
+<script type="text/javascript" src="js/highCharts/highcharts.js"></script>
+
+<script type="text/javascript" src="js/highCharts/highcharts-more.js"></script>
+<link rel="stylesheet" href="style/public.css"  type="text/css" />
+<link rel="stylesheet" type="text/css" href="style/global.css">
+<link rel="stylesheet" type="text/css" href="style/public.css">
+
+<link rel="stylesheet" type="text/css" href="style/x-dialog.css">
+<script type="text/javascript" src="js/jquery-x-dialog.js"></script>
+<style type="text/css">
+   body,html,.wrapper{
+			font-family:"Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif";
+    		font-size:12px;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background:#f7f8fa;
+		}
+		.wrap{
+			float: left;
+			padding-left: 10px;
+		}
+		.clearfix{
+			*zoom:1
+		}
+		.clearfix:before,.clearfix:after{
+			display:table;
+			content:""
+		}
+		.clearfix:after{
+			clear:both
+		}
+		.header{
+			padding: 5px;
+			padding-top:10px;
+			border-bottom: 1px solid #c4c7cc;
+			height: 85px;
+			background: #fff;
+		}
+		.header:ACTIVE{
+			background: #edf8f8;
+		}
+		
+	.title{
+			font-size: 16px;
+			font-weight:600;
+			padding-top: 5px;
+			color: #4c4c4c;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+			width: 180px;
+			/*
+			overflow-x: -webkit-marquee;
+            -webkit-marquee-direction: forwards;
+            -webkit-marquee-style: scroll;
+            -webkit-marquee-speed: normal;
+            -webkit-marquee-increment: small;
+            -webkit-marquee-repetition: 5;
+            marquee-direction: forward;
+            marquee-style: scroll;
+            marquee-speed: normal;
+            marquee-play-count: 5;
+            */
+		}
+		.subtitle{
+			padding-top:5px;
+			-o-text-overflow:ellipsis; 
+			color: #C0C0C0;
+		    text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+			width: 180px;
+			/*
+            overflow-x: -webkit-marquee;
+            -webkit-marquee-direction: forwards;
+            -webkit-marquee-style: scroll;
+            -webkit-marquee-speed: normal;
+            -webkit-marquee-increment: small;
+            -webkit-marquee-repetition: 5;
+            marquee-direction: forward;
+            marquee-style: scroll;
+            marquee-speed: normal;
+            marquee-play-count: 5;
+            */
+		}
+		.content{
+			padding-top: 10px;
+		}
+		.ctl{
+			display:table-cell;/* for opera */
+			text-align:center;
+			vertical-align:middle;/* for opera */
+		}
+		.ctl img{
+			display:inline-block;
+			text-align: center;
+			vertical-align:middle;
+		}
+		.ctl span {
+	         width:0;
+			 height:100%;
+			 display:inline-block;
+			 vertical-align:middle;
+		}
+		.borad{
+			columns:auto 3;
+			-moz-columns:auto 3; /* Firefox */
+			-webkit-columns:auto 3; /* Safari 和 Chrome */
+			-moz-column-gap:0; /* Firefox */
+			-webkit-column-gap:0; /* Safari and Chrome */
+			column-gap:0;
+		}
+		.content_wapper{
+			background: #fff;
+			margin-top:15px;
+			border-top: 1px solid #c4c7cc;
+		}
+		.cell {
+			height: 80px;
+			padding: 10px;
+			border-left: 1px solid #c4c7cc;
+			border-bottom: 1px solid #c4c7cc;
+			text-align: center;
+			color: #4c4c4c;
+		}
+		.cell:ACTIVE{
+			background: #edf8f8;
+		}
+		
+		.cell div{
+			display:inline-block;
+			text-align: center;
+			vertical-align:middle;
+		}
+		.cell img{
+			height: 50px;
+			margin: auto;
+			padding: auto;
+		}
+		.cell span{
+			 width:0;
+			 height:100%;
+			 display:inline-block;
+			 vertical-align:middle;
+			
+		}
+		.cell p{
+		     font-size:12px;
+		}
+       
+       
+        @-webkit-keyframes sacleIn {
+            from {
+                transform: scale(0, 0);
+            }
+            to {
+                transform: scale(1, 1);
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+             .dashboard{
+            background: #FFF;
+            border-bottom:1px solid #c4c7cc;
+            padding: 10px;
+            padding-bottom: 20px;
+        }
+        .bar{
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
+            font-size: 12px;
+            color: #4c4c4c;
+        }
+        .track{
+            height: 15px;
+        }
+        .track:nth-child(1) p{
+            padding-top: 15px;
+        }
+        .track:nth-child(2) p{
+            padding-top: 15px;
+            margin-left: -10px;
+        }
+        .track:nth-child(3) p{
+            padding-top: 15px;
+            margin-left: -10px;
+        }
+        .track:nth-child(1){
+            width:70%;
+            background: #00e079;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+        }
+        .track:nth-child(2){
+            background: #FFA500;
+            width:20%;
+            border-left:1px solid #FFF;
+        }
+        .track:nth-child(3){
+            background: #E83B37;
+            width:10%;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border-left:1px solid #FFF;
+        }
+        .pointer{
+            height: 10px;
+            width: 10px;
+            margin-bottom: 2px;
+            background: #00e079;
+            -webkit-transform:rotate(45deg);
+        }
+        .tipbar{
+            height: 10px;
+            width: 14px;
+            background: #00e079;
+            margin-bottom: -5px;
+            margin-left: -2px;
+        }
+        .tip{
+            margin-left: 0%
+        }
+        .morr{
+            color: #FE1800;
+            
+        }
+        .morr span:nth-child(1){
+            font-size: 24px;
+            font-weight: 400;
+        }
+        .morr span:nth-child(2){
+            font-size: 12px;
+            margin-left: 10px;
+        }
+	</style>
+  </head>
+  <body>
+  <div class="wrapper">
+    <!-- 顶部用电客户基本信息开始 -->
+    <div class="header clearfix" id="header" onclick="toPage(this);">
+        <div class="wrap" style="width: 90px;">
+            <img src="images/card.png" style="width:80px;height: 80px;"/>
+        </div>
+        <div class="wrap clearfix" style="width: 50%;">
+            <div class="title"  id="consName">
+            </div>
+            <div class="subtitle content" id="consNo"></div>
+            <div class="subtitle" id ="elecAddr">
+            </div>
+        </div>
+        <div class="ctl" style="vertical-align:middle;position: absolute;top:38px;right: 10px;">
+            <span></span>
+            <img src="images/arrow.png" style="width:15px;height: 20px;margin: auto;padding: auto;"/>
+        </div>
+    </div>
+    <!-- 顶部用电客户基本信息结束 -->
+        <!-- 负荷展示区域开始 -->
+    <div class="dashboard">
+        <div class="morr">
+            <span id="curLoad">
+            </span>
+            <span>
+                昨日最高(kW)
+            </span>
+        </div>
+        <div class="tip" id='point'>
+            <div class="tipbar">
+            </div>
+            <div class="pointer">
+            </div>
+        </div>
+        <div class="bar">
+            <div class="track">
+                <div class="track_bg">
+                </div>
+                <p>0</p>
+            </div>
+            <div class="track">
+                <div class="track_bg">
+                </div>
+                <p id="minLoad"></p>
+            </div>
+            <div class="track">
+                <div class="track_bg">
+                </div>
+                <p id="midLoad"></p>
+            </div>
+   
+        </div>
+    </div>
+    <!-- 负荷展示区域结束 -->
+    <!-- 主体区域应用列表开始 -->
+    <div class="content_wapper">
+        <div class="borad">
+            	<div class="cell" id="myMsg"  onclick="toPage(this);">
+	    			<span></span>
+	    			<div>
+	    				<img src="images/myMsg.png"/>
+	    				<p>我的消息</p>
+	    			</div>
+	    		</div>
+            <div class="cell" id="ssfh"  onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/fh_real.png"/>
+                    <p>负荷信息</p>
+                </div>
+            </div>
+            <div class="cell" id="dldf"  onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/elecReport.png"/>
+                    <p>电量电费</p>
+                </div>
+            </div>
+          
+        </div>
+        <div class="borad">
+
+              <div class="cell" id="xqxy" onclick="toPage(this);">
+                  <span></span>
+                  <div>
+                      <img src="images/xqxy.png"/>
+                      <p >需求响应</p>
+                  </div>
+              </div>
+            <div class="cell" id="base_info" onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/baseinfo.png"/>
+                    <p>基本信息</p>
+                </div>
+            </div>
+            <div class="cell" id="nxxx"  onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/nxfx.png"/>
+                    <p>能效信息</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="borad">
+
+            <div class="cell" id="nxjs" onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/yktj.png"/>
+                    <p>能效计算</p>
+                </div>
+            </div>
+            <div class="cell" id="zcfg"  onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/policyview.png"/>
+                    <p>政策法规</p>
+                </div>
+            </div>
+            <div class="cell" id="weather" onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/weather.png"/>
+                    <p>天气信息</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="borad">
+            <div class="cell" id="ktjc"  onclick="toPage(this);" hidden>
+                <span></span>
+                <div>
+                    <img src="images/ktjc.png"/>
+                    <p>空调监测</p>
+                </div>
+            </div>
+            <div class="cell" id="ngzx"  onclick="toPage(this);" hidden>
+                <span></span>
+                <div>
+                    <img src="images/nhjc.png"/>
+                    <p>能管在线</p>
+                </div>
+            </div>
+            <div class="cell" id="help"  onclick="toPage(this);">
+                <span></span>
+                <div>
+                    <img src="images/help.png"/>
+                    <p>帮助说明</p>
+                </div>
+            </div>
+            <div class="cell" id="ktjc_bk">
+                <span></span>
+                <div>
+                    <img/>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="cell" id="ngzx_bk">
+                <span></span>
+                <div>
+                    <img/>
+                    <p></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 主体区域应用列表结束 -->
+  </div>
+  <!-- 主框架结束 -->
+	<script type="text/javascript">
+	var orgNo='32101',userType='02',curLoad=0,nomalLoad=0,MidLoad=0,seriousLoad=100;
+    var consNo='',isKtjcUser= 0,isNgzxUser=0;
+    //用户保存从框架返回的用户信息
+		var curObj,oaObj;
+       var deviceready=0;
+       window.onload=function(){
+          	document.title=" ";
+	       document.title="电力需求侧";
+	       document.addEventListener("deviceready", onDeviceReady, false);
+      }
+ 
+    // cordova加载完毕，现在可以安全地调用js方法
+	function onDeviceReady() {
+		deviceready=1;
+		navigator.loadconfig.loginsession(0,login);
+		//添加回退按钮监听
+        document.addEventListener("backbutton", onBackKeyDown, false);
+	}
+	
+	function onBackKeyDown()
+	{
+	   exitApp();
+	   document.removeEventListener("backbutton", onBackKeyDown, false);
+	}
+	
+	// 退出应用
+function exitApp(){
+
+	navigator.appmenu.exitApp(successCallback,errorCallback);
+	function successCallback(){
+	}
+	function errorCallback(){
+	}
+}
+		
+    function login(obj)
+    {
+      curObj=obj;
+      //在切换账号的时候需要重新初始化参数
+      orgNo='32101',userType='02',curLoad=0,nomalLoad=0,MidLoad=0,seriousLoad=0;
+        isKtjcUser= 0,isNgzxUser=0;
+        $("#ktjc").hide();
+        $("#ktjc_bk").show();
+        $("#ngzx").hide();
+        $("#ngzx_bk").show();
+
+      if(typeof obj.consSortCode == 'undefined')
+      {
+        return;
+      }
+
+      if(typeof obj.consNo =='undefined' || obj.consNo == '')
+      {
+         $("#table-div").hide();
+         $("#consName").html('');
+         $("#elecAddr").html('');
+         $("#consNo").html('');
+         $("#orgName").html('');
+         $("#curLoad").html('<font style="font-size:12px;">&nbsp;千瓦</font>');
+         navigator.notification.alert("请先绑定用户账号", function(){},'提示');
+         return;
+      }
+
+      //在营销系统中 01 表示高压用户，02 低压非居民， 03 居民用户,如果是居民用户则不允许使用
+      if(obj.consSortCode =='03' )
+       {
+         $("#table-div").hide();
+         $("#consName").html('');
+         $("#elecAddr").html('');
+         $("#consNo").html('');
+         $("#orgName").html('');
+         $("#curLoad").html('');
+         // navigator.notification.alert("该账号是居民用户，请切换到企业用账号", function(){},'提示');
+         $.dialog().alert("该账号是居民用户，请切换到企业用账号");
+          return;
+       }
+
+        $("#table-div").show();
+        //$("#consName").html(obj.consName);
+        var consName = obj.consName;
+
+        //用户名过长截取
+         if(consName.length > 10)
+       {
+            consName = consName.substring(0,10)+'...';
+
+        }
+        $("#consName").html(consName);
+        $("#elecAddr").html(obj.elecAddr);
+        $("#consNo").html(obj.consNo);
+        $("#orgName").html(obj.orgName);
+
+        consNo = obj.consNo;
+        orgNo =((obj.orgNo).length>5)?(obj.orgNo).substring(0,5):obj.orgNo; //用于天气信息，只要具体到地市，不需要具体到区县
+        //仪表盘中最大负荷是用户的用户的运行容量
+        seriousLoad = obj.contractCap;
+        if(seriousLoad == '')
+        {
+            seriousLoad = 1000;
+        }
+        $("#minLoad").html(parseInt(seriousLoad*0.7));
+        $("#midLoad").html(parseInt(seriousLoad*0.9));
+        $("#seriousLoad").html(parseInt(seriousLoad));
+
+        obj.CONS_NO = obj.consNo;
+
+
+        //获取基本信息并保存用户登录信息
+        getUserBaseInfo();
+        //saveLoginUserInfoByProc();
+
+    }
+     //绑定页面
+    var bindurl = "";
+   $.get('config.xml',function(xml){
+    bindurl = $(xml).find('bindurl').text();
+ });
+
+ //由平台调用该js方法,首次进入该应用或切换账户时调用
+  function switchUser(){
+    loading_hide();
+    console.log('switchUser DFCX');
+    navigator.loadconfig.loginsession(0,login);
+   }
+
+	  //由平台调用该js方法,点击添加账号时调用
+	  function bindAccount(){
+	       document.removeEventListener("backbutton", onBackKeyDown, false);
+		   window.location.href=bindurl;
+		   console.log('bindAccount DFCX');		
+	   }
+
+       function toPage(target)
+  	   {
+		var id = target.id;
+  		var strHref = "";
+       /**需求响应*/
+       if(id=="xqxy")
+       {
+           strHref = "webapp/demandResponse/demandResponseListForUser.html";
+       }
+       /** 空调监测*/
+       else if(id=='ktjc')
+       {
+           strHref = "webapp/ktjc/index.html";
+       }
+           /**能管在线*/
+  		if(id=='ngzx')
+        {
+            strHref = "webapp/energyManage/energyManageMain.html";
+        }
+  		else if(id == "header")
+  		{
+			strHref = "webapp/userInfo/userInfo.html";
+  		}
+  		else if(id == "ssfh")//实时负荷
+  		{
+  			strHref = "webapp/loadInfo/loadInfoForUser.html";
+  		}
+  		else if(id == "base_info")//基本档案
+  		{
+  			strHref ="webapp/userInfo/userInfo.html";
+  		}
+  		else if(id=="dldf")//电量电费
+  		{
+  		   strHref ="webapp/electricityTariff/electricityTariff.html";
+  		}
+  		else if(id=="nxxx")//能效信息
+  		{
+  		    strHref ="webapp/energyEfficiencyInfo/energyEfficiencyInfo.html";
+  		}
+  		else if(id=="nxjs")//能效计算(万元产值电耗、节能助手)
+  		{
+  		    strHref ="webapp/nxjs/nxjs.html";
+  		  //  strHref ="webapp/companyPowerConsumption/mainForChecker.html";
+  		}
+  		else if(id=="ydzd")//用电指导
+  		{
+  		   strHref ="webapp/ydzd/ydzd.html";
+  		}
+  		else if(id == "zcfg")//政策法规
+  		{
+  			strHref = "webapp/low/searchLow.html?type=00";
+  			self.location = strHref;
+  			return;
+  		}
+  		else if(id == "help")//帮助说明
+  		{
+  			strHref = "webapp/help/help.html";
+  		}
+  		else if(id=="weather")
+  		{
+  			var arr = [['32401','南京'],['32404','常州'],['32405','苏州'],['32402','无锡'],
+  			['32403','徐州'],['32406','南通'],['32407','连云港'],['32408','淮安'],['32409','盐城'],
+  			['32410','扬州'],['32411','镇江'],['32412','泰州'],['32413','宿迁']];
+  			
+  			if(orgNo == '32101')
+  			{
+  				strHref = "webapp/weather/city_list.html";
+  			}
+  			else
+  			{
+  				for(var i=0;i<arr.length;i++)
+  				{
+  					if(arr[i][0] == orgNo)
+  					{
+  						strHref = "webapp/weather/weather.html?city="+encodeURI(arr[i][1]);
+  						break;
+  					}
+  				}
+  			}
+  			self.location = strHref;
+  			document.removeEventListener("backbutton", onBackKeyDown, false);
+  			return;
+  		}
+  		
+  		else if(id == "myMsg")
+  		{
+  		  strHref = "webapp/communication/myMessages.html";
+  		}
+  		
+  		//self.location = strHref+"?consNo=1600022241";//+$("#consNo").html();
+  		//self.location = strHref+"?consNo="+$("#consNo").html();
+  		document.removeEventListener("backbutton", onBackKeyDown, false);
+  		self.location = strHref+"?consNo="+consNo;
+  	}
+
+
+	
+	//获取昨天最高负荷
+	function queryUserLastDayMaxLoad()
+	{
+	     //var hour = (new Date()).getHours();
+         //var param = {consNo:consNo,load_date:(new Date()).format("yyyy-MM-dd"),hour:hour};
+         
+         //企业用户默认显示昨天最高负荷
+         var param = { serviceCode:"040008",consNo:consNo,load_date:(Date.getAddDaysDate(new Date(), -1)).format("yyyy-MM-dd"),hour:''};
+         var lastParam = getLocalStorageValue("suypower_yxydExternal_yesterdayLoad_param");
+         //lastParam=''
+         if(lastParam !='' && lastParam == JSON.stringify(param))
+         {
+             var lastData = getLocalStorageValue("suypower_yxydExternal_yesterdayLoad"+consNo);
+             if(lastData !='')
+             {
+                  handleLoadData(JSON.parse(lastData));
+                 loading_hide();
+                  return;
+             }
+         }
+
+	     //navigator.ajax.getJSON(APPCODE,
+	     getJSON(
+                     param,
+                     //'userPowerLoad',
+                      function(data) {
+                      try
+                      {
+                         if(data.ajax_flag != "success"){
+                               loading_hide();
+                               curLoad=0;
+                               $("#curLoad").html('<font style="font-size:12px;">&nbsp;千瓦</font>');
+                               var  curPostion =0;
+                               var  pointColor = '#00e079';
+                               $(".tip").css({"margin-left":curPostion+'%'});
+                             $(".tipbar").css({'background':pointColor});
+                             $(".pointer").css({'background':pointColor});
+                                $.dialog().info("未查询到昨日负荷信息");
+                               //$.reload(queryUserLastDayMaxLoad);
+                                return;
+                         }
+                          //缓存本地
+                           setLocalStorageValue("suypower_yxydExternal_yesterdayLoad_param",JSON.stringify(param));
+                           setLocalStorageValue("suypower_yxydExternal_yesterdayLoad"+consNo,JSON.stringify(data));
+                           handleLoadData(data);
+                       }
+                       catch(e)
+                       {
+                          //showMessageBox(e.message);
+                       }
+                        loading_hide();
+	            });
+	}
+	
+	//获取负荷数据，绘图
+	function handleLoadData(data)
+	{
+	    //实时负荷经常取不到，暂时定为取昨天最高负荷
+		curLoad=parseInt(data.ajax_data.LOADINFOMAP.MAX_LOAD);
+		$("#curLoad").html(curLoad);
+        if(curLoad > seriousLoad)
+        {
+            curPostion=98;
+        }
+        else
+        {
+            curPostion = parseInt((curLoad /seriousLoad)*100);
+        }
+
+
+        if(curPostion<70)
+        {
+            pointColor = '#00e079';
+        }
+        else if(curPostion < 90)
+        {
+            pointColor = '#FFA500';
+        }
+        else
+        {
+            pointColor = '#E83B37';
+        }
+
+
+	    $(".tip").css({"margin-left":curPostion+'%'});
+        $(".tipbar").css({'background':pointColor});
+        $(".pointer").css({'background':pointColor});
+	}
+
+
+
+/**
+ 	    获取用户基本信息
+ 	*/
+function getUserBaseInfo()
+{
+    loading(1);
+    var param = {serviceCode:"030001",consNo:consNo,queryDate:(new Date().format("yyyy-MM-dd"))};
+    var lastParam = getLocalStorageValue("suypower_yxydExternal_baseInfo_param");
+    if(lastParam !='' && lastParam == JSON.stringify(param))
+    {
+		// 如果当前登录用户编号跟之前保存的一样就不需要到后台获取了
+	    var lastConsInfo  = getCurLoginUserInfoForExternal();
+	   
+	    if(lastConsInfo != '' && consNo == lastConsInfo.CONS_NO)
+	    {
+	        saveLoginUserInfoByProc(lastConsInfo);
+	        return;
+	    }
+    }
+    getJSON(param,function(data){
+		  if(data.ajax_flag !='success')
+               {
+                  loading_hide();    
+                  $.reload(getUserBaseInfo, "网络不给力,请单击重试！");                                                                                                                                                                                                                                                                                                                                                                                                                                                                          mnnnnnnmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+                  return;
+               }		
+           //基本信息一天取一次
+           setLocalStorageValue("suypower_yxydExternal_baseInfo_param",JSON.stringify(param));
+		  //保存当前登录用户基本信息到本地缓存   
+           setCurLoginUserInfoForExternal(data.ajax_data[0]);
+           saveLoginUserInfoByProc(data.ajax_data[0]);
+          //保存用户登录信息到数据库
+	});
+ }
+/**
+ 调用存储过程保存登录信息  大客户服务 外部版 -- 新  2014-01-14
+*/                   
+function saveLoginUserInfoByProc(obj)
+{
+    getJSON(
+                 {  serviceCode:"040016",  
+	                   login_no:obj.CONS_NO,
+	                   login_name:encodeURI(obj.CONS_NAME),
+	                   bind_type:'01',//02:大客户服务
+	                   user_type:'01', //用电客户
+	                   base_id:obj.CONS_NO, //用于发送消息
+	                   emp_id:'',
+	                   emp_no:'',
+	                   org_no:obj.ORG_NO,
+	                   org_no_level2:((obj.ORG_NO).length>5)?(obj.ORG_NO).substring(0,5):obj.ORG_NO, //用于发消息
+	                   org_name:'',
+	                   dept_no:'',
+	                   dept_name:'',
+	                   mr_sect_no:obj.MR_SECT_NO,  //段号
+	                   gg_flag:obj.GG_FLAG,//高供高压标记
+	                   volt_code:obj.VOLT_CODE,//电压等级
+	                   is_important:obj.IS_IMPORTANT,//重要客户标记
+	                   khh_flag:obj.KHH_FLAG, //是否是考核用户
+	                  }, 
+                  function(data) {
+                      getOtherSysCustom();
+                      if(data.ajax_flag !='success')
+                      {
+                         console.log('更新用户登录信息失败');	
+                         return;
+                      }	      
+			  
+                     console.log('更新用户登录信息成功');	
+		});
+}
+
+    function getOtherSysCustom()
+    {
+        var param={ serviceCode:"170019",
+            consNo:consNo,
+            queryDate:new Date().format("yyyy-MM-dd")
+        }
+
+        var lstParam =getLocalStorageValue("suypower_yxydExternal_otherSys_param"+consNo);
+        if(lstParam == JSON.stringify(param))
+        {
+           var data =  getLocalStorageValue("suypower_yxydExternal_otherSys_info"+consNo);
+            if(data !='')
+            {
+                //查询负荷信息，然后保存用户登录信息
+                queryUserLastDayMaxLoad();
+                handleOtherSysData(JSON.parse(data));
+                return;
+            }
+        }
+
+        getJSON(param,function(data){
+
+            //alert("getOtherSysCustom():"+JSON.stringify(data));
+            //查询负荷信息，然后保存用户登录信息
+            queryUserLastDayMaxLoad();
+            if(data.ajax_flag != "success")
+            {
+                return;
+            }
+            var ajaxData= data.ajax_data;
+
+            if(ajaxData.length ==0)
+            {
+                return;
+            }
+
+            setLocalStorageValue("suypower_yxydExternal_otherSys_param"+consNo,JSON.stringify(param));
+            setLocalStorageValue("suypower_yxydExternal_otherSys_info"+consNo,JSON.stringify(ajaxData));
+            handleOtherSysData(ajaxData);
+        });
+    }
+
+        function handleOtherSysData(ajaxData)
+        {
+            for(var i=0;i<ajaxData.length;i++)
+            {
+                if(ajaxData[i].MODE_CODE=='KTJC')
+                {
+                    isKtjcUser=1;
+                    $("#ktjc").show();
+                    $("#ktjc_bk").hide();
+                }
+                else if(ajaxData[i].MODE_CODE=='NGZX')
+                {
+                    isNgzxUser=1;
+                    $("#ngzx").show();
+                    $("#ngzx_bk").hide();
+                }
+            }
+        }
+</script>
+</body>
+</html>

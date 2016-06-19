@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="80dp"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+
+    <TextView
+        android:id="@+id/dt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/textback_chat_dt"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:text="04月05日"
+        android:textColor="@color/white"
+        android:textSize="12dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/sendimg"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/default_avatar" />
+
+
+        <RelativeLayout
+            android:id="@+id/btncontentimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_toLeftOf="@+id/sendimg"
+            android:layout_weight="1"
+            android:background="@drawable/chat_text_self_bubble_selector"
+            android:clickable="true"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text=""
+                android:textColor="@color/blackTransparentE"
+
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/pbar"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/sendimg"/>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/sendimg"
+            android:background="@drawable/za" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/chat_audio_state"
+            android:layout_toLeftOf="@+id/btncontentimg"
+            android:layout_marginRight="-40dp"
+            android:layout_marginTop="3dp"
+            android:id="@+id/state"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btncontentimg"
+            android:text="3"
+            android:textColor="#AAAAAA"
+            android:layout_alignBottom="@+id/btncontentimg"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="-40dp"
+            android:id="@+id/txt"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginRight="30dp"
+    android:layout_marginLeft="30dp"
+    android:alpha="0.99"
+    android:background="@drawable/popwindows_background">
+
+
+    <TextView
+
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="提示"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical"
+        android:id="@+id/title"/>
+
+    <TextView
+
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="15dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/content"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/blackTransparent6"
+        />
+
+
+    <LinearLayout   android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+        >
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:id="@+id/btn_cancel"
+            android:layout_weight="1"
+            android:text="取消"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:background="@drawable/alert_btn_selector"
+            />
+        <View
+
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/blackTransparent6"
+            />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:id="@+id/btn_ok"
+            android:text="确定"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/alert_btn_selector2"
+            />
+        </LinearLayout>
+
+</LinearLayout>

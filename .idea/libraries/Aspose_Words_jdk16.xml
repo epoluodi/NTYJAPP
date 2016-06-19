@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Aspose.Words.jdk16">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/platforms/android/libs/Aspose.Words.jdk16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

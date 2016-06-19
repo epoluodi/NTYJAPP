@@ -1,0 +1,286 @@
+[
+  {
+    "emojiwildcard" : "[!100!]",
+    "emojifile" : "100"
+  },
+  {
+    "emojiwildcard" : "[!angry!]",
+    "emojifile" : "angry"
+  },
+  {
+    "emojiwildcard" : "[!anguished!]",
+    "emojifile" : "anguished"
+  },
+  {
+    "emojiwildcard" : "[!astonished!]",
+    "emojifile" : "astonished"
+  },
+  {
+    "emojiwildcard" : "[!blush!]",
+    "emojifile" : "blush"
+  },
+  {
+    "emojiwildcard" : "[!bowtie!]",
+    "emojifile" : "bowtie"
+  },
+  {
+    "emojiwildcard" : "[!clap!]",
+    "emojifile" : "clap"
+  },
+  {
+    "emojiwildcard" : "[!cold_sweat!]",
+    "emojifile" : "cold_sweat"
+  },
+  {
+    "emojiwildcard" : "[!confounded!]",
+    "emojifile" : "confounded"
+  },
+  {
+    "emojiwildcard" : "[!confused!]",
+    "emojifile" : "confused"
+  },
+  {
+    "emojiwildcard" : "[!cry!]",
+    "emojifile" : "cry"
+  },
+  {
+    "emojiwildcard" : "[!disappointed_relieved!]",
+    "emojifile" : "disappointed_relieved"
+  },
+  {
+    "emojiwildcard" : "[!disappointed!]",
+    "emojifile" : "disappointed"
+  },
+  {
+    "emojiwildcard" : "[!dizzy_face!]",
+    "emojifile" : "dizzy_face"
+  },
+  {
+    "emojiwildcard" : "[!expressionless!]",
+    "emojifile" : "expressionless"
+  },
+  {
+    "emojiwildcard" : "[!fearful!]",
+    "emojifile" : "fearful"
+  },
+  {
+    "emojiwildcard" : "[!flushed!]",
+    "emojifile" : "flushed"
+  },
+  {
+    "emojiwildcard" : "[!frowning!]",
+    "emojifile" : "frowning"
+  },
+  {
+    "emojiwildcard" : "[!grimacing!]",
+    "emojifile" : "grimacing"
+  },
+  {
+    "emojiwildcard" : "[!grin!]",
+    "emojifile" : "grin"
+  },
+  {
+    "emojiwildcard" : "[!grinning!]",
+    "emojifile" : "grinning"
+  },
+  {
+    "emojiwildcard" : "[!heart_eyes!]",
+    "emojifile" : "heart_eyes"
+  },
+  {
+    "emojiwildcard" : "[!hushed!]",
+    "emojifile" : "hushed"
+  },
+  {
+    "emojiwildcard" : "[!innocent!]",
+    "emojifile" : "innocent"
+  },
+  {
+    "emojiwildcard" : "[!joy!]",
+    "emojifile" : "joy"
+  },
+  {
+    "emojiwildcard" : "[!kissing_closed_eyes!]",
+    "emojifile" : "kissing_closed_eyes"
+  },
+  {
+    "emojiwildcard" : "[!kissing_heart!]",
+    "emojifile" : "kissing_heart"
+  },
+  {
+    "emojiwildcard" : "[!kissing_smiling_eyes!]",
+    "emojifile" : "kissing_smiling_eyes"
+  },
+  {
+    "emojiwildcard" : "[!kissing!]",
+    "emojifile" : "kissing"
+  },
+  {
+    "emojiwildcard" : "[!laughing!]",
+    "emojifile" : "laughing"
+  },
+  {
+    "emojiwildcard" : "[!mask!]",
+    "emojifile" : "mask"
+  },
+  {
+    "emojiwildcard" : "[!neutral_face!]",
+    "emojifile" : "neutral_face"
+  },
+  {
+    "emojiwildcard" : "[!no_entry_sign!]",
+    "emojifile" : "no_entry_sign"
+  },
+  {
+    "emojiwildcard" : "[!no_mobile_phones!]",
+    "emojifile" : "no_mobile_phones"
+  },
+  {
+    "emojiwildcard" : "[!no_mouth!]",
+    "emojifile" : "no_mouth"
+  },
+  {
+    "emojiwildcard" : "[!open_mouth!]",
+    "emojifile" : "open_mouth"
+  },
+  {
+    "emojiwildcard" : "[!pensive!]",
+    "emojifile" : "pensive"
+  },
+  {
+    "emojiwildcard" : "[!persevere!]",
+    "emojifile" : "persevere"
+  },
+  {
+    "emojiwildcard" : "[!rage!]",
+    "emojifile" : "rage"
+  },
+  {
+    "emojiwildcard" : "[!relaxed!]",
+    "emojifile" : "relaxed"
+  },
+  {
+    "emojiwildcard" : "[!scream!]",
+    "emojifile" : "scream"
+  },
+  {
+    "emojiwildcard" : "[!sleeping!]",
+    "emojifile" : "sleeping"
+  },
+  {
+    "emojiwildcard" : "[!sleepy!]",
+    "emojifile" : "sleepy"
+  },
+  {
+    "emojiwildcard" : "[!smile!]",
+    "emojifile" : "smile"
+  },
+  {
+    "emojiwildcard" : "[!smiley!]",
+    "emojifile" : "smiley"
+  },
+  {
+    "emojiwildcard" : "[!smiling_imp!]",
+    "emojifile" : "smiling_imp"
+  },
+  {
+    "emojiwildcard" : "[!smirk!]",
+    "emojifile" : "smirk"
+  },
+  {
+    "emojiwildcard" : "[!smoking!]",
+    "emojifile" : "smoking"
+  },
+  {
+    "emojiwildcard" : "[!snowflake!]",
+    "emojifile" : "snowflake"
+  },
+  {
+    "emojiwildcard" : "[!sob!]",
+    "emojifile" : "sob"
+  },
+  {
+    "emojiwildcard" : "[!sparkles!]",
+    "emojifile" : "sparkles"
+  },
+  {
+    "emojiwildcard" : "[!stuck_out_tongue_closed_eyes!]",
+    "emojifile" : "stuck_out_tongue_closed_eyes"
+  },
+  {
+    "emojiwildcard" : "[!stuck_out_tongue_winking_eye!]",
+    "emojifile" : "stuck_out_tongue_winking_eye"
+  },
+  {
+    "emojiwildcard" : "[!stuck_out_tongue!]",
+    "emojifile" : "stuck_out_tongue"
+  },
+  {
+    "emojiwildcard" : "[!sunglasses!]",
+    "emojifile" : "sunglasses"
+  },
+  {
+    "emojiwildcard" : "[!sweat_smile!]",
+    "emojifile" : "sweat_smile"
+  },
+  {
+    "emojiwildcard" : "[!sweat!]",
+    "emojifile" : "sweat"
+  },
+  {
+    "emojiwildcard" : "[!thumbsdown!]",
+    "emojifile" : "thumbsdown"
+  },
+  {
+    "emojiwildcard" : "[!thumbsup!]",
+    "emojifile" : "thumbsup"
+  },
+  {
+    "emojiwildcard" : "[!tired_face!]",
+    "emojifile" : "tired_face"
+  },
+  {
+    "emojiwildcard" : "[!triumph!]",
+    "emojifile" : "triumph"
+  },
+  {
+    "emojiwildcard" : "[!u7981!]",
+    "emojifile" : "u7981"
+  },
+  {
+    "emojiwildcard" : "[!unamused!]",
+    "emojifile" : "unamused"
+  },
+  {
+    "emojiwildcard" : "[!weary!]",
+    "emojifile" : "weary"
+  },
+  {
+    "emojiwildcard" : "[!white_check_mark!]",
+    "emojifile" : "white_check_mark"
+  },
+  {
+    "emojiwildcard" : "[!wink!]",
+    "emojifile" : "wink"
+  },
+  {
+    "emojiwildcard" : "[!womens!]",
+    "emojifile" : "womens"
+  },
+  {
+    "emojiwildcard" : "[!worried!]",
+    "emojifile" : "worried"
+  },
+  {
+    "emojiwildcard" : "[!x!]",
+    "emojifile" : "x"
+  },
+  {
+    "emojiwildcard" : "[!yum!]",
+    "emojifile" : "yum"
+  },
+  {
+    "emojiwildcard" : "[!zzz!]",
+    "emojifile" : "zzz"
+  }
+]

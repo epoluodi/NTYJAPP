@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<stereo-config>
+	<!-- 定义stereo全局配置 -->
+	<stereo-global-config>
+		<!-- 引导页面-->
+		<global-splash-image>http</global-splash-image>
+		<!--更新地址 -->
+		<stereo-app-upgrade-http>http://om.suypower.com/stereo-dispatch/upgrade/</stereo-app-upgrade-http>
+		<!-- 调试信息 0关闭 1 打开-->
+		<global-debug>1</global-debug>
+		<!-- APP 定义-->
+		<stereo-global-apps>
+			<!-- APP 节点-->
+			<app>
+				<!-- APP 路径 www 下目录-->
+				<app-path>dyyk</app-path>
+				<!-- 是否可以检查扩展内存区域有升级版本 0 不允许1允许-->
+				<app-external-sd>0</app-external-sd>
+			</app>
+			<app>
+				<!-- APP 路径 www 下目录-->
+				<app-path>apptest</app-path>
+				<!-- 是否可以检查扩展内存区域有升级版本 0 不允许1允许-->
+				<app-external-sd>0</app-external-sd>
+			</app>
+		</stereo-global-apps>
+	</stereo-global-config>
+</stereo-config>

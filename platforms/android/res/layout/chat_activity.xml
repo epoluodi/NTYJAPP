@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA">
+
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/bluebtn">
+
+        <ImageView
+            android:id="@+id/btnreturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/back_bar_left_selector" />
+
+        <TextView
+            android:id="@+id/chattitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="聊天"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/chat_info"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bar_peoples_selector"
+            android:clickable="true" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headview"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/chatlist"
+            style="@style/chatList"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/footview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#EAEAEA"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <!-- 菜单组件 -->
+                <LinearLayout
+                    android:id="@+id/window_menu_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/menuOffButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/window_menu_button_selector"
+                        android:clickable="true"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/yt" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/window_menu_button_selector"
+                        android:text="购物专区"
+                        android:textColor="#787878"
+                        android:textSize="14dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/window_menu_button_selector"
+                        android:text="购物专区"
+                        android:textColor="#787878"
+                        android:textSize="14dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/window_menu_button_selector"
+                        android:text="购物专区"
+                        android:textColor="#787878"
+                        android:textSize="14dp" />
+                </LinearLayout>
+                <!-- 输入组件 -->
+                <LinearLayout
+                    android:id="@+id/window_input_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/window_menu_button_selector"
+                    android:minHeight="40dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/menuOnButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/window_menu_button_selector"
+                        android:clickable="true"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="bottom"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/yv" />
+
+                    <ImageView
+                        android:id="@+id/voiceButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/chat_voice_selector"
+                        android:clickable="true" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/sendtxt"
+                            android:minHeight="35dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/editinputview"
+                            android:imeOptions="actionNone"
+                            android:inputType="textMultiLine"
+                            android:maxLines="5"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="35dp"
+                            android:scrollbars="vertical"
+
+                            />
+
+                        <ImageView
+                            android:id="@+id/btnemoji"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/chat_emj_selector"
+                            android:clickable="true"
+
+                            />
+                        <Button
+                            android:id="@+id/audioRecordButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_margin="3dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="按住 说话"
+                            android:textSize="16dp"
+                            android:background="@drawable/chat_audio_button_selector"
+                            android:clickable="true"
+                            android:textColor="#666666"
+                            android:visibility="invisible"/>
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/btnmore"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/chat_more_selector" />
+
+                    <Button
+                        android:id="@+id/btnsend"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/button_style_0"
+                        android:visibility="gone"
+                        android:layout_marginBottom="3dp"
+                        android:text="发送"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

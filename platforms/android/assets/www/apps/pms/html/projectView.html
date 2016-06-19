@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <script src="../cordova.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/projectviewstyle.css"/>
+    <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <title>项目视图</title>
+
+    <script type="text/javascript" src="../lib/mobiscroll/mobiscroll.core-2.5.2.js"></script>
+    <script type="text/javascript" src="../lib/mobiscroll/mobiscroll.core-2.5.2-zh.js"></script>
+    <script src="../lib/mobiscroll/mobiscroll.datetime-2.5.1.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mobiscroll/mobiscroll.core-2.5.2.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mobiscroll/mobiscroll.animation-2.5.2.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mobiscroll/mobiscroll.android-ics-2.5.2.css"  />
+</head>
+<body>
+<!-- 头部搜索 开始 -->
+<header>
+    <div class="head">
+        <input type="search" placeholder="项目名称">
+
+        <div onclick="openSearch()">
+
+            <img src="../img/more.png"/>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="search-body" id="searchview">
+
+    <div class="sift-row ">
+        <div class="row-head"><span class="title">所属部门：</span><span class="selected-items"></span><span
+                class="icons-sift-down switch-btn"></span>
+
+        </div>
+        <div class="row-body">
+            <ul >
+                <li class="sift-item " >软件一部
+                </li>
+                <li class="sift-item " >软件二部
+                </li>
+                <li class="sift-item " >软件三部
+                </li>
+                <li class="sift-item " >软件四部
+                </li>
+                <li class="sift-item " >人事部
+                </li>
+                <li class="sift-item " >财务部
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="sift-row">
+        <div class="row-head"><span class="title">搜索时间范围：</span><span class="selected-items"></span><span
+                class="icons-sift-down switch-btn"></span>
+
+        </div>
+        <div class="row-body2">
+            <input type="text" id="startdate" placeholder="开始时间"> -
+            <input type="text" id="enddate" placeholder="结束时间">
+        </div>
+
+
+    </div>
+
+
+    <div class="sift-row ">
+        <div class="row-head"><span class="title">纸质合同：</span><span class="selected-items"></span><span
+                class="icons-sift-down switch-btn"></span>
+
+        </div>
+        <div class="row-body" style="height: 40px">
+            <ul >
+                <li class="sift-item2 " >已签订
+                </li>
+                <li class="sift-item2 " >未签订
+                </li>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <a  onclick="confim()">确认</a>
+</div>
+<!-- 头部搜索 结束 -->
+
+<!-- 项目列表 开始 -->
+<div class="wrapper" id="wrapper">
+    <div id="scroller">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<!-- 项目列表 结束 -->
+</body>
+
+<script>
+    document.addEventListener("deviceready",onDeviceReady,false);
+    function onDeviceReady(){
+
+        stereo.system.info({title:'123',
+            info:'请稍后',
+            timeout:1000
+        });
+        setTimeout(function(){
+            var jsonarry = [{
+
+                projectname:'测试项目',
+                projectid:'P16/005',
+                customer:'苏源高科',
+                projectstate:'合同签订',
+                projectop:'陈方圆',
+                department:'软件三部',
+                projectinprice:'1000',
+                projectrealinprice:'10',
+
+            },
+                {
+
+                    projectname:'测试项目',
+                    projectid:'P16/005',
+                    customer:'苏源高科',
+                    projectstate:'合同签订',
+                    projectop:'陈方圆',
+                    department:'软件三部',
+                    projectinprice:'1000',
+                    projectrealinprice:'10',
+
+                },{
+
+                    projectname:'测试项目',
+                    projectid:'P16/005',
+                    customer:'苏源高科',
+                    projectstate:'合同签订',
+                    projectop:'陈方圆',
+                    department:'软件三部',
+                    projectinprice:'1000',
+                    projectrealinprice:'10',
+
+                }];
+            filldata(jsonarry);
+        },1000);
+    }
+</script>
+
+
+<script>
+    var myScroll;
+    $(function () {
+
+        setDateWediget4YWSQ("startdate");
+
+
+    });
+    function loaded() {
+        myScroll = new IScroll('#wrapper', {mouseWheel: true, click: true});
+    }
+
+    function openSearch() {
+//        if ("none" == $("#searchview").css("display")) {
+//            $("#searchview").fadeIn(300);
+//
+//        }
+//        else {
+//            $("#searchview").fadeOut(300);
+//        }
+        $("#searchview").toggleClass('show');
+    }
+
+    function confim(){
+
+//        if ("none" == $("#searchview").css("display")) {
+//            $("#searchview").fadeIn(300);
+//
+//        }
+//        else {
+//            $("#searchview").fadeOut(300);
+//        }
+
+//
+        stereo.system.info({title:'123',
+            info:'请稍后',
+            timeout:3000
+        });
+
+
+
+        $("#searchview").toggleClass('show');
+
+        setTimeout(function(){
+            var jsonarry = [{
+
+                projectname:'测试项目',
+                projectid:'P16/005',
+                customer:'苏源高科',
+                projectstate:'合同签订',
+                projectop:'陈方圆',
+                department:'软件三部',
+                projectinprice:'1000',
+                projectrealinprice:'10',
+
+            },
+                {
+
+                    projectname:'测试项目',
+                    projectid:'P16/005',
+                    customer:'苏源高科',
+                    projectstate:'合同签订',
+                    projectop:'陈方圆',
+                    department:'软件三部',
+                    projectinprice:'1000',
+                    projectrealinprice:'10',
+
+                },{
+
+                    projectname:'测试项目',
+                    projectid:'P16/005',
+                    customer:'苏源高科',
+                    projectstate:'合同签订',
+                    projectop:'陈方圆',
+                    department:'软件三部',
+                    projectinprice:'1000',
+                    projectrealinprice:'10',
+
+                }];
+            filldata(jsonarry);
+        },1000);
+
+
+
+    }
+    $(".sift-item").click(function(){
+        $(".sift-item").removeClass("sift-item-selected");
+        if ($(this).hasClass("sift-item-selected"))
+        {
+            $(this).removeClass("sift-item-selected");
+        }
+        else
+        {
+            $(this).addClass("sift-item-selected");
+        }
+    });
+
+    $(".sift-item2").click(function(){
+        $(".sift-item2").removeClass("sift-item-selected");
+        if ($(this).hasClass("sift-item-selected"))
+        {
+            $(this).removeClass("sift-item-selected");
+        }
+        else
+        {
+            $(this).addClass("sift-item-selected");
+        }
+    });
+
+
+    function setDateWediget4YWSQ(id)
+    {
+
+
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+
+        opt.end = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'bottom', //显示方式
+            mode: 'scroller', //日期选择模式
+            startYear:currYear - 10, //开始年份
+            endYear:currYear, //结束年份
+            lang:'zh'
+        };
+        var startDate = new Date(2004,1,1);
+//        $("#" + id).val(startDate.format("yyyy-MM-dd"));
+//	alert(AddDays(new Date(), 3).format("yyyy-MM-dd"));
+        opt.start = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'bottom', //显示方式
+            mode: 'scroller', //日期选择模式
+            minDate: startDate,
+            //maxDate:endDate,//new Date(2014,1,1);
+            //endDay:5,
+            //startYear:currYear - 10, //开始年份
+            //endYear:currYear-18, //结束年份
+            dateFormat:'yy-mm-dd',
+            dateOrder: 'yymmdd',
+            lang:'zh'
+        };
+        opt.startDate = {preset : 'date',onSelect:function(valueText, inst){
+            opt.end.minDate=valueText;
+
+            setDateWediget4YWSQend("enddate");
+        }};
+
+        $("#" + id).scroller('destroy').scroller($.extend(opt['startDate'], opt['start']));
+    }
+
+    function setDateWediget4YWSQend(id)
+    {
+
+
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+
+        opt.end = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'bottom', //显示方式
+            mode: 'scroller', //日期选择模式
+            startYear:currYear - 10, //开始年份
+            endYear:currYear, //结束年份
+            lang:'zh'
+        };
+        var startDate =new Date( $("#startdate").val());
+//        $("#" + id).val(startDate.format("yyyy-MM-dd"));
+//	alert(AddDays(new Date(), 3).format("yyyy-MM-dd"));
+        opt.start = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'bottom', //显示方式
+            mode: 'scroller', //日期选择模式
+            minDate: startDate,
+            //maxDate:endDate,//new Date(2014,1,1);
+            //endDay:5,
+            //startYear:currYear - 10, //开始年份
+            //endYear:currYear-18, //结束年份
+            dateFormat:'yy-mm-dd',
+            dateOrder: 'yymmdd',
+            lang:'zh'
+        };
+        opt.startDate = {preset : 'date',onSelect:function(valueText, inst){
+
+        }};
+
+        $("#" + id).scroller('destroy').scroller($.extend(opt['startDate'], opt['start']));
+    }
+
+    function filldata(json)
+    {
+        var html = "";
+        for (var i = 0; i < 3; i++) {
+
+            var arry = json[i];
+            html += '<li class="main-listview" onclick="itemClick()">' +
+                    '<div>' +
+                    '<label>' + arry.projectname+ '</label>' +
+                    '</div>' +
+                    '<div class="list-child">' +
+                    '<label >项目编号</label>' +
+                    '<span>' + arry.projectid +'</span>' +
+                    '   </div>' +
+                    '   <div class="list-child">' +
+                    '   <label>项目客户</label>' +
+                    '   <span>' + arry.customer +'</span>' +
+                    '   </div>' +
+                    '   <div class="list-child">' +
+                    '   <label>项目状态</label>' +
+                    '   <span>' + arry.projectstate + '</span>' +
+                    '   </div>' +
+                    '   <div class="list-child">' +
+                    '   <label>项目负责人</label>' +
+                    '   <span>' + arry.projectop + '</span>' +
+                    '   </div>' +
+                    '   <div class="list-child">' +
+                    '   <label>所属部门</label>' +
+                    '   <span>' + arry.department+'</span>' +
+                    '   </div>' +
+                    '   <div class="list-child">' +
+                    '   <label>项目应收(万元)</label>' +
+                    '   <span>' + arry.projectinprice + '</span>' +
+                    '   </div>' +
+                    '   <div class="list-child">' +
+                    '   <label>项目实收(万元)</label>' +
+                    '   <span>' + arry.projectrealinprice + '</span>' +
+                    '   </div>' +
+                    '</li>';
+
+        }
+        $('.wrapper ul').append(html);
+    }
+    function itemClick(){
+        //window.location.href="projectdetailview.html";
+        window.open('projectdetailview.html','_blank'); //_self _blank newwindow
+    }
+</script>
+</html>

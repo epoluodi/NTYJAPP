@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottommenu_view_height"
+    android:orientation="vertical"
+
+    android:background="@color/blackTransparent2">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/menu_title"
+
+        android:textSize="12dp"
+
+        android:visibility="gone"
+        android:background="@color/white"
+        android:alpha="0.9"
+
+        />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+
+        android:scrollbars="none"
+        android:background="@color/white"
+        android:alpha="0.9"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:id="@+id/menu_linearLayout"
+            >
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottommenu_btn"
+        android:id="@+id/btn_cancel"
+        android:layout_marginTop="10dp"
+        android:text="取消"
+        android:background="@drawable/btn_cancel_selector"
+        android:alpha="0.95"
+        />
+
+
+</LinearLayout>

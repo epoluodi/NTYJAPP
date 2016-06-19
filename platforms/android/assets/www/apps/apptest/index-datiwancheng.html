@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>Stereo平台Demo</title>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+    <style type="text/css">
+ 
+    .header{height: 30px;text-align: center;background-color: #fff;position: fixed;width: 100%;top:0; z-index: 10;}
+    .header span{line-height: 32px;background-color: #fff;}
+
+    .forshow_img {float: left;width: 25%;height:70px;overflow: hidden;margin-bottom: 10px;text-align: center;display: table-cell;}
+    .forshow_img i{vertical-align: middle;}
+    .forshow_img div{width: 70px;height: 70px;overflow: hidden;}
+    .has_picked_img {vertical-align: middle;}
+    .picker{border:1px dashed #aaa;line-height: 70px;}
+    .picker img{vertical-align: middle;}
+    #content{margin-top: 40px;}
+    </style>
+	<script src="./js/jquery-1.9.1.min.js"></script>
+</head>
+</head>
+<body >
+<input type="text" id="result">
+      <div id="lab_typeSelect"  class="tab header" data-ref="#nav_type_select">
+         <span id="">选择照片</span>
+      </div>
+
+    <div id="content">
+	   	<div class="forshow_img"><i><div><img src="./img/icons/chang.png"  name='pickerImage' class="has_picked_img"/></div></i></div>
+	   	<div class="forshow_img"><i><div><img src="./img/icons/kuan.png" name='pickerImage' class="has_picked_img" /></div></i></div>
+	   	<div class="forshow_img"><i><div><img src="./img/icons/444.jpg" name='pickerImage' class="has_picked_img" /></div></i></div>
+	   	<div class="forshow_img"><i><div><img src="./img/icons/444.jpg" name='pickerImage' class="has_picked_img" /></div></i></div>
+	   	<div class="forshow_img"><i><div><img src="./img/icons/444.jpg" name='pickerImage' class="has_picked_img" /></div></i></div>
+   	</div>
+	<div class="forshow_img" onclick="photo()" ><i ><div class="picker" style="height: 68px;"><img src="./img/icons/plus.svg" /></div></i></div>
+
+</body>
+<script type="text/javascript">
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+
+
+}
+
+
+function photo(){
+   stereo.camera.chooseImage({
+               "chooseModel" : "all",
+               "imageCount" : "10"
+             },success,error);
+}
+
+
+function browser(){
+	stereo.camera.chooseImage({
+              "chooseModel" : "camera",
+              "imageCount" : "1"
+            },success,success);
+}
+   
+function success(str){
+	$("#result").val(str);
+	//alert(str);
+}
+function error(json){
+    alert(json);
+}
+
+function CameraResult(data){
+alert(1);
+	var photoJson = JSON.stringify(data);
+	var contacthtml = "";
+	if(data.photos == 0){
+		alert("尚未选择图片")
+		return;
+	}
+	for ( var i = 0; i < data.photofile.length; i++) {
+		var imgAddr = data.photofile[i];
+		contacthtml += "<div class='forshow_img'><i><img src='"+imgAddr+"' name='pickerImage' class='has_picked_img' /></i></div>";
+	}
+	$("#content").html(contacthtml);
+  autoImage();
+}
+
+autoImage();
+function autoImage(){
+  var iHeight = "70px";
+  $('img[name="pickerImage"]').each(function(){
+    $(this).load(function(){
+      var w = this.width;
+      var h = this.height;
+      console.log(this);
+      var zpex = 1;
+      var imgpex = w/h; 
+      if(zpex>imgpex){
+          //设置图片的高  竖图
+        // this.css('width',w);
+        $(this).attr("width",iHeight);
+         // $(this).attr("height",iHeight);
+        // console.log("one:zpex>imgpex");
+      }else{
+        //设置图片的宽 横图
+        // this.css('height',h);
+        $(this).attr("height",iHeight);
+               // $(this).attr("width",iHeight);
+        // console.log("two:zpex<imgpex");
+      }
+    }); 
+  });
+}
+
+</script>
+</html>

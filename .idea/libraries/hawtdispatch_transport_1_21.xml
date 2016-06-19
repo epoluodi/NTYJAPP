@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="hawtdispatch-transport-1.21">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/platforms/android/libs/hawtdispatch-transport-1.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
