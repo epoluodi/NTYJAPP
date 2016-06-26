@@ -128,8 +128,8 @@ public class PublishNotics extends BaseTask {
         try {
             //登录成功后，需要启动消息轮询机制
             Looper.prepare();
-            url = String.format("%1$ssendCircular",
-                    GlobalConfig.globalConfig.getAppUrl());
+            url = String.format("%1$smsg/saveDispatchMsg",
+                    GlobalConfig.globalConfig.getImUrl());
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
             m_httpClient.setEntity(getPostData());
             Log.i("url", url);

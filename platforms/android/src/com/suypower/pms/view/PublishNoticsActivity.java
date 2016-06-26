@@ -123,7 +123,6 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         alertSheet = new AlertSheet(this);
         alertSheet.addSheetButton("拍照", onClickListenertakepicture);
         alertSheet.addSheetButton("从相机中选择", onClickListenerchoosepicture);
-        alertSheet.addSheetButton("录制语音", onClickListenerchooserecord);
     }
 
 
@@ -240,13 +239,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         }
     };
 
-    View.OnClickListener onClickListenerchooserecord = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            alertSheet.dismiss();
 
-        }
-    };
 
 
     @Override
@@ -557,7 +550,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                         sendimg++;
                         if (iscontainrecord) {
                             if (sendimg == listmediaid.size() + 1) {
-                                // publishNoticsInfo();
+                                 publishNoticsInfo();
                             }
                         } else {
                             if (sendimg == listmediaid.size()) {
