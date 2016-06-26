@@ -49,21 +49,18 @@ import java.util.UUID;
 public class FileUpLoad extends BaseTask {
 
 
-
     public static final int UPLOADFILE = 1;//文件上传
-
 
 
     private static final String TAG = "uploadFile";
     private static final int TIME_OUT = 10 * 1000;   //超时时间
     private static final String CHARSET = "utf-8"; //设置编码
 
-
-    public String OrgFileName;
-//    public String[] files;
+    //    public String[] files;
     public String mediaid;
+    public String mediaidtype = ".jpg";
     public Object flag;
-    public Boolean IsNotics=false;
+    public Boolean IsNotics = false;
     List<NameValuePair> pairList;
     InterfaceTask interfaceTask;
     int type;
@@ -83,8 +80,7 @@ public class FileUpLoad extends BaseTask {
             @Override
             public void run() {
                 try {
-                    switch (type)
-                    {
+                    switch (type) {
                         case UPLOADFILE:
                             uploadfile();
                             break;
@@ -125,13 +121,13 @@ public class FileUpLoad extends BaseTask {
 
     public void uploadfile() {
 
-        String filetype="";
+        String filetype = "";
         String PREFIX = "--", LINE_END = "\r\n";
         String CONTENT_TYPE = "multipart/form-data";   //内容类型
 
         String BOUNDARY = UUID.randomUUID().toString();  //边界标识   随机生成
 
-        String RequestURL=String.format("%1$supload", GlobalConfig.globalConfig.getApiUrl());
+        String RequestURL = String.format("%1$supload", GlobalConfig.globalConfig.getApiUrl());
         try {
             URL url = new URL(RequestURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -145,43 +141,44 @@ public class FileUpLoad extends BaseTask {
             conn.setRequestProperty("Charset", CHARSET);  //设置编码
             conn.setRequestProperty("connection", "keep-alive");
             conn.setRequestProperty("Content-Type", CONTENT_TYPE + ";boundary=" + BOUNDARY);
-            conn.setRequestProperty("token",SuyApplication.getApplication()
+            conn.setRequestProperty("token", SuyApplication.getApplication()
                     .getSuyClient().getSuyUserInfo().m_loginResult.m_strSKey);
-            conn.setRequestProperty("deviceID",SuyApplication.getApplication()
+            conn.setRequestProperty("deviceID", SuyApplication.getApplication()
                     .getUuid());
-            conn.setRequestProperty("deviceType","02");
+            conn.setRequestProperty("deviceType", "02");
 
 
-            ByteArrayOutputStream baos=null;
-            InputStream is=null;
+            ByteArrayOutputStream baos = null;
+            InputStream is = null;
             if (!IsNotics) {
                 switch (((ChatMessage) flag).getMessageTypeEnum()) {
                     case PICTURE:
-                        conn.setRequestProperty("mediaId",mediaid);
+                        conn.setRequestProperty("mediaId", mediaid);
                         filetype = ".jpg";
 //                        is = new FileInputStream(SuyApplication.getApplication().getCacheDir() + File.separator + mediaid + filetype);
-                        Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid,4);
+                        Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid, 4);
                         baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         bitmap.recycle();
                         break;
                     case AUDIO:
-                        conn.setRequestProperty("mediaId",mediaid);
+                        conn.setRequestProperty("mediaId", mediaid);
                         filetype = ".aac";
                         is = new FileInputStream(SuyApplication.getApplication().getCacheDir() + File.separator + mediaid + filetype);
 
                         break;
                 }
-            }
-            else
-            {
-                conn.setRequestProperty("mediaId",mediaid);
-                filetype = ".jpg";
-                Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid,4);
-                baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                bitmap.recycle();
-//                is = new FileInputStream(SuyApplication.getApplication().getCacheDir() + File.separator + mediaid + filetype);
+            } else {
+                conn.setRequestProperty("mediaId", mediaid);
+                filetype = mediaidtype;
+                if (filetype.equals(".jpg")) {
+                    Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid, 4);
+                    baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    bitmap.recycle();
+                } else {
+                    is = new FileInputStream(SuyApplication.getApplication().getCacheDir() + File.separator + mediaid + filetype);
+                }
             }
             /**
              * 当文件不为空，把文件包装并且上传
@@ -202,12 +199,10 @@ public class FileUpLoad extends BaseTask {
             sb.append(LINE_END);
             dos.write(sb.toString().getBytes());
 
-            if (baos!=null)
-            {
+            if (baos != null) {
                 dos.write(baos.toByteArray());
                 baos.close();
-            }
-            else {
+            } else {
                 byte[] bytes = new byte[1024];
                 int len = 0;
                 while ((len = is.read(bytes)) != -1) {
@@ -231,26 +226,24 @@ public class FileUpLoad extends BaseTask {
             InputStream input = conn.getInputStream();
 
             BufferedReader reader_post = new BufferedReader(new InputStreamReader(
-                    input,"utf-8"));
+                    input, "utf-8"));
             String result = reader_post.readLine();
-            Log.e(TAG, "result : "+ result);
+            Log.e(TAG, "result : " + result);
             input.close();
             reader_post.close();
 
-            ReturnData returnData=new ReturnData(new JSONObject(result),true);
-            Message message =handler.obtainMessage();
-            if (returnData.getReturnCode() ==0) {
+            ReturnData returnData = new ReturnData(new JSONObject(result), true);
+            Message message = handler.obtainMessage();
+            if (returnData.getReturnCode() == 0) {
                 message.what = UploadFileTask;
                 message.arg1 = SUCCESS;
-                message.arg2= UPLOADFILE;
+                message.arg2 = UPLOADFILE;
                 message.obj = flag;
                 handler.sendMessage(message);
-            }
-            else
-            {
+            } else {
                 message.what = UploadFileTask;
                 message.arg1 = FAILED;
-                message.arg2= UPLOADFILE;
+                message.arg2 = UPLOADFILE;
                 message.obj = flag;
                 handler.sendMessage(message);
             }
@@ -258,10 +251,10 @@ public class FileUpLoad extends BaseTask {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Message message =handler.obtainMessage();
+            Message message = handler.obtainMessage();
             message.what = UploadFileTask;
             message.arg1 = FAILED;
-            message.arg2= UPLOADFILE;
+            message.arg2 = UPLOADFILE;
             message.obj = flag;
             handler.sendMessage(message);
         }
@@ -272,7 +265,7 @@ public class FileUpLoad extends BaseTask {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (interfaceTask !=null)
+            if (interfaceTask != null)
                 interfaceTask.TaskResultForMessage(msg);
 
         }

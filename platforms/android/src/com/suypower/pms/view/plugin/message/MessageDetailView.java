@@ -113,7 +113,7 @@ public class MessageDetailView extends Activity {
         public void onClick(View view) {
             isOpenChatmanger = true;
             Intent intent = new Intent(MessageDetailView.this, PublishNoticsActivity.class);
-            startActivityForResult(intent, ContactsSelectActivity.RequestCode);
+            startActivity(intent);
             overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
         }
     };

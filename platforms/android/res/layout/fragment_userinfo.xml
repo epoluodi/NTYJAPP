@@ -184,10 +184,56 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/menu_clearbuffer"
+        android:id="@+id/menu_pwdupdate"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_below="@+id/menu_person"
+        android:clickable="true"
+        android:background="@drawable/userinfo_menu_selector"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu7_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/pwdset" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu7_img"
+            android:text="密码设置"
+            android:textSize="16dp"
+            android:textColor="@color/blackTransparentA" />
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/jiantou_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/menu_clearbuffer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/menu_pwdupdate"
         android:clickable="true"
         android:background="@drawable/userinfo_menu_selector"
 

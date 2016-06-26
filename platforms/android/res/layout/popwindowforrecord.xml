@@ -34,15 +34,15 @@
             android:background="@drawable/v1" />
     </RelativeLayout>
 
-    <TextView
+    <Button
+        android:id="@id/btncancel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="向上滑动，取消录音"
-        android:textAlignment="center"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:text="取消录音"
+        android:textSize="12dp"
         android:textColor="@color/white"
-        android:id="@+id/txt"
-android:textSize="12dp"
+        android:background="@drawable/btn_cancel_record_selector"
         />
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -43,7 +44,6 @@ public class MediaSupport {
     private PopupWindow popupWindow;
     private View popview;
     private ImageView imageViewsingle;
-    private TextView txt;
     private IRecordCallBack iRecordCallBack;
     private final int times = 60 * 1000;
     private long starttime;
@@ -52,6 +52,7 @@ public class MediaSupport {
     private static MediaPlayer mPlayer;
     public static boolean IsSpeak=true;
     public static Object object;
+    private Button btncancelrecord;
 
     public static MediaSupport getInstance() {
         if (mediaSupport == null) {
@@ -317,9 +318,9 @@ public class MediaSupport {
     public void showPopwindows(View view) {
         System.gc();
         popview = activity.getLayoutInflater().inflate(R.layout.popwindowforrecord, null);
+        btncancelrecord = (Button)popview.findViewById(R.id.btncancel);
+        btncancelrecord .setOnClickListener(onClickListenerbtncancel);
         imageViewsingle = (ImageView) popview.findViewById(R.id.fb);
-        txt = (TextView) popview.findViewById(R.id.txt);
-        txt.setText("向上滑动，取消录音");
         popupWindow = new PopupWindow();
         popupWindow.setContentView(popview);
         popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -332,15 +333,22 @@ public class MediaSupport {
 
     }
 
+    View.OnClickListener onClickListenerbtncancel = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            stopAudioRecord();
+        }
+    };
+
     public void setOutSide() {
-        txt.setText("取消发送");
-        txt.setTextColor(activity.getResources().getColor(R.color.red));
+        btncancelrecord.setText("取消发送");
+        btncancelrecord.setTextColor(activity.getResources().getColor(R.color.red));
         isCancel = true;
     }
 
     public void setInSide() {
-        txt.setText("向上滑动，取消录音");
-        txt.setTextColor(activity.getResources().getColor(R.color.white));
+        btncancelrecord.setText("向上滑动，取消录音");
+        btncancelrecord.setTextColor(activity.getResources().getColor(R.color.white));
         isCancel = false;
     }
 

@@ -7,6 +7,32 @@
 
     >
 
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/bluebtn">
+
+        <ImageView
+            android:id="@+id/btnreturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/back_bar_left_selector" />
+
+        <TextView
+            android:id="@+id/chattitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="个人信息"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
     <!--<RelativeLayout-->
     <!--android:id="@+id/headview"-->
     <!--android:layout_width="match_parent"-->
@@ -198,12 +224,64 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/menu_nick"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_below="@+id/info1"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+
+        android:clickable="true"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/menu0_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/nick" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/menu0_img"
+            android:text="头像"
+            android:textColor="@color/blackTransparentA"
+
+            android:textSize="14dp" />
+
+
+        <ImageView
+            android:id="@+id/nickimg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blackTransparent1" />
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:id="@+id/menu_username"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_below="@+id/info1"
+        android:layout_below="@+id/menu_nick"
         android:layout_marginTop="10dp"
         android:background="@color/white"
 
@@ -494,24 +572,10 @@
 
     <Button
 
-        android:id="@+id/btn_send"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/menu_callphone"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_style_green"
-        android:clickable="true"
-        android:text="发送消息"
-        android:textColor="@color/white" />
-
-    <Button
-
         android:id="@+id/btn_addcontacts"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/btn_send"
+        android:layout_below="@+id/menu_callphone"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"

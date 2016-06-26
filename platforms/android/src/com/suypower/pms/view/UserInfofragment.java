@@ -31,6 +31,7 @@ import com.suypower.pms.app.task.FileUpLoad;
 import com.suypower.pms.app.task.InterfaceTask;
 import com.suypower.pms.app.task.Login;
 import com.suypower.pms.app.task.PublishNotics;
+import com.suypower.pms.app.task.UpdateUserInfo;
 import com.suypower.pms.server.MsgBodyChat;
 import com.suypower.pms.server.NotificationClass;
 import com.suypower.pms.view.dlg.AlertSheet;
@@ -45,6 +46,7 @@ import com.suypower.pms.view.plugin.chat.ChatDB;
 import com.suypower.pms.view.plugin.fragmeMager.FragmentName;
 import com.suypower.pms.view.plugin.message.MessageDB;
 import com.suypower.pms.view.seeting.NotificationConfigActivity;
+import com.suypower.pms.view.seeting.Passwordset;
 import com.suypower.pms.view.user.UserInfoActivity;
 
 import org.apache.cordova.CordovaWebView;
@@ -66,7 +68,7 @@ public class UserInfofragment extends Fragment implements FragmentName {
     private UpdatePlugin updatePlugin;
 
     private RelativeLayout menu_person, menu_notification, menu_clearbuffer,
-            menu_checkupdate, menu_aboutsoft, menu_exit;
+            menu_checkupdate, menu_aboutsoft, menu_exit,menu_pwd;
 
     private TextView txtname, txtdepartname, txtpost, txtlevel, txtindate;
     private ImageView nickimg;
@@ -129,6 +131,8 @@ public class UserInfofragment extends Fragment implements FragmentName {
         menu_aboutsoft.setOnClickListener(onClickListener_menu);
         menu_exit.setOnClickListener(onClickListener_menu);
         menu_checkupdate.setOnClickListener(onClickListener_menu);
+        menu_pwd=(RelativeLayout)rootView.findViewById(R.id.menu_pwdupdate);
+        menu_pwd.setOnClickListener(onClickListener_menu);
         txtname = (TextView) rootView.findViewById(R.id.name);
         txtdepartname = (TextView) rootView.findViewById(R.id.department);
         txtpost = (TextView) rootView.findViewById(R.id.post);
@@ -211,24 +215,44 @@ public class UserInfofragment extends Fragment implements FragmentName {
         public void TaskResultForMessage(Message message) {
 
             if (message.what == BaseTask.UploadFileTask) {
-                CustomPopWindowPlugin.CLosePopwindow();
+
                 if (message.arg2 == FileUpLoad.UPLOADFILE) {
                     if (message.arg1 == BaseTask.SUCCESS) {
-                        String mediaid = message.obj.toString();
-                        Bitmap bitmap = BitmapFactory.decodeFile(getActivity().getCacheDir() +
-                                File.separator + mediaid + ".jpg");
-                        nickimg.setImageBitmap(bitmap);
-                        nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
+
+                        UpdateUserInfo updateUserInfo= new UpdateUserInfo(interfaceTask,UpdateUserInfo.UPDATENICKIMG);
+                        updateUserInfo.oldvalues = SuyApplication.getApplication().getSuyClient()
+                                .getSuyUserInfo().m_loginResult.m_strPhoto;
+                        updateUserInfo.newvalue = message.obj.toString();
+                        updateUserInfo.startTask();
 
                     } else {
-
+                        CustomPopWindowPlugin.CLosePopwindow();
                         Toast.makeText(getActivity(), "发布失败", Toast.LENGTH_SHORT).show();
                     }
                 }
                 return;
             }
 
+            if (message.what == BaseTask.UPDATEUSERINFO) {
+                CustomPopWindowPlugin.CLosePopwindow();
+                if (message.arg2 == UpdateUserInfo.UPDATENICKIMG) {
+                    if (message.arg1 == BaseTask.SUCCESS) {
+                        SuyApplication.getApplication().getSuyClient()
+                                .getSuyUserInfo().m_loginResult.m_strPhoto = message.obj.toString();
+                        String mediaid = message.obj.toString();
+                        Bitmap bitmap = BitmapFactory.decodeFile(getActivity().getCacheDir() +
+                                File.separator + mediaid + ".jpg");
+                        nickimg.setImageBitmap(bitmap);
+                        nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        Toast.makeText(getActivity(), "更新成功", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        Toast.makeText(getActivity(), "更新失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return;
+            }
 
             if (message.what == BaseTask.DownloadFILETask) {
                 if (message.arg2 == FileDownload.StreamFile) {
@@ -285,6 +309,11 @@ public class UserInfofragment extends Fragment implements FragmentName {
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
+                    break;
+                case R.id.menu_pwdupdate:
+                    intent = new Intent(getActivity(), Passwordset.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     break;
                 case R.id.menu_notification://通知设置
                     intent = new Intent(getActivity(), NotificationConfigActivity.class);

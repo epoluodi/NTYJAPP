@@ -15,9 +15,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import com.suypower.pms.app.task.PublishNotics;
 import com.suypower.pms.view.contacts.Contacts;
 import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
+import com.suypower.pms.view.dlg.AlertDlg;
 import com.suypower.pms.view.dlg.AlertSheet;
 import com.suypower.pms.view.plugin.CommonPlugin;
 import com.suypower.pms.view.plugin.CustomPopWindowPlugin;
@@ -41,11 +44,13 @@ import com.suypower.pms.view.plugin.camera.PreviewMediaView;
 import com.suypower.pms.view.plugin.camera.PreviewPhotoViewPlugin;
 import com.suypower.pms.view.plugin.chat.ChatMessage;
 import com.suypower.pms.view.plugin.chat.ChatsMangerActivity;
+import com.suypower.pms.view.plugin.chat.MediaSupport;
 import com.suypower.pms.view.plugin.message.MessageDB;
 
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +64,21 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
     private Button btncancel;
     private Button btnsend;
     private LinearLayout linearLayout;
-    private EditText editText,titleedit;
+    private EditText editText, titleedit;
+    private CheckBox chkzd;
     private int images = 0;
     private AlertSheet alertSheet;
     private List<String> listmediaid;
-    private ImageView imageViewadd;
+    private ImageView imageViewadd, btnplay;
     private int sendimg = 0;
-    private TextView chattxtcount;
+    private TextView chattxtcount, peoples, sendtager;
+    private MediaSupport mediaSupport;
+    private RelativeLayout btnrecord, btnsendtager, btnsp;
+    private String recordfile = "";
+    private Boolean isplaying = false;
+    private Boolean iscontainrecord = false;
+    private String sp = "";
+    private String sendlists = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,8 +89,31 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         btnsend = (Button) findViewById(R.id.btnsend);
         btnsend.setOnClickListener(onClickListenersend);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-        chattxtcount = (TextView)findViewById(R.id.charcount) ;
-        titleedit = (EditText)findViewById(R.id.title);
+        chattxtcount = (TextView) findViewById(R.id.charcount);
+        titleedit = (EditText) findViewById(R.id.title);
+        sendtager = (TextView) findViewById(R.id.sendtager);
+        btnrecord = (RelativeLayout) findViewById(R.id.menu_record);
+        btnrecord.setOnClickListener(onClickListenerrecord);
+        btnsendtager = (RelativeLayout) findViewById(R.id.menu_sendtager);
+        btnsendtager.setOnClickListener(onClickListenersender);
+        peoples = (TextView) findViewById(R.id.peoples);
+        peoples.setText("");
+        sendtager.setText("");
+        btnsp = (RelativeLayout) findViewById(R.id.menu_sp);
+        btnsp.setOnClickListener(onClickListenersp);
+
+        chkzd = (CheckBox) findViewById(R.id.checkzd);
+//        if (!SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
+//                .m_loginResult.auths.contains("DISPATCH_APPROVE")
+//                )
+//            btnsp.setVisibility(View.GONE);
+        if (!SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
+                .m_loginResult.auths.contains("DISPATCH_TOP"))
+            chkzd.setVisibility(View.GONE);
+        btnplay = (ImageView) findViewById(R.id.play);
+        btnplay.setOnClickListener(onClickListenerplay);
+        btnplay.setVisibility(View.GONE);
+
 
         listmediaid = new ArrayList<>();
         editText = (EditText) findViewById(R.id.txt);
@@ -87,7 +123,97 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         alertSheet = new AlertSheet(this);
         alertSheet.addSheetButton("拍照", onClickListenertakepicture);
         alertSheet.addSheetButton("从相机中选择", onClickListenerchoosepicture);
+        alertSheet.addSheetButton("录制语音", onClickListenerchooserecord);
     }
+
+
+    View.OnClickListener onClickListenerplay = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            if (!isplaying) {
+                isplaying = true;
+                btnplay.setBackground(getResources().getDrawable(R.drawable.btn_pause_selector));
+
+                MediaSupport.playAudio(getCacheDir() + File.separator + recordfile + ".aac", new MediaSupport.IPlayCallBack() {
+                    @Override
+                    public void OnPlayFinish() {
+                        isplaying = false;
+                        btnplay.setBackground(getResources().getDrawable(R.drawable.btn_play_selector));
+                    }
+                });
+            } else {
+                isplaying = false;
+                MediaSupport.stopAudio();
+                btnplay.setBackground(getResources().getDrawable(R.drawable.btn_play_selector));
+
+            }
+        }
+    };
+
+
+    View.OnClickListener onClickListenersp = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(PublishNoticsActivity.this, SelectActivity.class);
+            intent.putExtra("mode", 2);
+            startActivityForResult(intent, SelectActivity.ApproveUsers);
+            overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
+
+        }
+    };
+
+
+    View.OnClickListener onClickListenersender = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(PublishNoticsActivity.this, SelectActivity.class);
+            intent.putExtra("mode", 1);
+            startActivityForResult(intent, SelectActivity.GroupInfo);
+            overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
+        }
+    };
+
+
+    View.OnClickListener onClickListenerrecord = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            mediaSupport = new MediaSupport(PublishNoticsActivity.this, iRecordCallBack);
+            try {
+                mediaSupport.startAudioRecord(btnrecord);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    MediaSupport.IRecordCallBack iRecordCallBack = new MediaSupport.IRecordCallBack() {
+
+
+        @Override
+        public void OnRecordFinish(String recordname, int t) {
+
+
+            Log.i("录音 完成", recordname);
+            recordfile = recordname;
+            btnplay.setVisibility(View.VISIBLE);
+
+//            StringBuilder stringBuilder = new StringBuilder();
+//            for (int i = 0; i < t; i++) {
+//                stringBuilder.append("  ");
+//            }
+
+
+        }
+
+        @Override
+        public void OnRecordCancel() {
+
+            Toast.makeText(PublishNoticsActivity.this, "取消录音", Toast.LENGTH_SHORT).show();
+
+
+        }
+    };
 
 
     /**
@@ -114,11 +240,38 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         }
     };
 
+    View.OnClickListener onClickListenerchooserecord = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            alertSheet.dismiss();
+
+        }
+    };
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle;
+
+
+        if (requestCode == SelectActivity.ApproveUsers) {
+            if (resultCode == 2) {
+                sp = data.getStringExtra("sp");
+                peoples.setText(data.getStringExtra("name"));
+                Log.i("sp", sp);
+                Log.i("peoples", peoples.getText().toString());
+            }
+            return;
+        }
+        if (requestCode == SelectActivity.GroupInfo) {
+            if (resultCode == 2) {
+                sendlists = data.getStringExtra("groupid");
+                sendtager.setText(data.getStringExtra("name"));
+
+            }
+            return;
+        }
 
 
         if (requestCode == PreviewMediaView.REQUESTCODE) {
@@ -197,7 +350,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            chattxtcount.setText(String.format("%1$s/800字数",String.valueOf(editText.getText().toString().length())));
+            chattxtcount.setText(String.format("%1$s/800字数", String.valueOf(editText.getText().toString().length())));
         }
     };
 
@@ -253,7 +406,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         @Override
         public void onClick(View view) {
             finish();
-            overridePendingTransition(R.anim.alpha,R.anim.slide_out_to_bottom);
+            overridePendingTransition(R.anim.alpha, R.anim.slide_out_to_bottom);
         }
     };
 
@@ -276,73 +429,120 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 Toast.makeText(PublishNoticsActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (sendlists.equals("")) {
+                Toast.makeText(PublishNoticsActivity.this, "请选择发送目标", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
+                    .m_loginResult.auths.contains("DISPATCH_APPROVE")) {
+                if (sp.equals("")) {
+                    Toast.makeText(PublishNoticsActivity.this, "请选择审批人", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            if (editText.getText().toString().equals("")) {
+                Toast.makeText(PublishNoticsActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!recordfile.equals("")) {
+                AlertDlg alertDlg = new AlertDlg(PublishNoticsActivity.this, AlertDlg.AlertEnum.TIPS);
+                alertDlg.setContentText("是否包含录音信息");
+                alertDlg.setOkClickLiseter(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDlg.dismiss();
+                        iscontainrecord = true;
+                        submitinfo();
+                    }
+                });
+                alertDlg.show();
+            } else
+                submitinfo();
 
 
-            CustomPopWindowPlugin.ShowPopWindow(btnsend, getLayoutInflater(), "正在发布");
+        }
+    };
+
+
+    private void submitinfo() {
+        CustomPopWindowPlugin.ShowPopWindow(btnsend, getLayoutInflater(), "正在发布");
+        sendimg = 0;
+
+
+        if (iscontainrecord) {
+            if (!recordfile.equals("")) {
+                FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
+                fileUpLoad.mediaid = recordfile;
+                fileUpLoad.mediaidtype = ".aac";
+                fileUpLoad.flag = recordfile;
+                fileUpLoad.IsNotics = true;
+                fileUpLoad.startTask();
+            }
             if (listmediaid.size() > 0) {
-                sendimg = 0;
+
                 for (int i = 0; i < listmediaid.size(); i++) {
                     FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                     fileUpLoad.mediaid = listmediaid.get(i);
                     fileUpLoad.flag = listmediaid.get(i);
                     fileUpLoad.IsNotics = true;
                     fileUpLoad.startTask();
-//                    try
-//                    {
-//                        Thread.sleep(500);
-//                    }
-//                    catch (Exception e)
-//                    {e.printStackTrace();}
                 }
 
-                return;
-                //发送图片
+
             }
-            publishNoticsInfo();
-
+            return;
         }
-    };
+        if (listmediaid.size() > 0) {
 
+            for (int i = 0; i < listmediaid.size(); i++) {
+                FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
+                fileUpLoad.mediaid = listmediaid.get(i);
+                fileUpLoad.flag = listmediaid.get(i);
+                fileUpLoad.IsNotics = true;
+                fileUpLoad.startTask();
+            }
+
+            return;
+        }
+
+        publishNoticsInfo();
+    }
 
     /**
      * 发布公告信息
      */
     private void publishNoticsInfo() {
         PublishNotics publishNotics = new PublishNotics(interfaceTask, PublishNotics.SENDNOTICS);
-        publishNotics.setPostValuesForKey("msgType", "05");
-        publishNotics.setPostValuesForKey("reciveUserId", "");
-        publishNotics.setPostValuesForKey("groupId", "10000");
-        publishNotics.setPostValuesForKey("circularType", "1");
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("title",titleedit.getText().toString());
-            jsonObject.put("content",editText.getText().toString());
-            jsonObject.put("type","1");
-            jsonObject.put("status","1");
-            if (listmediaid.size()==0)
-                jsonObject.put("mediaIds","");
-            else
-            {
-                String strmedias="";
-                for (String s :listmediaid)
-                {
-                    strmedias +=s +"#";
-                }
-                strmedias = strmedias.substring(0,strmedias.length()-1);
-                jsonObject.put("mediaIds",strmedias);
-
+        publishNotics.setPostValuesForKey("dispatch_title", titleedit.getText().toString());
+        publishNotics.setPostValuesForKey("dispatch_content", editText.getText().toString());
+        if (listmediaid.size() == 0)
+            publishNotics.setPostValuesForKey("pic_ids", "");
+        else {
+            String strmedias = "";
+            for (String s : listmediaid) {
+                strmedias += s + ",";
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(PublishNoticsActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
-            return;
+            publishNotics.setPostValuesForKey("pic_ids", strmedias.substring(0, strmedias.length() - 1));
         }
-
-        publishNotics.setPostValuesForKey("circularJson", jsonObject.toString());
+        if (recordfile.equals(""))
+            publishNotics.setPostValuesForKey("audio_id", "");
+        else
+            publishNotics.setPostValuesForKey("audio_id", recordfile);
+        if (SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
+                .m_loginResult.auths.contains("DISPATCH_APPROVE")
+                ) {
+            publishNotics.setPostValuesForKey("status_code", "01");
+            publishNotics.setPostValuesForKey("approve_account_id", "");
+        }
+        else {
+            publishNotics.setPostValuesForKey("status_code", "02");
+            publishNotics.setPostValuesForKey("approve_account_id",sp);
+        }
+        publishNotics.setPostValuesForKey("group_ids",sendlists);
+        publishNotics.setPostValuesForKey("is_top",
+                chkzd.isChecked()?"01":"02");
         publishNotics.startTask();
-
     }
 
 
@@ -355,9 +555,15 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                     if (message.arg1 == BaseTask.SUCCESS) {
 
                         sendimg++;
-                        if (sendimg == listmediaid.size()) {
-                            //成功上传
-                            publishNoticsInfo();
+                        if (iscontainrecord) {
+                            if (sendimg == listmediaid.size() + 1) {
+                                // publishNoticsInfo();
+                            }
+                        } else {
+                            if (sendimg == listmediaid.size()) {
+                                //成功上传
+                                publishNoticsInfo();
+                            }
                         }
                     } else {
                         CustomPopWindowPlugin.CLosePopwindow();

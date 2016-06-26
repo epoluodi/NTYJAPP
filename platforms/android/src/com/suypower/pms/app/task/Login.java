@@ -13,7 +13,10 @@ import com.suypower.pms.app.configxml.GlobalConfig;
 import com.suypower.pms.app.protocol.data.LoginResult;
 
 import org.apache.cordova.CordovaWebView;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Stereo on 16/4/15.
@@ -98,6 +101,9 @@ public class Login extends BaseTask {
                     return "";
                 }
 
+                Config.setKeyShareVar(SuyApplication.getApplication(), "username", suyUserInfo.userName);
+                Config.setKeyShareVar(SuyApplication.getApplication(), "userpwd", suyUserInfo.password);
+
                 LoginResult loginResult = new LoginResult();
                 JSONObject ajax_data = returnData.getReturnData();
                 loginResult.m_strSKey = ajax_data.getString("token");
@@ -106,13 +112,23 @@ public class Login extends BaseTask {
 //                        .getUuid();
                 JSONObject user = ajax_data.getJSONObject("user");
                 JSONObject mqtt = ajax_data.getJSONObject("MQTT");
-                loginResult.m_strDeparmentNo = user.getString("deptNo");
-                loginResult.m_strDeparment = user.getString("deptName");
-                loginResult.m_strEmail = user.isNull("email")?"":user.getString("email");
-                loginResult.m_strMobile = user.getString("mobile");
-                loginResult.m_strUserName = user.getString("name");
-                loginResult.m_strUserId = user.getString("userID");
-                loginResult.m_userType =Integer.valueOf(user.getString("usertype"));
+//                loginResult.m_strDeparmentNo = user.getString("deptNo");
+//                loginResult.m_strDeparment = user.getString("deptName");
+//                loginResult.m_strEmail = user.isNull("email")?"":user.getString("email");
+                loginResult.m_strSex = user.getString("sex");
+                loginResult.m_position=user.getString("positionId");
+                loginResult.m_positionName=user.getString("positionName");
+                loginResult.m_strMobile = user.getString("tel");
+                loginResult.m_strloginname = user.getString("sysUserName");
+                loginResult.m_strUserName = user.getString("userName");
+                loginResult.m_strUserId = user.getString("accountId");
+                loginResult.m_strPhoto = user.isNull("picture")?"":user.getString("picture");
+                loginResult.auths=new ArrayList<>();
+                JSONArray auths = user.getJSONArray("auths");
+                for (int i=0;i<auths.length();i++)
+                {
+                    loginResult.auths.add(auths.getString(i));
+                }
                 suyUserInfo.m_loginResult = loginResult;
                 //获取mqtt 信息
                 GlobalConfig.globalConfig.setMqttUserName(mqtt.getString("username"));
@@ -215,6 +231,14 @@ public class Login extends BaseTask {
                 loginResult.m_strUserName = user.getString("userName");
                 loginResult.m_strUserId = user.getString("accountId");
                 loginResult.m_strPhoto = user.isNull("picture")?"":user.getString("picture");
+                loginResult.auths=new ArrayList<>();
+                JSONArray auths = user.getJSONArray("auths");
+                for (int i=0;i<auths.length();i++)
+                {
+                    loginResult.auths.add(auths.getString(i));
+                }
+
+
 //                loginResult.m_userType =Integer.valueOf(user.getString("usertype"));
                 //获取mqtt 信息
                 GlobalConfig.globalConfig.setMqttUserName(mqtt.getString("username"));

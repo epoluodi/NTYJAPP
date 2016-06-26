@@ -73,13 +73,8 @@ public class Contacts extends BaseTask {
             Looper.prepare();
             url = String.format("%1$suser/queryUsers",
                     GlobalConfig.globalConfig.getAppUrl());
-
-
-
             Log.i("url", url);
-
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
-
             Message message = handler.obtainMessage();
             if (!m_httpClient.sendRequest()) {
                 message.what = ContactsTask;
@@ -89,7 +84,6 @@ public class Contacts extends BaseTask {
                 handler.sendMessage(message);
                 return;
             }
-
             byte[] buffer = m_httpClient.getRespBodyData();
             if (buffer == null) {
                 message.what = ContactsTask;
@@ -99,7 +93,6 @@ public class Contacts extends BaseTask {
                 handler.sendMessage(message);
                 return;
             }
-
             String result = new String(buffer, "utf-8");
             Log.i("登陆信息返回:", result);
             JSONObject jsonObject = null;
@@ -151,6 +144,11 @@ public class Contacts extends BaseTask {
 
         }
     }
+
+
+
+
+
 
 
 }

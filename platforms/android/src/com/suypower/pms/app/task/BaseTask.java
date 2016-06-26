@@ -34,8 +34,9 @@ public abstract class BaseTask {
     public static final int DownloadFILETask = 3;//文件下载
     public static final int IMTask = 4;//群聊任务
     public static final int UploadFileTask = 5;//文件上传任务
-    public static final int PublishNotics = 6;//上传任务
-
+    public static final int PublishNotics = 6;//发布公告
+    public static final int UPDATEUSERINFO = 7;//上传任务
+    public static final int RIGHT = 8;//权限
     ExecutorService m_ThreadPool = null;
 
     SuyHttpClient m_httpClient = null;

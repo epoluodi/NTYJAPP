@@ -30,6 +30,7 @@ public class LoginResult {
 	public String m_strEmail;
 	public String m_strMobile;
 	public String m_strUserId;
+	public List<String> auths;
 	public int m_userType;
 
 

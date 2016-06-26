@@ -353,12 +353,16 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         @Override
         public void onClick(View view) {
 
+            Intent intent = new Intent(getActivity(), PublishNoticsActivity.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
+
 //            if (SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_userType==1)
 //                menu_custom.ShowMenu(topRightButton);
 //            else {
-                Intent intent = new Intent(getActivity(), ContactsSelectActivity.class);
-                startActivityForResult(intent, ContactsSelectActivity.RequestCode);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.blank);
+//                Intent intent = new Intent(getActivity(), ContactsSelectActivity.class);
+//                startActivityForResult(intent, ContactsSelectActivity.RequestCode);
+//                getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.blank);
 //            }
         }
 

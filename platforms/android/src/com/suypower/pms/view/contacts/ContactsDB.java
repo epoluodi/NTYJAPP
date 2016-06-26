@@ -35,13 +35,13 @@ public class ContactsDB {
         cursor.moveToNext();
         contacts.setId(cursor.getString(0));
         contacts.setName(cursor.getString(1));
-        contacts.setPhone(cursor.getString(2));
-        contacts.setDepartmentid(cursor.getString(3));
-        contacts.setPY(cursor.getString(4));
-        contacts.setPosition(cursor.getString(5));
-        contacts.setNickimgurl(cursor.getString(6));
-        contacts.setDepartmentname(getDepartmentname(contacts.getDepartmentid()));
-        contacts.setEmail(cursor.isNull(7) ? "" : cursor.getString(7));
+        contacts.setPhone(cursor.getString(4));
+        contacts.setDepartmentid(cursor.getString(6));
+        contacts.setPY(cursor.getString(8));
+        contacts.setPosition(cursor.getString(10));
+        contacts.setNickimgurl(cursor.getString(5));
+        contacts.setDepartmentname(cursor.getString(7));
+        contacts.setEmail("");
         cursor.close();
         return contacts;
     }

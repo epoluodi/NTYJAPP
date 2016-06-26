@@ -142,6 +142,8 @@
         </activity>
         <activity android:name=".view.plugin.camera.PreviewMediaView" />
         <activity android:name=".view.PublishNoticsActivity" />
+        <activity android:name=".view.SelectActivity" />
+        <activity android:name=".view.seeting.Passwordset" />
         <!-- 应用服务中心 -->
         <!--<service  -->
     		<!--android:name=".app.SuyService"-->

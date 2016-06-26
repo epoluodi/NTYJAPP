@@ -37,6 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -118,10 +119,10 @@ public class ChatActivity extends BaseActivityPlugin {
     private View head;
     private Gifview gifview;
     private int pagescount,logcounts;
+    private RelativeLayout btnjd;
+    private TextView jdtitle,jdcontent,jddate;
+    private ImageView jdimg;
 
-
-    public ChatActivity() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,12 @@ public class ChatActivity extends BaseActivityPlugin {
         gifview = (Gifview) head.findViewById(R.id.gif);
         pagescount=0;
 
+        //jd
+        btnjd = (RelativeLayout)findViewById(R.id.jdinfo);
+        jdtitle = (TextView)findViewById(R.id.jdtitle);
+        jdcontent = (TextView)findViewById(R.id.jdcontent);
+        jddate = (TextView)findViewById(R.id.jddate);
+        jdimg = (ImageView)findViewById(R.id.jdimg);
 
         inputview = (LinearLayout) findViewById(R.id.footview);
         chattitle = (TextView) findViewById(R.id.chattitle);
@@ -147,8 +154,6 @@ public class ChatActivity extends BaseActivityPlugin {
         listView = (ListView) findViewById(R.id.chatlist);
         btnreturn.setOnClickListener(onClickListenerreturn);
         listView.setOnTouchListener(onTouchListenerlist);
-
-
         windowMenuLayout = (LinearLayout) findViewById(R.id.window_menu_bar);
         windowInputLayout = (LinearLayout) findViewById(R.id.window_input_bar);
         voiceButton = (ImageView) findViewById(R.id.voiceButton);
@@ -964,49 +969,49 @@ public class ChatActivity extends BaseActivityPlugin {
         @Override
         public void OnLongClickItem(ChatMessage chatMessage, View view) {
 
-            int[] location;
-            int x, y;
-            switch (chatMessage.getMessageTypeEnum()) {
-                case TEXT:
-                    chatMessageMenu = new ChatMessageMenu(ChatActivity.this,ChatMessageMenu.MenuEnum.TEXT, iChatMenu);
-                    chatMessageMenu.object = chatMessage;
-                    location = new int[2];
-                    view.getLocationOnScreen(location);
-                    x = location[0];
-                    y = location[1];
-                    x = (x - 80);
-                    y = (y  - view.getHeight() -20);
-                    chatMessageMenu.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
-                    break;
-                case PICTURE:
-                    chatMessageMenu = new ChatMessageMenu(ChatActivity.this,ChatMessageMenu.MenuEnum.PICTURE, iChatMenu);
-                    chatMessageMenu.object = chatMessage;
-                    location = new int[2];
-                    view.getLocationOnScreen(location);
-                    x = location[0];
-                    y = location[1];
-                    x = (x - 80);
-                    y = (y  -140);
-                    chatMessageMenu.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
-                    break;
-                case AUDIO:
-                    chatMessageMenu = new ChatMessageMenu(ChatActivity.this, ChatMessageMenu.MenuEnum.RECODR, iChatMenu);
-                    chatMessageMenu.object = chatMessage;
-                    if (MediaSupport.IsSpeak) {
-                        chatMessageMenu.setBtnName(R.id.btnspeak, "听筒播放");
-                    } else {
-                        chatMessageMenu.setBtnName(R.id.btnspeak, "扬声器播放");
-                    }
-
-                    location = new int[2];
-                    view.getLocationOnScreen(location);
-                    x = location[0];
-                    y = location[1];
-                    x = (x - 120);
-                    y = (y - view.getHeight() - 20);
-                    chatMessageMenu.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
-                    break;
-            }
+//            int[] location;
+//            int x, y;
+//            switch (chatMessage.getMessageTypeEnum()) {
+//                case TEXT:
+//                    chatMessageMenu = new ChatMessageMenu(ChatActivity.this,ChatMessageMenu.MenuEnum.TEXT, iChatMenu);
+//                    chatMessageMenu.object = chatMessage;
+//                    location = new int[2];
+//                    view.getLocationOnScreen(location);
+//                    x = location[0];
+//                    y = location[1];
+//                    x = (x - 80);
+//                    y = (y  - view.getHeight() -20);
+//                    chatMessageMenu.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
+//                    break;
+//                case PICTURE:
+//                    chatMessageMenu = new ChatMessageMenu(ChatActivity.this,ChatMessageMenu.MenuEnum.PICTURE, iChatMenu);
+//                    chatMessageMenu.object = chatMessage;
+//                    location = new int[2];
+//                    view.getLocationOnScreen(location);
+//                    x = location[0];
+//                    y = location[1];
+//                    x = (x - 80);
+//                    y = (y  -140);
+//                    chatMessageMenu.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
+//                    break;
+//                case AUDIO:
+//                    chatMessageMenu = new ChatMessageMenu(ChatActivity.this, ChatMessageMenu.MenuEnum.RECODR, iChatMenu);
+//                    chatMessageMenu.object = chatMessage;
+//                    if (MediaSupport.IsSpeak) {
+//                        chatMessageMenu.setBtnName(R.id.btnspeak, "听筒播放");
+//                    } else {
+//                        chatMessageMenu.setBtnName(R.id.btnspeak, "扬声器播放");
+//                    }
+//
+//                    location = new int[2];
+//                    view.getLocationOnScreen(location);
+//                    x = location[0];
+//                    y = location[1];
+//                    x = (x - 120);
+//                    y = (y - view.getHeight() - 20);
+//                    chatMessageMenu.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
+//                    break;
+//            }
 
 
         }

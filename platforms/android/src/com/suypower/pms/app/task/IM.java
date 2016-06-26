@@ -490,9 +490,9 @@ public class IM extends BaseTask {
         SuyHttpClient m_httpClient = ajaxHttpPlugin.initHttp();
         try {
 //            Looper.prepare();
-            url = String.format("%1$sgroup/getGroupInfo",
+            url = String.format("%1$sgroup/queryCurrentGroups",
                     GlobalConfig.globalConfig.getImUrl());
-            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
             Log.i("url", url);
             if (!m_httpClient.sendRequest()) {
                 return null;

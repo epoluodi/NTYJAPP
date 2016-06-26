@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/bluebtn">
+
+        <ImageView
+            android:id="@+id/btnreturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/back_bar_left_selector" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="个人信息"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+        <ImageView
+            android:id="@+id/btnok"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/btn_ok_selector" />
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/List"
+        android:id="@+id/list"
+        ></ListView>
+
+</LinearLayout>

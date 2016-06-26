@@ -22,9 +22,11 @@ import com.suypower.pms.R;
 import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.view.contacts.Contacts;
 import com.suypower.pms.view.plugin.chat.ChatActivity;
+import com.suypower.pms.view.plugin.chat.MediaSupport;
 import com.suypower.pms.view.plugin.message.MessageDB;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 /**
  * Created by Stereo on 16/4/15.
@@ -34,8 +36,9 @@ public class UserInfoActivity extends Activity {
     private RelativeLayout menu_callphone;
     private Boolean IsSelf;
     private TextView txtname, txtphone, txtdepartment, txtemail, txtpost;
-    private Button btnsend,btnaddcontacts;
+    private Button btnaddcontacts;
     private Contacts contacts;
+    private ImageView nickimg,btnreturn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,44 +46,65 @@ public class UserInfoActivity extends Activity {
         setContentView(R.layout.userinfo_activity);
         txtname = (TextView) findViewById(R.id.name);
         txtphone = (TextView) findViewById(R.id.phone);
+        btnreturn = (ImageView)findViewById(R.id.btnreturn);
+        btnreturn.setOnClickListener(onClickListenerreturn);
+        nickimg = (ImageView)findViewById(R.id.nickimg);
+
+
+
         txtdepartment = (TextView) findViewById(R.id.department);
         txtemail = (TextView) findViewById(R.id.sex);
         txtpost = (TextView) findViewById(R.id.post);
-        btnsend = (Button) findViewById(R.id.btn_send);
         btnaddcontacts = (Button)findViewById(R.id.btn_addcontacts) ;
         btnaddcontacts.setOnClickListener(onClickListeneraddcontacts);
         menu_callphone = (RelativeLayout) findViewById(R.id.menu_callphone);
         menu_callphone.setOnClickListener(onClickListenercallphone);
-        txtpost = (TextView)findViewById(R.id.positionname);
+        txtpost = (TextView)findViewById(R.id.post);
         IsSelf = getIntent().getBooleanExtra("IsSelf", true);
 
         if (IsSelf) {
 //            btncamera.setVisibility(View.VISIBLE);
-            btnsend.setVisibility(View.INVISIBLE);
             btnaddcontacts.setVisibility(View.INVISIBLE);
             txtname.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strUserName);
             txtphone.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strMobile);
             txtdepartment.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strDeparment);
             txtemail.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strSex);
             txtpost.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_positionName);
+            Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + File.separator +
+                    SuyApplication.getApplication().getSuyClient().
+                            getSuyUserInfo().m_loginResult.m_strPhoto+".jpg");
+            nickimg.setImageBitmap(bitmap);
+            nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
 //            btncamera.setVisibility(View.INVISIBLE);
-
-
-            btnsend.setVisibility(View.VISIBLE);
-            btnsend.setOnClickListener(onClickListener);
             contacts = (Contacts) getIntent().getSerializableExtra("Contacts");
             txtname.setText(contacts.getName());
             txtphone.setText(contacts.getPhone());
             txtdepartment.setText(contacts.getDepartmentname());
             txtemail.setText(contacts.getSex());
             txtpost.setText(contacts.getPosition());
-
+            Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + File.separator +
+                    contacts.getNickimgurl()+".jpg");
+            nickimg.setImageBitmap(bitmap);
+            nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
             if (checkContacts(contacts.getPhone()))
                 btnaddcontacts.setVisibility(View.INVISIBLE);
         }
 
     }
+
+
+
+    /**
+     * 返回
+     */
+    View.OnClickListener onClickListenerreturn = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+    };
 
 
     View.OnClickListener onClickListeneraddcontacts = new View.OnClickListener() {
@@ -92,30 +116,7 @@ public class UserInfoActivity extends Activity {
     };
 
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
 
-            MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
-            if (messageDB.isExitsMsgid(contacts.getId()) > 0)//判断是否存在
-                messageDB.updateMessageDate(contacts.getId());//存在更新列表时间
-            else
-                messageDB.insertGroup(contacts.getId(), 3);//没有插入新的记录
-
-
-            //传递信息到聊天窗口
-            Bundle bundle = new Bundle();
-            bundle.putString("chattype", "3");
-
-            Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
-            bundle.putString("msgid", contacts.getId());
-            intent.putExtras(bundle);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-
-        }
-    };
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
