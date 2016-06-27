@@ -266,11 +266,11 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             Bundle bundle = new Bundle();
             if (messageList.getMessageEnum() == MessageList.MessageEnum.CHATS)
                 bundle.putString("chattype", "2");
-            if (messageList.getMessageEnum() == MessageList.MessageEnum.CHAT)
-                bundle.putString("chattype", "1");
+//            if (messageList.getMessageEnum() == MessageList.MessageEnum.CHAT)
+//                bundle.putString("chattype", "1");
             if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE)
                 bundle.putString("chattype", "3");
-            if (messageList.getMessageEnum() == MessageList.MessageEnum.CHAT ||
+            if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE ||
                     messageList.getMessageEnum() == MessageList.MessageEnum.CHATS) {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 bundle.putString("msgid",messageList.getMsgid());
@@ -278,14 +278,14 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
-            if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE)  {
-
-                Intent intent = new Intent(getActivity(), MessageDetailView.class);
-                bundle.putString("msgid",messageList.getMsgid());
-                intent.putExtras(bundle);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-            }
+//            if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE)  {
+//
+//                Intent intent = new Intent(getActivity(), MessageDetailView.class);
+//                bundle.putString("msgid",messageList.getMsgid());
+//                intent.putExtras(bundle);
+//                getActivity().startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+//            }
 
 
         }
@@ -305,32 +305,18 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         }
 
         MessageList messageList;
+
         while (cursor.moveToNext()) {
             messageList = new MessageList();
-            switch (Integer.parseInt(cursor.getString(1))) {
-                case 1:
-                    messageList.setMessageEnum(MessageList.MessageEnum.CHAT);
-//
-                    break;
-                case 2:
-                    messageList.setMessageEnum(MessageList.MessageEnum.CHATS);
-//
-                    break;
-                case 3:
-                    messageList.setMessageEnum(MessageList.MessageEnum.PUBLICNOTICE);
+            messageList.setMessageEnum(MessageList.MessageEnum.CHATS);
 
-                    break;
-                case 4:
-                    messageList.setMessageEnum(MessageList.MessageEnum.FLOWTODO);
-
-                    break;
-            }
 
 
             messageList.setMsgType(cursor.getInt(7));
             messageList.setMsgid(cursor.getString(0));
             messageList.setTitle(cursor.getString(2));
             messageList.setContent(cursor.getString(3));
+
             messageList.setMsgmark(cursor.getInt(4));
             messageList.setMsgdate(cursor.getString(5));
 

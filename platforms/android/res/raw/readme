@@ -1,0 +1,24 @@
+{
+  "status" : "0",
+  "data" : {
+    "scope" : "system",
+    "msgBody" : {
+      "optData" : {
+        "is_top" : "01",
+        "dispatch_id" : "d8fa542c-3c61-11e6-b56f-fcaa1448f335",
+        "status_code" : "01",
+        "dispatch_title" : "ggg",//标题
+        "approve_account_id" : null,//审核人id
+        "dispatch_content" : "hhhh",//内容
+        "audio_id" : null,//声音ID
+        "group_ids" : "81c8da6b-316d-11e6-ad31-fcaa1448f335",//发送目标组
+        "pic_ids" : null//图片
+      },
+      "optCode" : "01"//加入调度
+    }
+  },
+  "msg" : "信息接收成功"
+}
+/////////////创建调度报文
+
+

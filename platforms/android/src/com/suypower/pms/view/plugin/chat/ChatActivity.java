@@ -106,8 +106,6 @@ public class ChatActivity extends BaseActivityPlugin {
     private LinearLayout windowMenuLayout;
     private LinearLayout windowInputLayout;
 
-    private ImageView menuOffButton;
-    private ImageView menuOnButton;
     private ImageView voiceButton;
 
     private Button audioRecordButton;
@@ -158,29 +156,25 @@ public class ChatActivity extends BaseActivityPlugin {
         windowInputLayout = (LinearLayout) findViewById(R.id.window_input_bar);
         voiceButton = (ImageView) findViewById(R.id.voiceButton);
         audioRecordButton = (Button) findViewById(R.id.audioRecordButton);
-        menuOffButton = (ImageView) findViewById(R.id.menuOffButton);
-        menuOnButton = (ImageView) findViewById(R.id.menuOnButton);
         btnmore.setOnClickListener(onClickListenermore);
-        menuOffButton.setOnClickListener(onClickListenerMenuOff);
-        menuOnButton.setOnClickListener(onClickListenerMenuOn);
         voiceButton.setOnClickListener(onClickListenerVoiceButton);
         audioRecordButton.setOnTouchListener(onTouchListeneraudioRecordButton);
         Bundle bundle = getIntent().getExtras();
         messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
         if (bundle != null) {
-            //单聊
-            if (bundle.get("chattype").equals("1")) {
-                btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_people_selector));
-                LoadChaterInfo(bundle.getString("msgid"));
-                ChatType = 1;
-                messageDB.updateMessageList(contacts.getId(), 0);
-                NotificationClass.Clear_Notify((int) (Long.valueOf(contacts.getId()) -
-                        ControlCenter.controlCenter.msgidoffet));
-                windowMenuLayout.setVisibility(View.GONE);
-                menuOnButton.setVisibility(View.GONE);
-            }
+//            //单聊
+//            if (bundle.get("chattype").equals("1")) {
+//                btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_people_selector));
+//                LoadChaterInfo(bundle.getString("msgid"));
+//                ChatType = 1;
+//                messageDB.updateMessageList(contacts.getId(), 0);
+//                NotificationClass.Clear_Notify((int) (Long.valueOf(contacts.getId()) -
+//                        ControlCenter.controlCenter.msgidoffet));
+//                windowMenuLayout.setVisibility(View.GONE);
+//
+//            }
             //多聊
-            if (bundle.get("chattype").equals("2")) {
+            if (bundle.get("chattype").equals("3")) {
                 btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_peoples_selector));
                 groupid = bundle.getString("msgid");
                 messageDB.updateMessageList(groupid, 0);
@@ -192,7 +186,7 @@ public class ChatActivity extends BaseActivityPlugin {
                 im.startTask();
                 NotificationClass.Clear_Notify((int) (Long.valueOf(groupid) - ControlCenter.controlCenter.msgidoffet));
                 windowMenuLayout.setVisibility(View.GONE);
-                menuOnButton.setVisibility(View.GONE);
+
             }
         }
         chattxt.addTextChangedListener(textWatcherchattxt);
@@ -1266,106 +1260,9 @@ public class ChatActivity extends BaseActivityPlugin {
         ControlCenter.controlCenter.setIsNotification(true);
     }
 
-    View.OnClickListener onClickListenerMenuOff = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Animation wipeInUp = AnimationUtils.loadAnimation(ChatActivity.this, R.anim.slide_in_from_bottom);
-            Animation wipeOutDown = AnimationUtils.loadAnimation(ChatActivity.this, R.anim.slide_out_to_bottom);
-            wipeInUp.setDuration(100L);
-            wipeOutDown.setDuration(100L);
-            wipeOutDown.setFillAfter(true);
-            wipeOutDown.setFillBefore(false);
-            wipeOutDown.setFillEnabled(true);
-            wipeOutDown.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
 
-                }
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    windowMenuLayout.clearAnimation();
-                    windowMenuLayout.setVisibility(View.INVISIBLE);
-                    windowInputLayout.startAnimation(wipeInUp);
-                    windowInputLayout.setVisibility(View.VISIBLE);
 
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                    Log.i("ChatActivity", "-----------onAnimationRepeat-----------");
-                }
-            });
-            wipeInUp.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    windowInputLayout.clearAnimation();
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-            windowMenuLayout.startAnimation(wipeOutDown);
-        }
-    };
-
-    View.OnClickListener onClickListenerMenuOn = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Animation wipeInUp = AnimationUtils.loadAnimation(ChatActivity.this, R.anim.slide_in_from_bottom);
-            Animation wipeOutDown = AnimationUtils.loadAnimation(ChatActivity.this, R.anim.slide_out_to_bottom);
-            wipeInUp.setDuration(100L);
-            wipeOutDown.setDuration(100L);
-            wipeOutDown.setFillAfter(true);
-            wipeOutDown.setFillBefore(false);
-            wipeOutDown.setFillEnabled(true);
-            wipeOutDown.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    windowInputLayout.setVisibility(View.INVISIBLE);
-                    windowInputLayout.clearAnimation();
-                    windowMenuLayout.startAnimation(wipeInUp);
-                    windowMenuLayout.setVisibility(View.VISIBLE);
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-            wipeInUp.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    windowMenuLayout.clearAnimation();
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-            windowInputLayout.startAnimation(wipeOutDown);
-        }
-    };
     View.OnTouchListener onTouchListeneraudioRecordButton = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {

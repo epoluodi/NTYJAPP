@@ -490,7 +490,7 @@ public class IM extends BaseTask {
         SuyHttpClient m_httpClient = ajaxHttpPlugin.initHttp();
         try {
 //            Looper.prepare();
-            url = String.format("%1$sgroup/queryCurrentGroups",
+            url = String.format("%1$sgroup/queryGroupsAndDispatchs",
                     GlobalConfig.globalConfig.getImUrl());
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
             Log.i("url", url);
@@ -508,7 +508,7 @@ public class IM extends BaseTask {
             try {
                 //解析json
                 jsonObject = new JSONObject(result);
-                returnData = new ReturnData(jsonObject, false);
+                returnData = new ReturnData(jsonObject, true);
                 if (returnData.getReturnCode() != 0) {
                     return null;
                 }

@@ -53,8 +53,7 @@ public class ControlCenter extends Binder {
     private MQTTClient mqttClient;//mqtt 服务对象
     private Boolean isNotification = false;//是否通知
 
-    public void publishNotics(String strtopic)
-    {
+    public void publishNotics(String strtopic) {
         mqttClient.setPublictopic(strtopic);
     }
 
@@ -220,8 +219,10 @@ public class ControlCenter extends Binder {
 
 
                         if (messageDB.isExitsMsgid(msgBodyChat.getMsgid()) > 0) {
-                            int mark = messageDB.getMsgMark(msgBodyChat.getMsgid());
-                            messageDB.updateMessageForServer(msgBodyChat, mark);
+                            if (msgBodyChat.getMsgScope() != 1) {
+                                int mark = messageDB.getMsgMark(msgBodyChat.getMsgid());
+                                messageDB.updateMessageForServer(msgBodyChat, mark);
+                            }
                         } else
                             messageDB.insertGroupForSigle(msgBodyChat);
                         if (msgBodyChat == null)
@@ -229,31 +230,16 @@ public class ControlCenter extends Binder {
 
 
                         //公告
-                        if (msgBodyChat.getMsgid().equals("10000")) {
-                            chatMessage = new ChatMessage();
-                            chatMessage.setMsgSendState(1);
-                            //文本
-                            if (msgBodyChat.getMsgtype() == 5) {
-                                chatMessage.setMsg(msgBodyChat.getaList().toString());
-                                chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.RICHTXT1);
-                            }
-                            chatMessage.setMsgid(msgBodyChat.getId());
-                            chatMessage.setSenderid(msgBodyChat.getSenderid());
-                            chatMessage.setMessageid(msgBodyChat.getMsgid());
-                            chatMessage.setSender(msgBodyChat.getSender());
-                            chatMessage.setSelf(false);
-                            chatMessage.setMsgdate(msgBodyChat.getSendtime());
-                            chatMessage.setMsgMode(3);
-                            chatDB.insertChatlog(chatMessage);
+                        if (msgBodyChat.getMsgScope() == 1) {
 
-                            notificationClass.add_Notification("来自--公司公告", "公司公告", msgBodyChat.getContent(),
+
+                            notificationClass.add_Notification("调度信息", msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
                                     10000
                                     , getpendingIntentSys(msgBodyChat.getMsgid(), 3));
                             if (iMessageControl != null) {
                                 Message message = msghandler.obtainMessage();
                                 message.obj = jsonObjectmsg.toString();
                                 msghandler.sendMessage(message);
-
                             }
                             return;
                         }
@@ -392,15 +378,32 @@ public class ControlCenter extends Binder {
                 while (w) {
                     ReturnData returnData = IM.getGroupidlist();
                     if (returnData != null) {
-                        JSONArray jsonArray = returnData.getJsonArray();
+                        JSONObject jsonObject = returnData.getReturnData();
+                        JSONArray jsonArray = jsonObject.getJSONArray("groups");
                         if (jsonArray.length() == 0)
                             return;
 
                         List<String> strings = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            Log.i("群组编号", jsonObject.getString("GROUP_ID"));
-                            strings.add(jsonObject.getString("GROUP_ID"));
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            Log.i("群组编号", jsonObject1.getString("GROUP_ID"));
+                            strings.add(jsonObject1.getString("GROUP_ID"));
+                        }
+                        mqttClient.setGrouptopic(strings);
+
+                        jsonArray = jsonObject.getJSONArray("dispatchs");
+                        if (jsonArray.length() == 0)
+                            return;
+                        strings.clear();
+                        strings = new ArrayList<>();
+                        MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            Log.i("群组编号", jsonObject1.getString("DISPATCH_ID"));
+                            strings.add(jsonObject1.getString("DISPATCH_ID"));
+                            messageDB.insertjdinfo( jsonObject1.getString("DISPATCH_ID"),
+                                    jsonObject1.getString("DISPATCH_TITLE"));
+
                         }
                         mqttClient.setGrouptopic(strings);
 
@@ -499,7 +502,7 @@ public class ControlCenter extends Binder {
         PendingIntent contentIntent = null;
         Intent notificationIntent;
         if (this.getIsRunAPP()) {
-            notificationIntent = new Intent(SuyApplication.getApplication(), MessageDetailView.class);
+            notificationIntent = new Intent(SuyApplication.getApplication(), ChatActivity.class);
             notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             notificationIntent.putExtra("msgid", userid);
             notificationIntent.putExtra("chattype", msgMode);
@@ -508,7 +511,6 @@ public class ControlCenter extends Binder {
         } else {
             notificationIntent = new Intent(SuyApplication.getApplication(),
                     SplashActivity.class);
-
             notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             contentIntent = PendingIntent.getActivity(SuyApplication.getApplication()
                     , 1, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);

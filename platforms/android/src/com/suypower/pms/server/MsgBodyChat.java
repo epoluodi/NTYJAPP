@@ -3,6 +3,7 @@ package com.suypower.pms.server;
 import android.graphics.Color;
 
 import com.suypower.pms.app.SuyApplication;
+import com.suypower.pms.view.plugin.CommonPlugin;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,16 +22,33 @@ public class MsgBodyChat {
     private int msgtype;//01 文本
     private String sender;
     private String senderid;
-
-    private int color;
+    private String approve_account_id;
+    private int MsgScope;
     private JSONArray aList;
+    private JSONObject jsonObject;
 
-    public int getColor() {
-        return color;
+    public int getMsgScope() {
+        return MsgScope;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setMsgScope(int msgScope) {
+        MsgScope = msgScope;
+    }
+
+    public JSONObject getJsonObject() {
+        return jsonObject;
+    }
+
+    public void setJsonObject(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+    }
+
+    public String getApprove_account_id() {
+        return approve_account_id;
+    }
+
+    public void setApprove_account_id(String approve_account_id) {
+        this.approve_account_id = approve_account_id;
     }
 
     public JSONArray getaList() {
@@ -118,23 +136,20 @@ public class MsgBodyChat {
         MsgBodyChat msgBodyChat = new MsgBodyChat();
         try {
 
-            if (jsonObject.getString("receiverGroupType").equals("01")) {
+
+
+            if (jsonObject.getString("scope").equals("system")) {
+                msgBodyChat.setMsgScope(1);
+                JSONObject msgBody = jsonObject.getJSONObject("msgBody").getJSONObject("optData");
                 //系统组，公告，待办事项
-                msgBodyChat.setMsgid(jsonObject.getString("receiverGroupId"));
-                msgBodyChat.setMsgtitle("公司公告");
+                msgBodyChat.setMsgid(msgBody.getString("dispatch_id"));
+                msgBodyChat.setMsgtitle(msgBody.getString("dispatch_title"));
                 msgBodyChat.setMsgmode(3);
-                msgBodyChat.setSender(jsonObject.getString("senderUserName"));
-                msgBodyChat.setSenderid(jsonObject.getString("senderUserId"));
+                msgBodyChat.setMsgtype(Integer.valueOf(jsonObject.getJSONObject("msgBody").getString("optCode")));
 
-
-                JSONObject msgBody = jsonObject.getJSONObject("msgBody");
-                msgBodyChat.setaList(msgBody.getJSONArray("aList"));
-                msgBodyChat.setColor(Color.parseColor(msgBody.getString("color")));
-                msgBodyChat.setMsgtype(Integer.valueOf(msgBody.getString("msgType")));
-                msgBodyChat.setContent(msgBodyChat.getaList().getJSONObject(0).getString("title"));
-                msgBodyChat.setId(jsonObject.getString("msgId"));
-                msgBodyChat.setSendtime(jsonObject.getString("sendTime"));
-
+                msgBodyChat.setContent(msgBody.getString("dispatch_content"));
+                msgBodyChat.setApprove_account_id(msgBody.getString("approve_account_id"));
+                msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
 
             } else {
                 //单聊

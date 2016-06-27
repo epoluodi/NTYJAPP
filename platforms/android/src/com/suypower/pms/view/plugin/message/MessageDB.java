@@ -200,6 +200,24 @@ public class MessageDB {
             ex.printStackTrace();
         }
     }
+
+
+    public void insertjdinfo(String jdid,String title)
+    {
+        try {
+
+            ContentValues cv = new ContentValues();
+            cv.put("jdif",jdid);
+            cv.put("json", "");
+            cv.put("title",title);
+            db.insert("t_jdinfo", null, cv);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
     public void insertGroupFortran(MsgBodyChat msgBodyChat)
     {
         try {
@@ -435,7 +453,7 @@ public class MessageDB {
     public Cursor getMessageList() {
 
         try {
-            Cursor cursor = db.rawQuery("select * from message order by msgdate desc,msgstate desc",
+            Cursor cursor = db.rawQuery("select * from t_jdinfo",
                     null);
             return cursor;
         } catch (Exception e) {

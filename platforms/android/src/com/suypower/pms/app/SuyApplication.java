@@ -124,20 +124,7 @@ public class SuyApplication  extends Application {
 		Boolean isrun = Config.getKeyShareVarForBoolean(getApplicationContext(),"IsRun");//判断程序是否运行
 		if (!isrun)
 		{
-			MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
-			MsgBodyChat msgBodyChat=new MsgBodyChat();
-			msgBodyChat.setMsgid("10000");
-			msgBodyChat.setMsgtitle("公司公告");
-			msgBodyChat.setMsgmode(3);
-			msgBodyChat.setSender("");
-			msgBodyChat.setSenderid("");
-			msgBodyChat.setaList(null);
-			msgBodyChat.setMsgtype(5);
-			msgBodyChat.setContent("");
-			msgBodyChat.setSendtime("");
-			msgBodyChat.setMsgid("10000");
-			messageDB.insertGroupForSigle(msgBodyChat);
-			messageDB.updateMessageList("10000",0);
+
 			Config.setKeyShareVar(getApplicationContext(),"username","null");
 			Config.setKeyShareVar(getApplicationContext(),"userpwd","null");
 //			Config.setKeyShareVar(getApplicationContext(),"isautologin",true);

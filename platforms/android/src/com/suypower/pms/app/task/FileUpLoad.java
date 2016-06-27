@@ -53,7 +53,7 @@ public class FileUpLoad extends BaseTask {
 
 
     private static final String TAG = "uploadFile";
-    private static final int TIME_OUT = 10 * 1000;   //超时时间
+    private static final int TIME_OUT = 30 * 1000;   //超时时间
     private static final String CHARSET = "utf-8"; //设置编码
 
     //    public String[] files;
