@@ -103,7 +103,6 @@ public class ChatActivity extends BaseActivityPlugin {
     private Boolean isOpenChatmanger = false;
 
     private ChatMessage chatMessagetran;//转发对象
-    private LinearLayout windowMenuLayout;
     private LinearLayout windowInputLayout;
 
     private ImageView voiceButton;
@@ -116,9 +115,9 @@ public class ChatActivity extends BaseActivityPlugin {
 
     private View head;
     private Gifview gifview;
-    private int pagescount,logcounts;
+    private int pagescount, logcounts;
     private RelativeLayout btnjd;
-    private TextView jdtitle,jdcontent,jddate;
+    private TextView jdtitle, jdcontent, jddate;
     private ImageView jdimg;
 
 
@@ -129,14 +128,14 @@ public class ChatActivity extends BaseActivityPlugin {
 
         head = getLayoutInflater().inflate(R.layout.list_msg_foot, null);
         gifview = (Gifview) head.findViewById(R.id.gif);
-        pagescount=0;
+        pagescount = 0;
 
         //jd
-        btnjd = (RelativeLayout)findViewById(R.id.jdinfo);
-        jdtitle = (TextView)findViewById(R.id.jdtitle);
-        jdcontent = (TextView)findViewById(R.id.jdcontent);
-        jddate = (TextView)findViewById(R.id.jddate);
-        jdimg = (ImageView)findViewById(R.id.jdimg);
+        btnjd = (RelativeLayout) findViewById(R.id.jdinfo);
+        jdtitle = (TextView) findViewById(R.id.jdtitle);
+        jdcontent = (TextView) findViewById(R.id.jdcontent);
+        jddate = (TextView) findViewById(R.id.jddate);
+        jdimg = (ImageView) findViewById(R.id.jdimg);
 
         inputview = (LinearLayout) findViewById(R.id.footview);
         chattitle = (TextView) findViewById(R.id.chattitle);
@@ -152,7 +151,7 @@ public class ChatActivity extends BaseActivityPlugin {
         listView = (ListView) findViewById(R.id.chatlist);
         btnreturn.setOnClickListener(onClickListenerreturn);
         listView.setOnTouchListener(onTouchListenerlist);
-        windowMenuLayout = (LinearLayout) findViewById(R.id.window_menu_bar);
+
         windowInputLayout = (LinearLayout) findViewById(R.id.window_input_bar);
         voiceButton = (ImageView) findViewById(R.id.voiceButton);
         audioRecordButton = (Button) findViewById(R.id.audioRecordButton);
@@ -174,18 +173,18 @@ public class ChatActivity extends BaseActivityPlugin {
 //
 //            }
             //多聊
-            if (bundle.get("chattype").equals("3")) {
+            if (bundle.get("chattype").equals("2")) {
                 btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_peoples_selector));
                 groupid = bundle.getString("msgid");
                 messageDB.updateMessageList(groupid, 0);
                 ChatType = 2;
-                chattitle.setText(messageDB.getGroupName(groupid));
+                chattitle.setText("调度信息");
                 btnchatinfo.setEnabled(false);//没有获取到群信息的时候不启用
-                IM im = new IM(interfaceTask, IM.QUERYGROUPINFO);
-                im.setParams(groupid);
-                im.startTask();
-                NotificationClass.Clear_Notify((int) (Long.valueOf(groupid) - ControlCenter.controlCenter.msgidoffet));
-                windowMenuLayout.setVisibility(View.GONE);
+//                IM im = new IM(interfaceTask, IM.QUERYGROUPINFO);
+//                im.setParams(groupid);
+//                im.startTask();
+                NotificationClass.Clear_Notify(10000);
+
 
             }
         }
@@ -225,11 +224,9 @@ public class ChatActivity extends BaseActivityPlugin {
             if (listView.getFirstVisiblePosition() == 0) {
                 listView.addHeaderView(head);
                 List<ChatMessage> list = getHistoryChatlog();
-                if (list.size()>0)
-                {
-                    for (int i=list.size();i>0;i--)
-                    {
-                        chatAdpter.chatMessageList.add(0,list.get(i-1));
+                if (list.size() > 0) {
+                    for (int i = list.size(); i > 0; i--) {
+                        chatAdpter.chatMessageList.add(0, list.get(i - 1));
                     }
                 }
                 listView.removeHeaderView(head);
@@ -250,9 +247,9 @@ public class ChatActivity extends BaseActivityPlugin {
         ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
         Cursor cursor;
         if (ChatType == 1)
-            cursor = chatDB.getChatlog(contacts.getId(),pagescount,pagescount+15);
+            cursor = chatDB.getChatlog(contacts.getId(), pagescount, pagescount + 15);
         else
-            cursor = chatDB.getChatlog(groupid,pagescount,pagescount+15);
+            cursor = chatDB.getChatlog(groupid, pagescount, pagescount + 15);
         while (cursor.moveToNext()) {
             pagescount++;
             ChatMessage chatMessage = new ChatMessage();
@@ -439,20 +436,20 @@ public class ChatActivity extends BaseActivityPlugin {
 
     /**
      * 转成msgdata进行消息列表处理
+     *
      * @param chatMessage
      */
-    void updateMessageInfo(ChatMessage chatMessage)
-    {
+    void updateMessageInfo(ChatMessage chatMessage) {
 
-        MsgBodyChat msgBodyChat=new MsgBodyChat();
-        msgBodyChat.setContent((chatMessage.getMsg()==null)?"":chatMessage.getMsg().toString());
-        msgBodyChat.setMsgtype(chatMessage.getMsgType()+1);
+        MsgBodyChat msgBodyChat = new MsgBodyChat();
+        msgBodyChat.setContent((chatMessage.getMsg() == null) ? "" : chatMessage.getMsg().toString());
+        msgBodyChat.setMsgtype(chatMessage.getMsgType() + 1);
         msgBodyChat.setSendtime(chatMessage.getMsgdateInit());
         msgBodyChat.setMsgid(chatMessage.getMessageid());
         msgBodyChat.setMsgmode(1);
-        ContactsDB contactsDB=new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
-        Contacts contacts= contactsDB.LoadChaterInfo(chatMessage.getMessageid());
-        msgBodyChat.setMsgtitle( contacts.getName());
+        ContactsDB contactsDB = new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
+        Contacts contacts = contactsDB.LoadChaterInfo(chatMessage.getMessageid());
+        msgBodyChat.setMsgtitle(contacts.getName());
         if (messageDB.isExitsMsgid(chatMessage.getMessageid()) > 0) {
             messageDB.updateMessageForServer(msgBodyChat);
         } else
@@ -464,21 +461,18 @@ public class ChatActivity extends BaseActivityPlugin {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle;
 
-        if (ContactsSelectActivity.RequestCode == requestCode)
-        {
-            if (resultCode==0)
+        if (ContactsSelectActivity.RequestCode == requestCode) {
+            if (resultCode == 0)
                 return;
-            else if (resultCode==1) {
+            else if (resultCode == 1) {
 
                 //转发
                 Contacts contacts = (Contacts) data.getSerializableExtra("contacts");
                 sendtran(contacts);
-            }else if (resultCode==2)
-            {
+            } else if (resultCode == 2) {
                 ContactsDB contactsDB = new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
-                String[] rev =  data.getStringArrayExtra("contacts");
-                for (int i=0;i<rev.length;i++)
-                {
+                String[] rev = data.getStringArrayExtra("contacts");
+                for (int i = 0; i < rev.length; i++) {
                     Contacts contacts = contactsDB.LoadChaterInfo(rev[i]);
                     sendtran(contacts);
                 }
@@ -626,18 +620,17 @@ public class ChatActivity extends BaseActivityPlugin {
 
     /**
      * 发送转发消息
+     *
      * @param contacts
      */
-    private void sendtran(Contacts contacts)
-    {
+    private void sendtran(Contacts contacts) {
         ChatMessage chatMessage = new ChatMessage();
 
 
         chatMessage.setMessageTypeEnum(chatMessagetran.getMessageTypeEnum());
         if (chatMessagetran.getMessageTypeEnum() == ChatMessage.MessageTypeEnum.TEXT)
             chatMessage.setMsg(chatMessagetran.getMsg().toString());
-        else
-        {
+        else {
             chatMessage.setMediaid(chatMessagetran.getMediaid());
         }
         chatMessage.setMsgdate(CommonPlugin.GetSysTime());
@@ -653,6 +646,7 @@ public class ChatActivity extends BaseActivityPlugin {
         im.startTask();
         updateMessageInfo(chatMessage);
     }
+
     /**
      * 读取聊天信息
      *
@@ -949,8 +943,8 @@ public class ChatActivity extends BaseActivityPlugin {
                     chatDB.updatemsgstate(chatMessage.getMediaid(), 2);
                     chatMessage.setMsgSendState(2);
                     MediaSupport.playAudio(GlobalConfig.AUDIO_CACHE_PATH +
-                            File.separator + chatMessage.getMediaid() + ".aac",iPlayCallBack);
-                    MediaSupport.object=chatAdpter.chatMessageList.indexOf(chatMessage);
+                            File.separator + chatMessage.getMediaid() + ".aac", iPlayCallBack);
+                    MediaSupport.object = chatAdpter.chatMessageList.indexOf(chatMessage);
                     chatAdpter.notifyDataSetChanged();
                     break;
             }
@@ -1040,7 +1034,7 @@ public class ChatActivity extends BaseActivityPlugin {
             if (btnid == R.id.btncopy) {
                 ClipboardManager clipboard = (ClipboardManager)
                         getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("text",chatMessagetran.getMsg().toString());
+                ClipData clip = ClipData.newPlainText("text", chatMessagetran.getMsg().toString());
                 clipboard.setPrimaryClip(clip);
 
                 return;
@@ -1065,18 +1059,18 @@ public class ChatActivity extends BaseActivityPlugin {
                 chatDB.updatemsgstate(chatMessagetran.getMediaid(), 2);
                 chatMessagetran.setMsgSendState(2);
                 MediaSupport.playAudio(GlobalConfig.AUDIO_CACHE_PATH +
-                        File.separator + chatMessagetran.getMediaid() + ".aac",iPlayCallBack);
-                MediaSupport.object=chatAdpter.chatMessageList.indexOf(chatMessagetran);
+                        File.separator + chatMessagetran.getMediaid() + ".aac", iPlayCallBack);
+                MediaSupport.object = chatAdpter.chatMessageList.indexOf(chatMessagetran);
                 chatAdpter.notifyDataSetChanged();
                 return;
             }
             if (btnid == R.id.btntransend) {
 
                 Intent intent = new Intent(ChatActivity.this, ContactsSelectActivity.class);
-                intent.putExtra("mode",1);
-                intent.putExtra("senderid",chatMessagetran.getSenderid());
-                startActivityForResult(intent,ContactsSelectActivity.RequestCode);
-                overridePendingTransition(R.anim.slide_in_from_bottom,R.anim.blank);
+                intent.putExtra("mode", 1);
+                intent.putExtra("senderid", chatMessagetran.getSenderid());
+                startActivityForResult(intent, ContactsSelectActivity.RequestCode);
+                overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.blank);
                 return;
             }
 
@@ -1261,8 +1255,6 @@ public class ChatActivity extends BaseActivityPlugin {
     }
 
 
-
-
     View.OnTouchListener onTouchListeneraudioRecordButton = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -1301,29 +1293,27 @@ public class ChatActivity extends BaseActivityPlugin {
         }
     };
 
-    MediaSupport.IPlayCallBack iPlayCallBack=new MediaSupport.IPlayCallBack() {
+    MediaSupport.IPlayCallBack iPlayCallBack = new MediaSupport.IPlayCallBack() {
         @Override
         public void OnPlayFinish() {
-               int i =(Integer) MediaSupport.object;
-               if (i == chatAdpter.chatMessageList.size()-1)
-                   return;
-               ChatMessage chatMessage = chatAdpter.chatMessageList.get(i+1);
-               if (chatMessage.getMessageTypeEnum() == ChatMessage.MessageTypeEnum.AUDIO && chatMessage.getMsgSendState()==1)
-               {
+            int i = (Integer) MediaSupport.object;
+            if (i == chatAdpter.chatMessageList.size() - 1)
+                return;
+            ChatMessage chatMessage = chatAdpter.chatMessageList.get(i + 1);
+            if (chatMessage.getMessageTypeEnum() == ChatMessage.MessageTypeEnum.AUDIO && chatMessage.getMsgSendState() == 1) {
 
-                   ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
-                   chatDB.updatemsgstate(chatMessage.getMediaid(), 2);
-                   chatMessage.setMsgSendState(2);
-                   MediaSupport.playAudio(GlobalConfig.AUDIO_CACHE_PATH +
-                           File.separator + chatMessage.getMediaid() + ".aac",iPlayCallBack);
-                   MediaSupport.object=i+1;
-                   chatAdpter.notifyDataSetChanged();
-               }
+                ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
+                chatDB.updatemsgstate(chatMessage.getMediaid(), 2);
+                chatMessage.setMsgSendState(2);
+                MediaSupport.playAudio(GlobalConfig.AUDIO_CACHE_PATH +
+                        File.separator + chatMessage.getMediaid() + ".aac", iPlayCallBack);
+                MediaSupport.object = i + 1;
+                chatAdpter.notifyDataSetChanged();
+            }
         }
     };
 
     MediaSupport.IRecordCallBack iRecordCallBack = new MediaSupport.IRecordCallBack() {
-
 
 
         @Override
@@ -1368,7 +1358,7 @@ public class ChatActivity extends BaseActivityPlugin {
         @Override
         public void OnRecordCancel() {
 
-            Toast.makeText(ChatActivity.this,"取消录音",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChatActivity.this, "取消录音", Toast.LENGTH_SHORT).show();
 
 
         }

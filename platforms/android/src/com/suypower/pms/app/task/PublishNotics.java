@@ -28,7 +28,7 @@ import java.util.List;
 public class PublishNotics extends BaseTask {
 
     public static final int SENDNOTICS =1;//发布公告
-
+    public static final int QUERYNOTICS =2;//查询
 
 
 
@@ -87,7 +87,9 @@ public class PublishNotics extends BaseTask {
                         case SENDNOTICS:
                             SendNotics();
                             break;
-
+                        case QUERYNOTICS:
+                            QueryNotics();
+                            break;
 
                     }
 
@@ -200,6 +202,86 @@ public class PublishNotics extends BaseTask {
         }
     }
 
+
+    /**
+     * 退出群组
+     */
+    private void QueryNotics() {
+        Message message = handler.obtainMessage();
+        String url;
+        try {
+            //登录成功后，需要启动消息轮询机制
+            Looper.prepare();
+            url = String.format("%1$smsg/queryDispatchMsg/%2$s",
+                    GlobalConfig.globalConfig.getImUrl(),params);
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
+            Log.i("url", url);
+            if (!m_httpClient.sendRequest()) {
+                message.what = PublishNotics;
+                message.arg1= FAILED;
+                message.arg2=QUERYNOTICS;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            byte[] buffer = m_httpClient.getRespBodyData();
+            if (buffer == null) {
+                message.what = PublishNotics;
+                message.arg1 = FAILED;
+                message.arg2=QUERYNOTICS;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            String result = new String(buffer, "utf-8");
+            Log.i("信息返回:", result);
+            JSONObject jsonObject = null;
+            ReturnData returnData;
+            try {
+                //解析json
+                jsonObject = new JSONObject(result);
+                returnData = new ReturnData(jsonObject, true);
+                if (returnData.getReturnCode() != 0) {
+
+                    message.what = PublishNotics;
+                    message.arg1 = REMOVEGROUP_FAIL;
+                    message.arg2=QUERYNOTICS;
+                    message.obj = returnData.getReturnMsg();
+                    handler.sendMessage(message);
+
+                    return;
+                }
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                message.what = PublishNotics;
+                message.arg1 = FAILED;
+                message.arg2=QUERYNOTICS;
+                message.obj = e.getLocalizedMessage();
+                handler.sendMessage(message);
+                return;
+            }
+            message.what = PublishNotics;
+            message.arg1 = SUCCESS;
+            message.arg2=QUERYNOTICS;
+            message.obj = returnData;
+            handler.sendMessage(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.what = PublishNotics;
+            message.arg1 = FAILED;
+            message.arg2=QUERYNOTICS;
+            message.obj = e.getLocalizedMessage();
+            handler.sendMessage(message);
+
+        }
+    }
 
 
 

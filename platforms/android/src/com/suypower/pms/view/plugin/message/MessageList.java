@@ -27,12 +27,12 @@ public class MessageList implements Serializable {
 
 
     MessageEnum messageEnum;//消息类型
-    String title;//消息标题
-    String content;//消息子内容
+    String title="";//消息标题
+    String content="";//消息子内容
     int msgmark;//消息标记
-    String msgdate;//消息时间
-    String msgid;//消息ID
-    String mediaid;
+    String msgdate="";//消息时间
+    String msgid="";//消息ID
+    String mediaid="";
     int msgType;
 
 

@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.view.plugin.CommonPlugin;
+import com.suypower.pms.view.plugin.message.MessageDB;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -150,6 +151,14 @@ public class MsgBodyChat {
                 msgBodyChat.setContent(msgBody.getString("dispatch_content"));
                 msgBodyChat.setApprove_account_id(msgBody.getString("approve_account_id"));
                 msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
+
+                MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+                messageDB.insertjdinfo( msgBody.getString("dispatch_id"),
+                        msgBody.getString("dispatch_title"),
+                        msgBody.getString("is_top"),
+                        msgBody.getString("send_time"));
+
+
 
             } else {
                 //单聊

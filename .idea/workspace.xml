@@ -31,6 +31,11 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/platforms/android/res/drawable/main_tabbar_mark2.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/platforms/android/res/drawable/msg_list_2_head.xml">
         <config>
           <theme>@style/AppTheme</theme>
@@ -208,58 +213,7 @@
     <favorites_list name="stereo" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ControlCenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/ControlCenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="403" column="43" selection-start-line="403" selection-start-column="43" selection-end-line="403" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageDB.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageDB.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="455" column="63" selection-start-line="455" selection-start-column="63" selection-end-line="455" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="176" column="48" selection-start-line="176" selection-start-column="48" selection-end-line="176" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageCenterfragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/MessageCenterfragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15555556">
-              <caret line="313" column="0" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -280,12 +234,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/AppContextLauncher.java" />
-        <option value="$PROJECT_DIR$/platforms/android/res/layout/maintabview.xml" />
-        <option value="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/NavigationActivity.java" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/LoginTask.java" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/contacts/Contacts.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/camera/CameraPlugin.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/FileDownload.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/contacts/PhoneBookAdapter.java" />
@@ -320,17 +268,23 @@
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/seeting/Passwordset.java" />
         <option value="$PROJECT_DIR$/platforms/android/res/layout/chat_activity.xml" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/JDInfo.java" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/PublishNotics.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/PublishNoticsActivity.java" />
         <option value="$PROJECT_DIR$/platforms/android/res/raw/readme" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/FileUpLoad.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/IM.java" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/MsgBodyChat.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/SuyApplication.java" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatActivity.java" />
-        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/ControlCenter.java" />
+        <option value="$PROJECT_DIR$/platforms/android/res/layout/fragment_message.xml" />
+        <option value="$PROJECT_DIR$/platforms/android/res/drawable/bg_normal_red.xml" />
+        <option value="$PROJECT_DIR$/platforms/android/res/drawable/previewphoto_number_mark1.xml" />
+        <option value="$PROJECT_DIR$/platforms/android/res/drawable/main_tabbar_mark2.xml" />
+        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageList.java" />
+        <option value="$PROJECT_DIR$/platforms/android/res/layout/message_list.xml" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageDB.java" />
+        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/MsgBodyChat.java" />
+        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/PublishNotics.java" />
+        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/ControlCenter.java" />
         <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/MessageCenterfragment.java" />
+        <option value="$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatActivity.java" />
       </list>
     </option>
   </component>
@@ -373,7 +327,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stereo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -743,17 +708,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stereo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1119,7 +1073,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1139,7 +1093,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31960228" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32800853" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24838188" sideWeight="0.71590906" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22330096" sideWeight="0.453125" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22330096" sideWeight="0.453125" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37357953" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -1158,14 +1112,14 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40362087" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40610686" sideWeight="0.271615" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32800853" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2985318" sideWeight="0.5264624" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2985318" sideWeight="0.5264624" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32800853" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32800853" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22838499" sideWeight="0.4735376" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37486687" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37486687" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1182,8 +1136,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35037273" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6257143" sideWeight="0.4856115" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24878049" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1210,6 +1164,12 @@
           <properties />
           <option name="timeStamp" value="1100" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/MessageCenterfragment.java</url>
+          <line>274</line>
+          <properties />
+          <option name="timeStamp" value="1134" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1219,7 +1179,7 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1134" />
+      <option name="time" value="1136" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="android">
@@ -1228,84 +1188,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/protocol/data/LoginResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.690881">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/PhoneBookfragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.056296296">
-          <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/btn_ok_selector.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20556414">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/camera/CameraPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50222224">
-          <caret line="217" column="98" selection-start-line="217" selection-start-column="53" selection-end-line="217" selection-end-column="98" />
-          <folding>
-            <element signature="e#15471#15472#0" expanded="false" />
-            <element signature="e#15536#15537#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/CustomPopWindowPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.757037">
-          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/Right.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40888888">
-          <caret line="107" column="40" selection-start-line="107" selection-start-column="40" selection-end-line="107" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/user/UserInfoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2">
-          <caret line="106" column="6" selection-start-line="106" selection-start-column="6" selection-end-line="106" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/contacts/Contacts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81185186">
-          <caret line="85" column="18" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="18" />
-          <folding>
-            <element signature="e#1674#1675#0" expanded="false" />
-            <element signature="e#1705#1706#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/BaseTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84444445">
-          <caret line="38" column="33" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06138934">
@@ -1415,14 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.208889">
-          <caret line="130" column="17" selection-start-line="130" selection-start-column="17" selection-end-line="130" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/Common.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1486,43 +1360,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/JDInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028148148">
-          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#668#669#0" expanded="false" />
-            <element signature="e#710#711#0" expanded="false" />
-            <element signature="e#744#745#0" expanded="false" />
-            <element signature="e#778#779#0" expanded="false" />
-            <element signature="e#808#809#0" expanded="false" />
-            <element signature="e#854#855#0" expanded="false" />
-            <element signature="e#892#893#0" expanded="false" />
-            <element signature="e#923#924#0" expanded="false" />
-            <element signature="e#950#951#0" expanded="false" />
-            <element signature="e#990#991#0" expanded="false" />
-            <element signature="e#1022#1023#0" expanded="false" />
-            <element signature="e#1060#1061#0" expanded="false" />
-            <element signature="e#1088#1089#0" expanded="false" />
-            <element signature="e#1136#1137#0" expanded="false" />
-            <element signature="e#1170#1171#0" expanded="false" />
-            <element signature="e#1204#1205#0" expanded="false" />
-            <element signature="e#1234#1235#0" expanded="false" />
-            <element signature="e#1280#1281#0" expanded="false" />
-            <element signature="e#1318#1319#0" expanded="false" />
-            <element signature="e#1358#1359#0" expanded="false" />
-            <element signature="e#1388#1389#0" expanded="false" />
-            <element signature="e#1440#1441#0" expanded="false" />
-            <element signature="e#1478#1479#0" expanded="false" />
-            <element signature="e#1518#1519#0" expanded="false" />
-            <element signature="e#1547#1548#0" expanded="false" />
-            <element signature="e#1598#1599#0" expanded="false" />
-            <element signature="e#1636#1637#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/IChat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19703704">
@@ -1541,46 +1378,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/PublishNotics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="130" column="41" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1733#1734#0" expanded="false" />
-            <element signature="e#1769#1770#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/res/raw/readme">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5911111">
-          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/SuyApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14074074">
           <caret line="117" column="36" selection-start-line="117" selection-start-column="36" selection-end-line="117" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/MainTabView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44592592">
-          <caret line="244" column="47" selection-start-line="244" selection-start-column="47" selection-end-line="244" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/ReturnData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6340741">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1601,35 +1402,177 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/PublishNoticsActivity.java">
+    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-21/android.jar!/android/app/Instrumentation.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028148148">
-          <caret line="553" column="29" selection-start-line="553" selection-start-column="29" selection-end-line="553" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.81583196">
+          <caret line="329" column="0" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/layout/fragment_message.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.554295">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/previewphoto_number_mark1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.029366305">
+          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/main_tabbar_mark1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/bg_normal_red.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/bg_normal_green.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/bg_normal2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/bg_normal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/drawable/main_tabbar_mark2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5873261">
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53481483">
+          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+          <folding>
+            <element signature="e#2411#2412#0" expanded="true" />
+            <element signature="e#2441#2442#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/Emoji.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13333334">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0844444">
+          <caret line="130" column="17" selection-start-line="130" selection-start-column="17" selection-end-line="130" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/layout/message_list.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48622367">
+          <caret line="20" column="55" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/MsgBodyChat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3659259">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/PublishNotics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6903704">
+          <caret line="278" column="36" selection-start-line="278" selection-start-column="36" selection-end-line="278" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/task/IM.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.191111">
-          <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.023703704">
+          <caret line="492" column="66" selection-start-line="492" selection-start-column="43" selection-end-line="492" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-21/android.jar!/android/app/Instrumentation.class">
+    <entry file="file://$PROJECT_DIR$/platforms/android/res/raw/readme">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81583196">
-          <caret line="329" column="0" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.39407408">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatDB.java">
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/MainTabView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48296297">
-          <caret line="156" column="25" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.33777776">
+          <caret line="184" column="37" selection-start-line="184" selection-start-column="37" selection-end-line="184" selection-end-column="37" />
+          <folding>
+            <element signature="e#6843#6844#0" expanded="true" />
+            <element signature="e#6902#6903#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/PublishNoticsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.4992595">
+          <caret line="508" column="0" selection-start-line="508" selection-start-column="0" selection-end-line="508" selection-end-column="97" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/app/ReturnData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49333334">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="e#1012#1013#0" expanded="true" />
+            <element signature="e#1045#1046#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1639,55 +1582,47 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3484603">
-          <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/MsgBodyChat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="134" column="30" selection-start-line="134" selection-start-column="30" selection-end-line="134" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="176" column="48" selection-start-line="176" selection-start-column="48" selection-end-line="176" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/ControlCenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="403" column="43" selection-start-line="403" selection-start-column="43" selection-end-line="403" selection-end-column="43" />
+          <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="455" column="63" selection-start-line="455" selection-start-column="63" selection-end-line="455" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/message/MessageList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.37037036">
+          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/MessageCenterfragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15555556">
-          <caret line="313" column="0" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.08888889">
+          <caret line="233" column="0" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/server/ControlCenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08888889">
+          <caret line="182" column="0" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08888889">
+          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platforms/android/src/com/suypower/pms/view/plugin/chat/ChatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4162963">
+          <caret line="183" column="40" selection-start-line="183" selection-start-column="40" selection-end-line="183" selection-end-column="40" />
           <folding />
         </state>
       </provider>

@@ -202,7 +202,7 @@ public class MessageDB {
     }
 
 
-    public void insertjdinfo(String jdid,String title)
+    public void insertjdinfo(String jdid,String title,String istop,String senddt)
     {
         try {
 
@@ -210,12 +210,21 @@ public class MessageDB {
             cv.put("jdif",jdid);
             cv.put("json", "");
             cv.put("title",title);
+            cv.put("istop", istop);
+            cv.put("senddt",senddt);
             db.insert("t_jdinfo", null, cv);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+    public void deletejdinfo()
+    {
+       db.delete("t_jdinfo",null,null);
+    }
+
+
 
 
     public void insertGroupFortran(MsgBodyChat msgBodyChat)

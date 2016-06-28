@@ -31,6 +31,7 @@ import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.app.task.BaseTask;
 import com.suypower.pms.app.task.IM;
 import com.suypower.pms.app.task.InterfaceTask;
+import com.suypower.pms.app.task.PublishNotics;
 import com.suypower.pms.server.ControlCenter;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
 import com.suypower.pms.view.dlg.IMenu;
@@ -200,9 +201,14 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     }
 
 
+
+
+
     @Override
     public void onResume() {
         super.onResume();
+
+
         Cursor cursor = messageDB.getMessageList();
         getMessageList(cursor);
         cursor.close();
@@ -224,7 +230,9 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
 
         @Override
         public void OnGetGroupList(int state) {
-
+            Cursor cursor = messageDB.getMessageList();
+            getMessageList(cursor);
+            cursor.close();
         }
     };
 
@@ -268,8 +276,8 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
                 bundle.putString("chattype", "2");
 //            if (messageList.getMessageEnum() == MessageList.MessageEnum.CHAT)
 //                bundle.putString("chattype", "1");
-            if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE)
-                bundle.putString("chattype", "3");
+//            if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE)
+//                bundle.putString("chattype", "3");
             if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE ||
                     messageList.getMessageEnum() == MessageList.MessageEnum.CHATS) {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
@@ -291,6 +299,8 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         }
     };
 
+
+
     /**
      * 获取消息信息
      * 通过本地数据库中获得
@@ -309,18 +319,18 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         while (cursor.moveToNext()) {
             messageList = new MessageList();
             messageList.setMessageEnum(MessageList.MessageEnum.CHATS);
-
-
-
-            messageList.setMsgType(cursor.getInt(7));
             messageList.setMsgid(cursor.getString(0));
             messageList.setTitle(cursor.getString(2));
-            messageList.setContent(cursor.getString(3));
-
-            messageList.setMsgmark(cursor.getInt(4));
-            messageList.setMsgdate(cursor.getString(5));
-
-            messageLists.add(messageList);
+            int mark = messageDB.getMsgMark(cursor.getString(0));
+            messageList.setMsgmark(mark);
+            messageList.setMsgdate(cursor.getString(4));
+//            messageList.setMsgType(cursor.getInt(3));
+//
+//            messageList.setContent(cursor.getString(3));
+            if (cursor.getString(3).equals("01"))
+                messageLists.add(0,messageList);
+            else
+                messageLists.add(messageList);
         }
         cursor.close();
         myAdapter.notifyDataSetChanged();
@@ -589,25 +599,15 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             msgimg = (ImageView) v.findViewById(R.id.msgimg);
             msgmark = (TextView) v.findViewById(R.id.txtmark);
             msgtitle = (TextView) v.findViewById(R.id.title);
-            msgsubcontent = (TextView) v.findViewById(R.id.subcontent);
+//            msgsubcontent = (TextView) v.findViewById(R.id.subcontent);
             msgdate = (TextView) v.findViewById(R.id.dt);
-
             MessageList messageList = messageLists.get(i);
-            msgimg.setBackground(messageList.getMsgdrawable());
-            if (messageList.getMsgType()==1)
-                msgsubcontent.setText(Emoji.getEmojistring( messageList.getContent()));
-            if (messageList.getMsgType()==2)
-                msgsubcontent.setText("一张图片");
-            if (messageList.getMsgType()==3)
-                msgsubcontent.setText("一条语音");
-            if (messageList.getMsgType()==5)
-                msgsubcontent.setText(messageList.getContent());
+//            msgimg.setBackground(getResources().getDrawable(.));
+//            msgsubcontent.setText(messageList.getContent());
             if (messageList.getMsgmark() > 0) {
                 msgmark.setVisibility(View.VISIBLE);
-                msgmark.setText(String.valueOf(messageList.getMsgmark()));
             } else
                 msgmark.setVisibility(View.INVISIBLE);
-
             msgtitle.setText(messageList.getTitle());
             msgdate.setText(MessageInfo.GetSysTime(messageList.getMsgdate()));
             return v;

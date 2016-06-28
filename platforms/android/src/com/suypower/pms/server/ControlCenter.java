@@ -177,7 +177,12 @@ public class ControlCenter extends Binder {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
+            if (msg.what==2)
+            {
+                if (iMessageControl !=null)
+                    iMessageControl.OnGetGroupList(0);
+                return;
+            }
             setToken((String) msg.obj);
             islogin = false;
             //执行登陆后启动轮询服务
@@ -233,6 +238,8 @@ public class ControlCenter extends Binder {
                         if (msgBodyChat.getMsgScope() == 1) {
 
 
+
+                            publishNotics(msgBodyChat.getMsgid());
                             notificationClass.add_Notification("调度信息", msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
                                     10000
                                     , getpendingIntentSys(msgBodyChat.getMsgid(), 3));
@@ -397,16 +404,19 @@ public class ControlCenter extends Binder {
                         strings.clear();
                         strings = new ArrayList<>();
                         MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+                        messageDB.deletejdinfo();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                             Log.i("群组编号", jsonObject1.getString("DISPATCH_ID"));
                             strings.add(jsonObject1.getString("DISPATCH_ID"));
                             messageDB.insertjdinfo( jsonObject1.getString("DISPATCH_ID"),
-                                    jsonObject1.getString("DISPATCH_TITLE"));
+                                    jsonObject1.getString("DISPATCH_TITLE"),
+                                            jsonObject1.getString("IS_TOP"),
+                                                    jsonObject1.getString("SEND_TIME"));
 
                         }
+                        handler.sendEmptyMessage(2);
                         mqttClient.setGrouptopic(strings);
-
                         return;
                     }
                     Thread.sleep(3000);
