@@ -46,6 +46,7 @@ import com.suypower.pms.app.ReturnData;
 import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.app.configxml.GlobalConfig;
 import com.suypower.pms.app.task.BaseTask;
+import com.suypower.pms.app.task.FileDownload;
 import com.suypower.pms.app.task.FileUpLoad;
 import com.suypower.pms.app.task.IM;
 import com.suypower.pms.app.task.InterfaceTask;
@@ -63,9 +64,11 @@ import com.suypower.pms.view.plugin.camera.CameraPlugin;
 import com.suypower.pms.view.plugin.camera.PreviewPhotoViewPlugin;
 import com.suypower.pms.view.plugin.fileEx.FilePlugin;
 import com.suypower.pms.view.plugin.message.MessageDB;
+import com.suypower.pms.view.plugin.message.MessageInfo;
 import com.suypower.pms.view.plugin.message.MessageList;
 import com.suypower.pms.view.user.UserInfoActivity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -119,7 +122,7 @@ public class ChatActivity extends BaseActivityPlugin {
     private RelativeLayout btnjd;
     private TextView jdtitle, jdcontent, jddate;
     private ImageView jdimg;
-
+    private JSONObject jdjsobj;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,10 +182,10 @@ public class ChatActivity extends BaseActivityPlugin {
                 messageDB.updateMessageList(groupid, 0);
                 ChatType = 2;
                 chattitle.setText("调度信息");
-                btnchatinfo.setEnabled(false);//没有获取到群信息的时候不启用
-//                IM im = new IM(interfaceTask, IM.QUERYGROUPINFO);
-//                im.setParams(groupid);
-//                im.startTask();
+                btnchatinfo.setVisibility(View.GONE);//没有获取到群信息的时候不启用
+                IM im = new IM(interfaceTask, IM.QUERYGROUPINFO);
+                im.setParams(groupid);
+                im.startTask();
                 NotificationClass.Clear_Notify(10000);
 
 
@@ -762,6 +765,7 @@ public class ChatActivity extends BaseActivityPlugin {
     };
 
 
+
     InterfaceTask interfaceTask = new InterfaceTask() {
         @Override
         public void TaskResultForMessage(Message message) {
@@ -770,10 +774,59 @@ public class ChatActivity extends BaseActivityPlugin {
                     chatAdpter.notifyDataSetChanged();
                 }
                 if (message.arg2 == IM.QUERYGROUPINFO) {
-                    ReturnData returnData = (ReturnData) message.obj;
-                    groupjson = returnData.getReturnData().toString();
-                    btnchatinfo.setEnabled(true);
+                    if (message.arg1 == BaseTask.SUCCESS) {
+                        ReturnData returnData = (ReturnData) message.obj;
+                        groupjson = returnData.getReturnData().toString();
+                        btnchatinfo.setVisibility(View.VISIBLE);
+                        btnjd.setVisibility(View.VISIBLE);
 
+                        try {
+                            jdjsobj = returnData.getReturnData();
+                            jdtitle.setText(jdjsobj.getString("DISPATCH_TITLE"));
+                            jdcontent.setText(jdjsobj.getString("DISPATCH_CONTENT"));
+                            String pics = jdjsobj.getString("PIC_IDS");
+                            if (pics.equals(""))
+                                jdimg.setVisibility(View.GONE);
+                            else
+                            {
+
+                                String _p1 = pics.split(",")[0];
+                                if (!CommonPlugin.checkFileIsExits(_p1,".jpg")) {
+
+                                    FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
+                                    fileDownload.mediaid =_p1;
+                                    fileDownload.mediatype=".jpg";
+                                    fileDownload.imgamub = "";
+                                    fileDownload.flag = _p1;
+                                    fileDownload.startTask();
+                                } else {
+                                    Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" + _p1 + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                                    if (bitmap !=null) {
+                                        jdimg.setVisibility(View.VISIBLE);
+                                        jdimg.setImageBitmap(bitmap);
+                                    }
+                                    else
+                                    {
+                                        File file= new File(getCacheDir() + "/" + _p1 + ".jpg");
+                                        file.delete();
+                                    }
+                                }
+
+
+                            }
+                            jddate.setText(MessageInfo.GetSysTime(jdjsobj.getString("SEND_TIME")));
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        Toast.makeText(ChatActivity.this, "获取调度信息错误,请重新尝试", Toast.LENGTH_SHORT).show();
+                        finish();
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    }
+                    return;
                 }
             }
             if (message.what == BaseTask.UploadFileTask) {
@@ -789,6 +842,21 @@ public class ChatActivity extends BaseActivityPlugin {
                     }
                 }
             }
+            if (message.what == BaseTask.DownloadFILETask) {
+                if (message.arg2 == FileDownload.StreamFile) {
+                    if (message.arg1 == BaseTask.SUCCESS) {
+
+                        Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" +
+                                message.obj.toString() + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                        if (bitmap !=null) {
+                            jdimg.setVisibility(View.VISIBLE);
+                            jdimg.setImageBitmap(bitmap);
+                        }
+
+                    }
+                }
+            }
+
 
 
         }

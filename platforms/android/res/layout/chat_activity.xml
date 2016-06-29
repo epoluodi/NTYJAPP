@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="135dp"
             android:background="@drawable/btn_botton_selector"
-            android:clickable="true">
+            android:clickable="true"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/jdtitle"
@@ -60,7 +61,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:lines="1"
-                android:text="南通电网紧急调度任务南通电网紧急调度任务"
+                android:text="调度中心"
                 android:textAlignment="center"
                 android:textSize="20dp"
 
@@ -89,10 +90,11 @@
 
                 <ImageView
                     android:id="@+id/jdimg"
+
                     android:layout_width="95dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:background="@drawable/test_userinfo" />
+                    android:background="@drawable/img_other" />
 
 
                 <TextView
@@ -109,7 +111,7 @@
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
                     android:scrollbars="none"
-                    android:text="123112311231123123123123123123123123123231231231231231231231232312312312312312312312312312312312312312312312312312312312312312312312312312323123"
+                    android:text="111"
                     android:textSize="17dp" />
 
 

@@ -405,11 +405,11 @@ public class IM extends BaseTask {
         String url;
         try {
             Looper.prepare();
-            url = String.format("%1$sgroup/query",
-                    GlobalConfig.globalConfig.getImUrl());
-            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
-            m_httpClient.setPostValuesForKey("groupId",params);
-            m_httpClient.setEntity(m_httpClient.getPostData());
+            url = String.format("%1$smsg/queryDispatchMsg/%2$s",
+                    GlobalConfig.globalConfig.getImUrl(),params);
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
+//            m_httpClient.setPostValuesForKey("groupId",params);
+//            m_httpClient.setEntity(m_httpClient.getPostData());
             Log.i("url", url);
             if (!m_httpClient.sendRequest()) {
                 message.what = IMTask;
@@ -439,13 +439,11 @@ public class IM extends BaseTask {
                 jsonObject = new JSONObject(result);
                 returnData = new ReturnData(jsonObject, true);
                 if (returnData.getReturnCode() != 0) {
-
                     message.what = IMTask;
                     message.arg1 = CREATEGROUP_FAIL;
                     message.arg2=QUERYGROUPINFO;
                     message.obj = returnData.getReturnMsg();
                     handler.sendMessage(message);
-
                     return;
                 }
 
@@ -453,7 +451,6 @@ public class IM extends BaseTask {
 
             } catch (Exception e) {
                 e.printStackTrace();
-
                 message.what = IMTask;
                 message.arg1 = FAILED;
                 message.arg2=CREATEGROUP;

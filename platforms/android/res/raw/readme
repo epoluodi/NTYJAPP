@@ -22,3 +22,24 @@
 /////////////创建调度报文
 
 
+//获取调度信息详细
+{
+  "status" : "0",
+  "data" : {
+    "AUDIO_ID" : "",
+    "IS_TOP" : "01",
+    "SEND_TIME" : "2016-06-28 22:31:52",
+    "DISPATCH_TITLE" : "个方法",
+    "SEND_USER_NAME" : "王工",
+    "DISPATCH_CONTENT" : "方法长",
+    "STATUS_CODE" : "01",
+    "PIC_IDS" : "",
+    "DISPATCH_ID" : "0aa2daf9-3d3d-11e6-b56f-fcaa1448f335",
+    "SEND_ACCOUNT_ID" : "3a58392c-3533-11e6-ad31-fcaa1448f335"
+  },
+  "msg" : "查询调度信息成功"
+}
+
+
+
+

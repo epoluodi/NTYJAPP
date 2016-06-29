@@ -18,11 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.suypower.pms.R;
+import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.app.configxml.GlobalConfig;
 import com.suypower.pms.app.task.BaseTask;
 import com.suypower.pms.app.task.FileDownload;
 import com.suypower.pms.app.task.FileUpLoad;
 import com.suypower.pms.app.task.InterfaceTask;
+import com.suypower.pms.view.contacts.Contacts;
+import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.plugin.CommonPlugin;
 import com.suypower.pms.view.plugin.camera.CameraPlugin;
 
@@ -45,7 +48,7 @@ public class ChatAdpter extends BaseAdapter {
     private ProgressBar progressBar;
     private IChat iChat;
     private String predt="";
-
+    private ContactsDB contactsDB;
 
     public List<ChatMessage> chatMessageList;
 
@@ -56,6 +59,7 @@ public class ChatAdpter extends BaseAdapter {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         chatMessageList = new ArrayList<>();
+        contactsDB = new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
         this.iChat = iChat;
     }
 
@@ -236,6 +240,39 @@ public class ChatAdpter extends BaseAdapter {
                 }
                 break;
         }
+
+        if (chatMessage.getSelf()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir() +
+                    File.separator + SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult
+                    .m_strPhoto + ".jpg");
+            if (bitmap != null)
+                nickimg.setImageBitmap(bitmap);
+        }
+        else
+        {
+            Contacts contacts = contactsDB.LoadChaterInfo(chatMessage.getSenderid());
+            if (CommonPlugin.checkFileIsExits(contacts.getNickimgurl(), ".jpg")) {
+                Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir()
+                        + File.separator + contacts.getNickimgurl() + ".jpg");
+                if (bitmap != null) {
+                    nickimg.setImageBitmap(bitmap);
+                    nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                } else {
+                    File file = new File(SuyApplication.getApplication().getCacheDir()
+                            + File.separator + contacts.getNickimgurl() + ".jpg");
+                    file.delete();
+                }
+            } else {
+                FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
+                fileDownload.mediaid = contacts.getNickimgurl();
+                fileDownload.mediatype = ".jpg";
+                fileDownload.imgamub = "";
+                fileDownload.flag = contacts.getNickimgurl();
+                fileDownload.startTask();
+            }
+        }
+
+
 
         return v;
     }
