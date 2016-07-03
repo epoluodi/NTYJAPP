@@ -45,6 +45,9 @@ import com.suypower.pms.view.plugin.message.MessageDetailView;
 import com.suypower.pms.view.plugin.message.MessageInfo;
 import com.suypower.pms.view.plugin.message.MessageList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +79,7 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     private MessageDB messageDB = null;
 
 
+    private String appovejson="";//审批json
 
 
     @Override
@@ -212,19 +216,29 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         Cursor cursor = messageDB.getMessageList();
         getMessageList(cursor);
         cursor.close();
+        IM im = new IM(interfaceTask,IM.QUERYAPPOVE);
+        im.startTask();
 
     }
 
+
+
+
+
     public void refreshList()
     {
+        IM im = new IM(interfaceTask,IM.QUERYAPPOVE);
+        im.startTask();
         Cursor cursor = messageDB.getMessageList();
         getMessageList(cursor);
+
     }
 
 
     ControlCenter.IMessageControl iMessageControl = new ControlCenter.IMessageControl() {
         @Override
         public void OnNewMessage(String Message) {
+
             refreshList();
         }
 
@@ -377,12 +391,12 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
                 case 0://发起聊天
                     intent = new Intent(getActivity(), ContactsSelectActivity.class);
                     startActivityForResult(intent, ContactsSelectActivity.RequestCode);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.blank);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha);
                     break;
                 case 1://发起公告
                     intent = new Intent(getActivity(), PublishNoticsActivity.class);
                     startActivityForResult(intent, ContactsSelectActivity.RequestCode);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.blank);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha);
                     break;
             }
 
@@ -397,21 +411,29 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         @Override
         public void onClick(View view) {
 
-            searchtxt.setText("");
-            searchtxt.startAnimation(animationEnter);
-            btncancel.startAnimation(animationEnter);
-            searchtxt.setVisibility(View.VISIBLE);
-            btncancel.setVisibility(View.VISIBLE);
-            searchtxt.setOnKeyListener(onKeyListenersearch);
-            searchtxt.addTextChangedListener(textWatcher);
-            title.startAnimation(animationExit);
-            title.setVisibility(View.GONE);
-            topRightButton.startAnimation(animationExit);
-            topRightButton.setVisibility(View.GONE);
+            Intent intent=new Intent(getActivity(),AppoveActivity.class);
+            intent.putExtra("json",appovejson);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha);
 
-            searchtxt.requestFocus();
-            InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            im.toggleSoftInputFromWindow(searchtxt.getWindowToken(), 1, 0);
+
+
+
+//            searchtxt.setText("");
+//            searchtxt.startAnimation(animationEnter);
+//            btncancel.startAnimation(animationEnter);
+//            searchtxt.setVisibility(View.VISIBLE);
+//            btncancel.setVisibility(View.VISIBLE);
+//            searchtxt.setOnKeyListener(onKeyListenersearch);
+//            searchtxt.addTextChangedListener(textWatcher);
+//            title.startAnimation(animationExit);
+//            title.setVisibility(View.GONE);
+//            topRightButton.startAnimation(animationExit);
+//            topRightButton.setVisibility(View.GONE);
+//
+//            searchtxt.requestFocus();
+//            InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//            im.toggleSoftInputFromWindow(searchtxt.getWindowToken(), 1, 0);
 
 
         }
@@ -532,36 +554,59 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         public void TaskResultForMessage(Message message) {
             CustomPopWindowPlugin.CLosePopwindow();
 
-            if (message.what== BaseTask.IMTask)
+
+            if (message.what==BaseTask.IMTask)
             {
-                if (message.arg1==BaseTask.FAILED)
+                if (message.arg2 == IM.QUERYAPPOVE)
                 {
-                    Toast.makeText(getActivity(),"创建群组失败",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-                ReturnData returnData = (ReturnData)message.obj;
-                MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
-                try {
-                    returnData.getReturnData().getJSONObject("groupInfo").put("msgContent","");
-                    messageDB.insertGroup(returnData.getReturnData().getJSONObject("groupInfo"), 2);
-                    getMessageList(messageDB.getMessageList());
-                    if (message.arg2 == IM.CREATEGROUP)
+                    if (message.arg1 == BaseTask.SUCCESS)
                     {
-                        ControlCenter.controlCenter.publishNotics(
-                                returnData.getReturnData().getJSONObject("groupInfo").getString("groupId"));
+                        appovejson = message.obj.toString();
+                        Log.i("json ",appovejson);
+                        try {
+                            JSONObject jsonObject=new JSONObject(appovejson);
+                            ReturnData returnData = new ReturnData(jsonObject, false);
+                            JSONArray jsonArray=returnData.getJsonArray();
+                            if (jsonArray.length()>0)
+                                btnsearch.setVisibility(View.VISIBLE);
+                            else
+                                btnsearch.setVisibility(View.GONE);
+
+                        }
+                        catch (Exception e)
+                        {
+                            btnsearch.setVisibility(View.GONE);
+                        }
+
                     }
                 }
-
-                catch (Exception e)
-                {e.printStackTrace();}
             }
 
-
-
-
-
+//            if (message.what== BaseTask.IMTask)
+//            {
+//                if (message.arg1==BaseTask.FAILED)
+//                {
+//                    Toast.makeText(getActivity(),"创建群组失败",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//
+//                ReturnData returnData = (ReturnData)message.obj;
+//                MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+//                try {
+//                    returnData.getReturnData().getJSONObject("groupInfo").put("msgContent","");
+//                    messageDB.insertGroup(returnData.getReturnData().getJSONObject("groupInfo"), 2);
+//                    getMessageList(messageDB.getMessageList());
+//                    if (message.arg2 == IM.CREATEGROUP)
+//                    {
+//                        ControlCenter.controlCenter.publishNotics(
+//                                returnData.getReturnData().getJSONObject("groupInfo").getString("groupId"));
+//                    }
+//                }
+//
+//                catch (Exception e)
+//                {e.printStackTrace();}
+//            }
         }
     };
     class MyAdapter extends BaseAdapter {

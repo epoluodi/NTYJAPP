@@ -341,7 +341,7 @@ public class PreviewPhotoViewPager extends Activity {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     try {
                         FileOutputStream fileOutputStream = new FileOutputStream(SuyApplication.getApplication().getCacheDir()
-                                + "/" + files[i] + "_aumb.jpg");
+                                + "/" + files[i] + "aumb.jpg");
                         fileOutputStream.write(baos.toByteArray());
                         fileOutputStream.flush();
                         fileOutputStream.close();

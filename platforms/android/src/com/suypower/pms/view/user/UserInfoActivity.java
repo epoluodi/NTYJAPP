@@ -72,9 +72,9 @@ public class UserInfoActivity extends Activity {
             txtpost.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_positionName);
             Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + File.separator +
                     SuyApplication.getApplication().getSuyClient().
-                            getSuyUserInfo().m_loginResult.m_strPhoto+".jpg");
+                            getSuyUserInfo().m_loginResult.m_strPhoto+"40.jpg");
             nickimg.setImageBitmap(bitmap);
-            nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
 //            btncamera.setVisibility(View.INVISIBLE);
             contacts = (Contacts) getIntent().getSerializableExtra("Contacts");
@@ -84,9 +84,9 @@ public class UserInfoActivity extends Activity {
             txtemail.setText(contacts.getSex());
             txtpost.setText(contacts.getPosition());
             Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + File.separator +
-                    contacts.getNickimgurl()+".jpg");
+                    contacts.getNickimgurl()+"40.jpg");
             nickimg.setImageBitmap(bitmap);
-            nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
             if (checkContacts(contacts.getPhone()))
                 btnaddcontacts.setVisibility(View.INVISIBLE);
         }

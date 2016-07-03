@@ -32,12 +32,14 @@ import java.util.UUID;
  */
 public class IM extends BaseTask {
 
-    public static final int CREATEGROUP =1;//创建群组
-    public static final int SENDMSG =2;//发送聊天内容
-    public static final int QUERYGROUPINFO =3;//群信息查询
-    public static final int REMOVEGROUP =4;//从群组里面退出
-    public static final int ADDEXGROUP =5;//增加成员
-
+    public static final int CREATEGROUP = 1;//创建群组
+    public static final int SENDMSG = 2;//发送聊天内容
+    public static final int QUERYGROUPINFO = 3;//群信息查询
+    public static final int REMOVEGROUP = 4;//从群组里面退出
+    public static final int ADDEXGROUP = 5;//增加成员
+    public static final int QUERYAPPOVE = 6;//增加成员
+    public static final int APPOVEMSG = 7;//审核信息
+    public static final int READMSG = 8;//阅读反馈
 
 
     int type;
@@ -47,31 +49,28 @@ public class IM extends BaseTask {
     List<NameValuePair> pairList;
 
 
-
-
-    public void setPostValuesForKey(String Key,String value)
-    {
-        BasicNameValuePair basicNameValuePair = new BasicNameValuePair(Key,value);
+    public void setPostValuesForKey(String Key, String value) {
+        BasicNameValuePair basicNameValuePair = new BasicNameValuePair(Key, value);
         pairList.add(basicNameValuePair);
 
 
     }
 
 
-    UrlEncodedFormEntity getPostData()
-    {
+    UrlEncodedFormEntity getPostData() {
         try {
             UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(pairList, HTTP.UTF_8);
             return urlEncodedFormEntity;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e)
-        {e.printStackTrace();}
         return null;
     }
 
 
     /**
      * 设置聊天信息
+     *
      * @param chatMessage
      */
     public void setChatMessage(ChatMessage chatMessage) {
@@ -82,11 +81,9 @@ public class IM extends BaseTask {
     public IM(InterfaceTask interfaceTask, int type) {
         super();
         this.interfaceTask = interfaceTask;
-        this.type=type;
+        this.type = type;
         pairList = new ArrayList<>();
     }
-
-
 
 
     public void setParams(String params) {
@@ -100,8 +97,7 @@ public class IM extends BaseTask {
             @Override
             public void run() {
                 try {
-                    switch (type)
-                    {
+                    switch (type) {
                         case CREATEGROUP:
                             createGorup();
                             break;
@@ -116,6 +112,15 @@ public class IM extends BaseTask {
                             break;
                         case ADDEXGROUP:
                             addGorup();
+                            break;
+                        case QUERYAPPOVE:
+                            queryappove();
+                            break;
+                        case APPOVEMSG:
+                            appovemsg();
+                            break;
+                        case READMSG:
+                            readmsg();
                             break;
 
                     }
@@ -132,12 +137,11 @@ public class IM extends BaseTask {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (interfaceTask !=null)
+            if (interfaceTask != null)
                 interfaceTask.TaskResultForMessage(msg);
 
         }
     };
-
 
 
     @Override
@@ -164,8 +168,8 @@ public class IM extends BaseTask {
             Log.i("url", url);
             if (!m_httpClient.sendRequest()) {
                 message.what = IMTask;
-                message.arg1= FAILED;
-                message.arg2=REMOVEGROUP;
+                message.arg1 = FAILED;
+                message.arg2 = REMOVEGROUP;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -175,7 +179,7 @@ public class IM extends BaseTask {
             if (buffer == null) {
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=REMOVEGROUP;
+                message.arg2 = REMOVEGROUP;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -193,7 +197,7 @@ public class IM extends BaseTask {
 
                     message.what = IMTask;
                     message.arg1 = REMOVEGROUP_FAIL;
-                    message.arg2=REMOVEGROUP;
+                    message.arg2 = REMOVEGROUP;
                     message.obj = returnData.getReturnMsg();
                     handler.sendMessage(message);
 
@@ -201,20 +205,19 @@ public class IM extends BaseTask {
                 }
 
 
-
             } catch (Exception e) {
                 e.printStackTrace();
 
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=REMOVEGROUP;
+                message.arg2 = REMOVEGROUP;
                 message.obj = e.getLocalizedMessage();
                 handler.sendMessage(message);
                 return;
             }
             message.what = IMTask;
             message.arg1 = SUCCESS;
-            message.arg2=REMOVEGROUP;
+            message.arg2 = REMOVEGROUP;
             message.obj = returnData;
             handler.sendMessage(message);
 
@@ -222,13 +225,12 @@ public class IM extends BaseTask {
             e.printStackTrace();
             message.what = IMTask;
             message.arg1 = FAILED;
-            message.arg2=CREATEGROUP;
+            message.arg2 = CREATEGROUP;
             message.obj = e.getLocalizedMessage();
             handler.sendMessage(message);
 
         }
     }
-
 
 
     /**
@@ -243,13 +245,13 @@ public class IM extends BaseTask {
             url = String.format("%1$sgroup/add",
                     GlobalConfig.globalConfig.getImUrl());
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
-            m_httpClient.setPostValuesForKey("members",params);
+            m_httpClient.setPostValuesForKey("members", params);
             m_httpClient.setEntity(m_httpClient.getPostData());
             Log.i("url", url);
             if (!m_httpClient.sendRequest()) {
                 message.what = IMTask;
-                message.arg1= FAILED;
-                message.arg2=CREATEGROUP;
+                message.arg1 = FAILED;
+                message.arg2 = CREATEGROUP;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -259,7 +261,7 @@ public class IM extends BaseTask {
             if (buffer == null) {
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=CREATEGROUP;
+                message.arg2 = CREATEGROUP;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -277,7 +279,7 @@ public class IM extends BaseTask {
 
                     message.what = IMTask;
                     message.arg1 = CREATEGROUP_FAIL;
-                    message.arg2=CREATEGROUP;
+                    message.arg2 = CREATEGROUP;
                     message.obj = returnData.getReturnMsg();
                     handler.sendMessage(message);
 
@@ -285,20 +287,19 @@ public class IM extends BaseTask {
                 }
 
 
-
             } catch (Exception e) {
                 e.printStackTrace();
 
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=CREATEGROUP;
+                message.arg2 = CREATEGROUP;
                 message.obj = e.getLocalizedMessage();
                 handler.sendMessage(message);
                 return;
             }
             message.what = IMTask;
             message.arg1 = SUCCESS;
-            message.arg2=CREATEGROUP;
+            message.arg2 = CREATEGROUP;
             message.obj = returnData;
             handler.sendMessage(message);
 
@@ -306,12 +307,245 @@ public class IM extends BaseTask {
             e.printStackTrace();
             message.what = IMTask;
             message.arg1 = FAILED;
-            message.arg2=CREATEGROUP;
+            message.arg2 = CREATEGROUP;
             message.obj = e.getLocalizedMessage();
             handler.sendMessage(message);
 
         }
     }
+
+    void appovemsg() {
+        Message message = handler.obtainMessage();
+        String url;
+        try {
+            //登录成功后，需要启动消息轮询机制
+            Looper.prepare();
+            url = String.format("%1$smsg/approveDispatchMsg",
+                    GlobalConfig.globalConfig.getImUrl());
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
+            m_httpClient.setEntity(getPostData());
+            Log.i("url", url);
+            if (!m_httpClient.sendRequest()) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = APPOVEMSG;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            byte[] buffer = m_httpClient.getRespBodyData();
+            if (buffer == null) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = APPOVEMSG;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            String result = new String(buffer, "utf-8");
+            Log.i("信息返回:", result);
+            JSONObject jsonObject = null;
+            ReturnData returnData;
+            try {
+                //解析json
+                jsonObject = new JSONObject(result);
+                returnData = new ReturnData(jsonObject, false);
+                if (returnData.getReturnCode() != 0) {
+
+                    message.what = IMTask;
+                    message.arg1 = CREATEGROUP_FAIL;
+                    message.arg2 = APPOVEMSG;
+                    message.obj = returnData.getReturnMsg();
+                    handler.sendMessage(message);
+
+                    return;
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = APPOVEMSG;
+                message.obj = e.getLocalizedMessage();
+                handler.sendMessage(message);
+                return;
+            }
+            message.what = IMTask;
+            message.arg1 = SUCCESS;
+            message.arg2 = APPOVEMSG;
+            message.obj = result;
+            handler.sendMessage(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.what = IMTask;
+            message.arg1 = FAILED;
+            message.arg2 = APPOVEMSG;
+            message.obj = e.getLocalizedMessage();
+            handler.sendMessage(message);
+
+        }
+    }
+
+
+    void readmsg() {
+        Message message = handler.obtainMessage();
+        String url;
+        try {
+            //登录成功后，需要启动消息轮询机制
+            Looper.prepare();
+            url = String.format("%1$smsg/readDispatchMsg",
+                    GlobalConfig.globalConfig.getImUrl());
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
+            m_httpClient.setEntity(getPostData());
+            Log.i("url", url);
+            if (!m_httpClient.sendRequest()) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = READMSG;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            byte[] buffer = m_httpClient.getRespBodyData();
+            if (buffer == null) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = READMSG;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            String result = new String(buffer, "utf-8");
+            Log.i("信息返回:", result);
+            JSONObject jsonObject = null;
+            ReturnData returnData;
+            try {
+                //解析json
+                jsonObject = new JSONObject(result);
+                returnData = new ReturnData(jsonObject, true);
+                if (returnData.getReturnCode() != 0) {
+
+                    message.what = IMTask;
+                    message.arg1 = CREATEGROUP_FAIL;
+                    message.arg2 = READMSG;
+                    message.obj = returnData.getReturnMsg();
+                    handler.sendMessage(message);
+
+                    return;
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = READMSG;
+                message.obj = e.getLocalizedMessage();
+                handler.sendMessage(message);
+                return;
+            }
+            message.what = IMTask;
+            message.arg1 = SUCCESS;
+            message.arg2 = READMSG;
+            message.obj = result;
+            handler.sendMessage(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.what = IMTask;
+            message.arg1 = FAILED;
+            message.arg2 = READMSG;
+            message.obj = e.getLocalizedMessage();
+            handler.sendMessage(message);
+
+        }
+    }
+
+
+    void queryappove() {
+        Message message = handler.obtainMessage();
+        String url;
+        try {
+            //登录成功后，需要启动消息轮询机制
+            Looper.prepare();
+            url = String.format("%1$smsg/queryDispatchMsgs",
+                    GlobalConfig.globalConfig.getImUrl());
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
+            Log.i("url", url);
+            if (!m_httpClient.sendRequest()) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = QUERYAPPOVE;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            byte[] buffer = m_httpClient.getRespBodyData();
+            if (buffer == null) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = QUERYAPPOVE;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            String result = new String(buffer, "utf-8");
+            Log.i("信息返回:", result);
+            JSONObject jsonObject = null;
+            ReturnData returnData;
+            try {
+                //解析json
+                jsonObject = new JSONObject(result);
+                returnData = new ReturnData(jsonObject, false);
+                if (returnData.getReturnCode() != 0) {
+
+                    message.what = IMTask;
+                    message.arg1 = CREATEGROUP_FAIL;
+                    message.arg2 = QUERYAPPOVE;
+                    message.obj = returnData.getReturnMsg();
+                    handler.sendMessage(message);
+
+                    return;
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = QUERYAPPOVE;
+                message.obj = e.getLocalizedMessage();
+                handler.sendMessage(message);
+                return;
+            }
+            message.what = IMTask;
+            message.arg1 = SUCCESS;
+            message.arg2 = QUERYAPPOVE;
+            message.obj = result;
+            handler.sendMessage(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.what = IMTask;
+            message.arg1 = FAILED;
+            message.arg2 = QUERYAPPOVE;
+            message.obj = e.getLocalizedMessage();
+            handler.sendMessage(message);
+
+        }
+    }
+
 
     /**
      * 增加成员到群组
@@ -326,14 +560,14 @@ public class IM extends BaseTask {
                     GlobalConfig.globalConfig.getImUrl());
             JSONObject jsonObject1 = new JSONObject(params);
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
-            m_httpClient.setPostValuesForKey("members",jsonObject1.getString("members"));
-            m_httpClient.setPostValuesForKey("groupid",jsonObject1.getString("groupid"));
+            m_httpClient.setPostValuesForKey("members", jsonObject1.getString("members"));
+            m_httpClient.setPostValuesForKey("groupid", jsonObject1.getString("groupid"));
             m_httpClient.setEntity(m_httpClient.getPostData());
             Log.i("url", url);
             if (!m_httpClient.sendRequest()) {
                 message.what = IMTask;
-                message.arg1= FAILED;
-                message.arg2=ADDEXGROUP;
+                message.arg1 = FAILED;
+                message.arg2 = ADDEXGROUP;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -343,7 +577,7 @@ public class IM extends BaseTask {
             if (buffer == null) {
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=ADDEXGROUP;
+                message.arg2 = ADDEXGROUP;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -361,7 +595,7 @@ public class IM extends BaseTask {
 
                     message.what = IMTask;
                     message.arg1 = CREATEGROUP_FAIL;
-                    message.arg2=ADDEXGROUP;
+                    message.arg2 = ADDEXGROUP;
                     message.obj = returnData.getReturnMsg();
                     handler.sendMessage(message);
 
@@ -369,20 +603,19 @@ public class IM extends BaseTask {
                 }
 
 
-
             } catch (Exception e) {
                 e.printStackTrace();
 
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=ADDEXGROUP;
+                message.arg2 = ADDEXGROUP;
                 message.obj = e.getLocalizedMessage();
                 handler.sendMessage(message);
                 return;
             }
             message.what = IMTask;
             message.arg1 = SUCCESS;
-            message.arg2=ADDEXGROUP;
+            message.arg2 = ADDEXGROUP;
             message.obj = returnData;
             handler.sendMessage(message);
 
@@ -390,7 +623,7 @@ public class IM extends BaseTask {
             e.printStackTrace();
             message.what = IMTask;
             message.arg1 = FAILED;
-            message.arg2=ADDEXGROUP;
+            message.arg2 = ADDEXGROUP;
             message.obj = e.getLocalizedMessage();
             handler.sendMessage(message);
 
@@ -404,17 +637,18 @@ public class IM extends BaseTask {
         Message message = handler.obtainMessage();
         String url;
         try {
+            Thread.sleep(100);
             Looper.prepare();
             url = String.format("%1$smsg/queryDispatchMsg/%2$s",
-                    GlobalConfig.globalConfig.getImUrl(),params);
+                    GlobalConfig.globalConfig.getImUrl(), params);
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_GET);
 //            m_httpClient.setPostValuesForKey("groupId",params);
 //            m_httpClient.setEntity(m_httpClient.getPostData());
             Log.i("url", url);
             if (!m_httpClient.sendRequest()) {
                 message.what = IMTask;
-                message.arg1= FAILED;
-                message.arg2=QUERYGROUPINFO;
+                message.arg1 = FAILED;
+                message.arg2 = QUERYGROUPINFO;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -424,7 +658,7 @@ public class IM extends BaseTask {
             if (buffer == null) {
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=QUERYGROUPINFO;
+                message.arg2 = QUERYGROUPINFO;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -441,26 +675,25 @@ public class IM extends BaseTask {
                 if (returnData.getReturnCode() != 0) {
                     message.what = IMTask;
                     message.arg1 = CREATEGROUP_FAIL;
-                    message.arg2=QUERYGROUPINFO;
+                    message.arg2 = QUERYGROUPINFO;
                     message.obj = returnData.getReturnMsg();
                     handler.sendMessage(message);
                     return;
                 }
 
 
-
             } catch (Exception e) {
                 e.printStackTrace();
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=CREATEGROUP;
+                message.arg2 = CREATEGROUP;
                 message.obj = e.getLocalizedMessage();
                 handler.sendMessage(message);
                 return;
             }
             message.what = IMTask;
             message.arg1 = SUCCESS;
-            message.arg2=QUERYGROUPINFO;
+            message.arg2 = QUERYGROUPINFO;
             message.obj = returnData;
             handler.sendMessage(message);
 
@@ -468,13 +701,12 @@ public class IM extends BaseTask {
             e.printStackTrace();
             message.what = IMTask;
             message.arg1 = FAILED;
-            message.arg2=QUERYGROUPINFO;
+            message.arg2 = QUERYGROUPINFO;
             message.obj = e.getLocalizedMessage();
             handler.sendMessage(message);
 
         }
     }
-
 
 
     /**
@@ -517,10 +749,9 @@ public class IM extends BaseTask {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-        finally {
+        } finally {
             m_httpClient.closeRequest();
-            m_httpClient=null;
+            m_httpClient = null;
         }
     }
 
@@ -534,30 +765,29 @@ public class IM extends BaseTask {
         try {
             //登录成功后，需要启动消息轮询机制
             Looper.prepare();
-            url = String.format("%1$smsg/addMsg",
+            url = String.format("%1$smsg/saveSessionMsg",
                     GlobalConfig.globalConfig.getImUrl());
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
 
-            switch (chatMessage.getMessageTypeEnum())
-            {
+            switch (chatMessage.getMessageTypeEnum()) {
                 case TEXT:
-                    m_httpClient.setPostValuesForKey("msgType","01");
-                    m_httpClient.setPostValuesForKey("msgContent",chatMessage.getMsg().toString());
+                    m_httpClient.setPostValuesForKey("msg_type", "01");
+                    m_httpClient.setPostValuesForKey("msg_content", chatMessage.getMsg().toString());
                     break;
                 case PICTURE:
-                    m_httpClient.setPostValuesForKey("msgType","02");
-                    m_httpClient.setPostValuesForKey("msgContent",chatMessage.getMediaid());
+                    m_httpClient.setPostValuesForKey("msg_type", "02");
+                    m_httpClient.setPostValuesForKey("msg_content", chatMessage.getMediaid());
                     break;
                 case AUDIO:
-                    m_httpClient.setPostValuesForKey("msgType","03");
-                    m_httpClient.setPostValuesForKey("msgContent",chatMessage.getMediaid());
+                    m_httpClient.setPostValuesForKey("msg_type", "03");
+                    m_httpClient.setPostValuesForKey("msg_content", chatMessage.getMediaid());
                     break;
             }
 
             if (chatMessage.getMsgMode() == 1)
-                m_httpClient.setPostValuesForKey("reciveUserId",chatMessage.getMessageid());
+                m_httpClient.setPostValuesForKey("reciveUserId", chatMessage.getMessageid());
             if (chatMessage.getMsgMode() == 2)
-                m_httpClient.setPostValuesForKey("groupId",chatMessage.getMessageid());
+                m_httpClient.setPostValuesForKey("dispatch_id", chatMessage.getMessageid());
 
             m_httpClient.setEntity(m_httpClient.getPostData());
             Log.i("url", url);
@@ -566,8 +796,8 @@ public class IM extends BaseTask {
                 ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
                 chatDB.insertChatlog(chatMessage);
                 message.what = IMTask;
-                message.arg1= FAILED;
-                message.arg2=SENDMSG;
+                message.arg1 = FAILED;
+                message.arg2 = SENDMSG;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
 
@@ -581,7 +811,7 @@ public class IM extends BaseTask {
                 chatDB.insertChatlog(chatMessage);
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=SENDMSG;
+                message.arg2 = SENDMSG;
                 message.obj = "网络错误";
                 handler.sendMessage(message);
                 return;
@@ -601,7 +831,7 @@ public class IM extends BaseTask {
                     chatDB.insertChatlog(chatMessage);
                     message.what = IMTask;
                     message.arg1 = SENDMSG_FAIL;
-                    message.arg2=SENDMSG;
+                    message.arg2 = SENDMSG;
                     message.obj = returnData.getReturnMsg();
                     handler.sendMessage(message);
 
@@ -621,7 +851,7 @@ public class IM extends BaseTask {
                 chatDB.insertChatlog(chatMessage);
                 message.what = IMTask;
                 message.arg1 = FAILED;
-                message.arg2=SENDMSG;
+                message.arg2 = SENDMSG;
                 message.obj = e.getLocalizedMessage();
                 handler.sendMessage(message);
                 return;
@@ -629,7 +859,7 @@ public class IM extends BaseTask {
 
             message.what = IMTask;
             message.arg1 = SUCCESS;
-            message.arg2=SENDMSG;
+            message.arg2 = SENDMSG;
             message.obj = returnData;
             handler.sendMessage(message);
 
@@ -637,7 +867,7 @@ public class IM extends BaseTask {
             e.printStackTrace();
             message.what = IMTask;
             message.arg1 = FAILED;
-            message.arg2=SENDMSG;
+            message.arg2 = SENDMSG;
             message.obj = e.getLocalizedMessage();
             handler.sendMessage(message);
 

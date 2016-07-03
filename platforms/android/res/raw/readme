@@ -41,5 +41,52 @@
 }
 
 
+//拒绝
+{
+  "status" : "0",
+  "data" : {
+    "scope" : "system",
+    "msgBody" : {
+      "optData" : {
+        "approve_account_id" : "3a58392c-3533-11e6-ad31-fcaa1448f335",
+        "approve_result" : "02",
+        "approve_desc" : "方法v",
+        "dispatch_id" : "d60d9f91-4057-11e6-b2bb-fcaa1448f335",
+        "send_account_id" : "3147bf55-2fa0-11e6-ad31-fcaa1448f335"
+      },
+      "optCode" : "05"
+    }
+  },
+  "msg" : "信息接收成功"
+}
 
 
+{
+  "status" : "0",
+  "data" : {
+    "msgBody" : {
+      "contnet" : "呈现出",
+      "msgType" : "01"
+    },
+    "scope" : "custom",
+    "sendAccountId" : "3a58392c-3533-11e6-ad31-fcaa1448f335",
+    "receiverDispatchId" : "ffa4ce26-40eb-11e6-b2bb-fcaa1448f335",
+    "sendUserName" : "王工"
+  },
+  "msg" : "信息接收成功"
+}
+
+{
+  "status" : "0",
+  "data" : {
+    "msgBody" : {
+      "contnet" : "4780a209d4c44b1cbc142b10d3d56098",
+      "msgType" : "02"
+    },
+    "scope" : "custom",
+    "sendAccountId" : "3a58392c-3533-11e6-ad31-fcaa1448f335",
+    "receiverDispatchId" : "ffa4ce26-40eb-11e6-b2bb-fcaa1448f335",
+    "sendUserName" : "王工"
+  },
+  "msg" : "信息接收成功"
+}

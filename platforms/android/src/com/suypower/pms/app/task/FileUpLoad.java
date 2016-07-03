@@ -60,6 +60,7 @@ public class FileUpLoad extends BaseTask {
     public String mediaid;
     public String mediaidtype = ".jpg";
     public Object flag;
+    public String mediatype;
     public Boolean IsNotics = false;
     List<NameValuePair> pairList;
     InterfaceTask interfaceTask;
@@ -154,15 +155,17 @@ public class FileUpLoad extends BaseTask {
                 switch (((ChatMessage) flag).getMessageTypeEnum()) {
                     case PICTURE:
                         conn.setRequestProperty("mediaId", mediaid);
+                        conn.setRequestProperty("mediaType",mediatype);
                         filetype = ".jpg";
 //                        is = new FileInputStream(SuyApplication.getApplication().getCacheDir() + File.separator + mediaid + filetype);
-                        Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid, 4);
+                        Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid, 0);
                         baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         bitmap.recycle();
                         break;
                     case AUDIO:
                         conn.setRequestProperty("mediaId", mediaid);
+                        conn.setRequestProperty("mediaType",mediatype);
                         filetype = ".aac";
                         is = new FileInputStream(SuyApplication.getApplication().getCacheDir() + File.separator + mediaid + filetype);
 
@@ -170,9 +173,10 @@ public class FileUpLoad extends BaseTask {
                 }
             } else {
                 conn.setRequestProperty("mediaId", mediaid);
+                conn.setRequestProperty("mediaType",mediatype);
                 filetype = mediaidtype;
                 if (filetype.equals(".jpg")) {
-                    Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid, 4);
+                    Bitmap bitmap = CameraPlugin.bitbmpfrommediaLocal(mediaid, 0);
                     baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     bitmap.recycle();

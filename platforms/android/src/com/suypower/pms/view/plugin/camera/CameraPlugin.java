@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -146,7 +147,17 @@ public class CameraPlugin extends BaseViewPlugin {
     };
 
 
-
+    public static Bitmap reSizeImage(Bitmap bitmap, int newWidth, int newHeight) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        // 计算出缩放比
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // 矩阵缩放bitmap
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+    }
 
     /**
      * 上传照片
@@ -478,6 +489,27 @@ public class CameraPlugin extends BaseViewPlugin {
         {e.printStackTrace();
         return "";}
     }
+
+    public static String copyCacheFile(byte[] bytebuff)
+    {
+        try {
+
+            String uuid =UUID.randomUUID().toString(); //CommonPlugin.imgToMD5(bytebuff);
+
+            File outfile = new File(SuyApplication.getApplication().getCacheDir()  +
+                    File.separator + uuid.toString().replace("-","") + ".jpg");
+            OutputStream outputStream = new FileOutputStream(outfile);
+            outputStream.write(bytebuff);
+            outputStream.close();
+            Log.i("文件",outfile.getAbsolutePath());
+            Log.i("file",outfile.exists()==true? "1":"0");
+            return uuid.toString().replace("-","");
+        }
+        catch (Exception e)
+        {e.printStackTrace();
+            return "";}
+    }
+
 
     public static String copyCacheFile(String filepath)
     {

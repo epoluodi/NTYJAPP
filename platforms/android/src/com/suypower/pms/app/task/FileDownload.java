@@ -51,6 +51,7 @@ public class FileDownload extends BaseTask {
 	public String mediaid;
 	public String imgamub="";
 	public String mediatype;
+	public String suffix;
 	public Object flag;
 	@Override
 	public void stopTask() {
@@ -94,13 +95,6 @@ public class FileDownload extends BaseTask {
 		this.filetype=FileType;
 
 	}
-
-
-
-
-
-
-	
 
 	public void base64DownloadTask() {
 		if (null == m_httpClient )
@@ -252,15 +246,14 @@ public class FileDownload extends BaseTask {
 
 	public void streamDownLoadFile() {
 
-		String uploadurl = String.format("%1$sdownload/%2$s",
-				GlobalConfig.globalConfig.getApiUrl(),mediaid);
+		String uploadurl = String.format("%1$sdownload",
+				GlobalConfig.globalConfig.getApiUrl());
 
 		m_httpClient.openRequest(uploadurl, SuyHttpClient.REQ_METHOD_POST);
-//		m_httpClient.setPostValuesForKey("mediaid", mediaid);
-//		m_httpClient.setPostValuesForKey("mediatype", mediatype);
+		m_httpClient.setPostValuesForKey("mediaId", mediaid);
+		m_httpClient.setPostValuesForKey("suffix", suffix);
 //		m_httpClient.setPostValuesForKey("isaumb", imgamub);
-//		m_httpClient.setEntity(m_httpClient.getPostData());
-
+		m_httpClient.setEntity(m_httpClient.getPostData());
 		m_httpClient.sendRequest();
 		Message message = new Message();
 		HttpEntity httpEntity = m_httpClient.getHttpResponse().getEntity();
@@ -307,7 +300,7 @@ public class FileDownload extends BaseTask {
 				throw  new Exception();
 			Log.i("下载文件大小:" ,String.valueOf(bufferfile.length));
 //			SuyApplication.getApplication().getCacheDir()
-			File fIle = new File(SuyApplication.getApplication().getCacheDir(),mediaid + imgamub+mediatype);
+			File fIle = new File(SuyApplication.getApplication().getCacheDir(),mediaid + suffix+mediatype);
 			if (fIle.exists())
 				fIle.delete();
 			FileOutputStream fileOutputStream = new FileOutputStream(fIle);

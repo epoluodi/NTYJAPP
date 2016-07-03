@@ -71,7 +71,7 @@ public class SelectActivity extends Activity {
 
         title.setText(getIntent().getStringExtra("title"));
         mydapter = new Mydapter(this);
-        list.setOnItemClickListener(onItemClickListener);
+
         showmode = getIntent().getIntExtra("mode", 0);
 
 
@@ -94,6 +94,7 @@ public class SelectActivity extends Activity {
 
         if (showmode == 2)// 选择审批人
         {
+            list.setOnItemClickListener(onItemClickListener);
             title.setText("选择审批人");
             btnok.setVisibility(View.INVISIBLE);
             new Thread(runnable).start();
@@ -279,9 +280,9 @@ public class SelectActivity extends Activity {
                 nickimg = (ImageView) v.findViewById(R.id.nickimg);
                 position = (TextView) v.findViewById(R.id.position);
                 position.setText(map.get("Position"));
-                if (CommonPlugin.checkFileIsExits(map.get("nick"), ".jpg")) {
+                if (CommonPlugin.checkFileIsExits(map.get("nick"), "40.jpg")) {
                     Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir() + "/" +
-                            map.get("nick") + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                            map.get("nick") + "40.jpg"); //将图片的长和宽缩小味原来的1/2
                     nickimg.setImageBitmap(bitmap);
                     nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
@@ -293,9 +294,9 @@ public class SelectActivity extends Activity {
                 nickimg = (ImageView) v.findViewById(R.id.nickimg);
                 position = (TextView) v.findViewById(R.id.position);
                 position.setText(map.get("Position"));
-                if (CommonPlugin.checkFileIsExits(map.get("nick"), ".jpg")) {
+                if (CommonPlugin.checkFileIsExits(map.get("nick"), "40.jpg")) {
                     Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir() + "/" +
-                            map.get("nick") + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                            map.get("nick") + "40.jpg"); //将图片的长和宽缩小味原来的1/2
                     nickimg.setImageBitmap(bitmap);
                     nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }

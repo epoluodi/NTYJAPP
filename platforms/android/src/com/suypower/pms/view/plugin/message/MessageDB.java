@@ -405,6 +405,8 @@ public class MessageDB {
         try {
 
             db.delete("message",null,null);
+            db.delete("t_jdinfo",null,null);
+            db.delete("chatlog",null,null);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -455,6 +457,12 @@ public class MessageDB {
         }
     }
 
+
+
+    public void deljdinfo()
+    {
+        db.delete("t_jdinfo",null,null);
+    }
     /**
      * 获得消息通知列表数据
      * @return
@@ -462,7 +470,7 @@ public class MessageDB {
     public Cursor getMessageList() {
 
         try {
-            Cursor cursor = db.rawQuery("select * from t_jdinfo",
+            Cursor cursor = db.rawQuery("select * from t_jdinfo order by senddt desc",
                     null);
             return cursor;
         } catch (Exception e) {

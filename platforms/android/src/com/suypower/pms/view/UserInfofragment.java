@@ -145,16 +145,17 @@ public class UserInfofragment extends Fragment implements FragmentName {
         txtpost.setText(loginResult.m_positionName);
         txtdepartname.setText(loginResult.m_strDeparment);
 //        2a2c9d55-c595-438c-b3cc-7e9328ee3bda
-        if (CommonPlugin.checkFileIsExits(loginResult.m_strPhoto, ".jpg")) {
+        if (CommonPlugin.checkFileIsExits(loginResult.m_strPhoto, "40.jpg")) {
             Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir() + "/" +
-                    loginResult.m_strPhoto + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                    loginResult.m_strPhoto + "40.jpg"); //将图片的长和宽缩小味原来的1/2
             nickimg.setImageBitmap(bitmap);
-            nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
             FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
             fileDownload.mediaid = loginResult.m_strPhoto;
             fileDownload.flag = loginResult.m_strPhoto;
             fileDownload.mediatype=".jpg";
+            fileDownload.suffix="40";
             fileDownload.startTask();
         }
 
@@ -180,7 +181,13 @@ public class UserInfofragment extends Fragment implements FragmentName {
         {
             //拍照返回信息
             if (resultCode == -1) {
-                String mediaid = CameraPlugin.copyCacheFile(CameraHelper.PhotoPath);
+
+                Bitmap bitmap = BitmapFactory.decodeFile(CameraHelper.PhotoPath);
+                bitmap = CameraPlugin.reSizeImage(bitmap, 128, 128);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.recycle();
+                String mediaid = CameraPlugin.copyCacheFile(baos.toByteArray());
                 updatenickimg(mediaid);
                 return;
             }
@@ -191,7 +198,14 @@ public class UserInfofragment extends Fragment implements FragmentName {
                 String[] files = bundle.getStringArray("files");
                 for (int i = 0; i < files.length; i++) {
                     Log.i("选择照片", files[i]);
-                    updatenickimg(files[i]);
+                    Bitmap bitmap = BitmapFactory.decodeFile(getActivity().getCacheDir() + File.separator
+                            + files[i] + ".jpg");
+                    bitmap = CameraPlugin.reSizeImage(bitmap, 128, 128);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    bitmap.recycle();
+                    String mediaid = CameraPlugin.copyCacheFile(baos.toByteArray());
+                    updatenickimg(mediaid);
                 }
                 return;
             }
@@ -206,6 +220,7 @@ public class UserInfofragment extends Fragment implements FragmentName {
         FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
         fileUpLoad.mediaid = mediaid;
         fileUpLoad.flag = mediaid;
+        fileUpLoad.mediatype="01";
         fileUpLoad.IsNotics = true;
         fileUpLoad.startTask();
     }
@@ -245,6 +260,14 @@ public class UserInfofragment extends Fragment implements FragmentName {
                         nickimg.setImageBitmap(bitmap);
                         nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         Toast.makeText(getActivity(), "更新成功", Toast.LENGTH_SHORT).show();
+                        FileDownload fileDownload = new FileDownload(null, FileDownload.StreamFile);
+                        fileDownload.mediaid = SuyApplication.getApplication().getSuyClient()
+                                .getSuyUserInfo().m_loginResult.m_strPhoto;
+                        fileDownload.flag = SuyApplication.getApplication().getSuyClient()
+                                .getSuyUserInfo().m_loginResult.m_strPhoto;
+                        fileDownload.mediatype=".jpg";
+                        fileDownload.suffix="40";
+                        fileDownload.startTask();
 
                     } else {
 
@@ -259,9 +282,11 @@ public class UserInfofragment extends Fragment implements FragmentName {
                     if (message.arg1 == BaseTask.SUCCESS) {
 
                         Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir() + "/" +
-                                message.obj.toString() + ".jpg"); //将图片的长和宽缩小味原来的1/2
-                        nickimg.setImageBitmap(bitmap);
-                        nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                message.obj.toString() + "40.jpg"); //将图片的长和宽缩小味原来的1/2
+                        if (bitmap!=null) {
+                            nickimg.setImageBitmap(bitmap);
+                            nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
                     }
                 }
                 return;
@@ -331,6 +356,7 @@ public class UserInfofragment extends Fragment implements FragmentName {
                     CustomPopWindowPlugin.CLosePopwindow();
                     MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
                     messageDB.delMessage();
+
                     //添加公告
                     MsgBodyChat msgBodyChat = new MsgBodyChat();
                     msgBodyChat.setMsgid("10000");

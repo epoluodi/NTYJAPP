@@ -144,6 +144,8 @@
         <activity android:name=".view.PublishNoticsActivity" />
         <activity android:name=".view.SelectActivity" />
         <activity android:name=".view.seeting.Passwordset" />
+        <activity android:name=".view.AppoveActivity" />
+        <activity android:name=".view.JDDetailActivity" />
         <!-- 应用服务中心 -->
         <!--<service  -->
     		<!--android:name=".app.SuyService"-->

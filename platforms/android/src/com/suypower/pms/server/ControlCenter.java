@@ -177,9 +177,8 @@ public class ControlCenter extends Binder {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what==2)
-            {
-                if (iMessageControl !=null)
+            if (msg.what == 2) {
+                if (iMessageControl != null)
                     iMessageControl.OnGetGroupList(0);
                 return;
             }
@@ -238,7 +237,6 @@ public class ControlCenter extends Binder {
                         if (msgBodyChat.getMsgScope() == 1) {
 
 
-
                             publishNotics(msgBodyChat.getMsgid());
                             notificationClass.add_Notification("调度信息", msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
                                     10000
@@ -250,10 +248,27 @@ public class ControlCenter extends Binder {
                             }
                             return;
                         }
+                        if (msgBodyChat.getMsgScope() == 2) {
+                            notificationClass.add_Notification("调度信息审批", "审批:" + msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
+                                    10000, null);
+                            if (iMessageControl != null) {
+                                Message message = msghandler.obtainMessage();
+                                message.obj = jsonObjectmsg.toString();
+                                msghandler.sendMessage(message);
+                            }
+                            return;
+                        }
+                        //拒绝
+                        if (msgBodyChat.getMsgScope() == 5) {
+                            notificationClass.add_Notification("调度信息审批拒绝", "审批人:" + msgBodyChat.getMsgtitle(), "拒绝原因：" + msgBodyChat.getContent(),
+                                    10001, null);
+
+                            return;
+                        }
+
 
                         //聊天
-                        if (msgBodyChat.getMsgmode() == 1 ||
-                                msgBodyChat.getMsgmode() == 2) {
+                        if (msgBodyChat.getMsgScope() == 10) {
                             chatMessage = new ChatMessage();
                             chatMessage.setMsgSendState(1);
                             //文本
@@ -269,7 +284,6 @@ public class ControlCenter extends Binder {
                             if (msgBodyChat.getMsgtype() == 3) {
                                 chatMessage.setMediaid(msgBodyChat.getContent());
                                 chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.AUDIO);
-                                chatMessage.setMsgSendState(1);
                             }
                             chatMessage.setMsgid(msgBodyChat.getId());
                             chatMessage.setSenderid(msgBodyChat.getSenderid());
@@ -278,45 +292,45 @@ public class ControlCenter extends Binder {
                             chatMessage.setSelf(false);
                             chatMessage.setMsgdate(msgBodyChat.getSendtime());
 
-                            if (msgBodyChat.getMsgmode() == 1)//单聊
-                                chatMessage.setMsgMode(1);
+//                            if (msgBodyChat.getMsgmode() == 1)//单聊
+//                                chatMessage.setMsgMode(1);
                             if (msgBodyChat.getMsgmode() == 2)//群聊
                                 chatMessage.setMsgMode(2);
                             chatDB.insertChatlog(chatMessage);
                         }
 
                         if (isNotification) {
-
-                            if (disturb) //通知开关
-                            {
-                                if (msgBodyChat.getMsgmode() == 1 ||
-                                        msgBodyChat.getMsgmode() == 2) {
-                                    if (msgdisturb) //消息开关
-                                    {
-                                        if (messageDB.isExitsdisturblist(msgBodyChat.getMsgid(),
-                                                SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strUserId) == 0) {
-                                            notificationClass = new NotificationClass();
-                                            String t = "";
-                                            switch (msgBodyChat.getMsgtype()) {
-                                                case 1:
-                                                    t = "文字信息";
-                                                    break;
-                                                case 2:
-                                                    t = "图片信息";
-                                                    break;
-                                                case 3:
-                                                    t = "语音信息";
-                                                    break;
-                                            }
-
-
-                                            notificationClass.add_Notification(msgBodyChat.getMsgtitle() + "[" + t + "]", msgBodyChat.getMsgtitle(), t,
-                                                    (int) (Long.valueOf(msgBodyChat.getMsgid()) - msgidoffet)
-                                                    , getpendingIntent(msgBodyChat.getMsgid(), msgBodyChat.getMsgmode()));
-                                        }
-                                    }
-                                }
+//
+//                            if (disturb) //通知开关
+//                            {
+//                                if (msgBodyChat.getMsgmode() == 1 ||
+//                                        msgBodyChat.getMsgmode() == 2) {
+//                                    if (msgdisturb) //消息开关
+//                                    {
+//                                        if (messageDB.isExitsdisturblist(msgBodyChat.getMsgid(),
+//                                                SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strUserId) == 0) {
+                            notificationClass = new NotificationClass();
+                            String t = "";
+                            switch (msgBodyChat.getMsgtype()) {
+                                case 1:
+                                    t = "文字信息";
+                                    break;
+                                case 2:
+                                    t = "图片信息";
+                                    break;
+                                case 3:
+                                    t = "语音信息";
+                                    break;
                             }
+
+
+                            notificationClass.add_Notification(msgBodyChat.getMsgtitle() + "[" + t + "]", msgBodyChat.getMsgtitle(), t,
+                                    10002
+                                    , getpendingIntent(msgBodyChat.getMsgid(), msgBodyChat.getMsgmode()));
+//                                        }
+//                                    }
+//                                }
+//                            }
                         }
                         if (iMessageControl != null) {
                             Message message = msghandler.obtainMessage();
@@ -403,16 +417,16 @@ public class ControlCenter extends Binder {
                             return;
                         strings.clear();
                         strings = new ArrayList<>();
-                        MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+                        MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
                         messageDB.deletejdinfo();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                             Log.i("群组编号", jsonObject1.getString("DISPATCH_ID"));
                             strings.add(jsonObject1.getString("DISPATCH_ID"));
-                            messageDB.insertjdinfo( jsonObject1.getString("DISPATCH_ID"),
+                            messageDB.insertjdinfo(jsonObject1.getString("DISPATCH_ID"),
                                     jsonObject1.getString("DISPATCH_TITLE"),
-                                            jsonObject1.getString("IS_TOP"),
-                                                    jsonObject1.getString("SEND_TIME"));
+                                    jsonObject1.getString("IS_TOP"),
+                                    jsonObject1.getString("SEND_TIME"));
 
                         }
                         handler.sendEmptyMessage(2);

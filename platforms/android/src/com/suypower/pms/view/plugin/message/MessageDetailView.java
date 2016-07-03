@@ -516,6 +516,7 @@ public class MessageDetailView extends Activity {
                             FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                             fileDownload.mediaid = messageInfo.getMediaid();
                             fileDownload.mediatype = ".jpg";
+                            fileDownload.suffix="aumb";
                             fileDownload.imgamub = "_aumb";
                             fileDownload.startTask();
                         }

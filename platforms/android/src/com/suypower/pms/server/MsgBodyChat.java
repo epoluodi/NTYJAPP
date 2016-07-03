@@ -136,52 +136,77 @@ public class MsgBodyChat {
     public static MsgBodyChat decodeJson(JSONObject jsonObject) {
         MsgBodyChat msgBodyChat = new MsgBodyChat();
         try {
-
+            JSONObject optdata;
 
 
             if (jsonObject.getString("scope").equals("system")) {
-                msgBodyChat.setMsgScope(1);
-                JSONObject msgBody = jsonObject.getJSONObject("msgBody").getJSONObject("optData");
-                //系统组，公告，待办事项
-                msgBodyChat.setMsgid(msgBody.getString("dispatch_id"));
-                msgBodyChat.setMsgtitle(msgBody.getString("dispatch_title"));
-                msgBodyChat.setMsgmode(3);
-                msgBodyChat.setMsgtype(Integer.valueOf(jsonObject.getJSONObject("msgBody").getString("optCode")));
 
-                msgBodyChat.setContent(msgBody.getString("dispatch_content"));
-                msgBodyChat.setApprove_account_id(msgBody.getString("approve_account_id"));
-                msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
+                JSONObject msgBody = jsonObject.getJSONObject("msgBody");
+                msgBodyChat.setMsgtype(Integer.valueOf(msgBody.getString("optCode")));
+                if (msgBodyChat.getMsgtype()==1) {
+                    msgBodyChat.setMsgScope(1);
+                    optdata = msgBody.getJSONObject("optData");
+                    //系统组，公告，待办事项
+                    msgBodyChat.setMsgid(optdata.getString("dispatch_id"));
+                    msgBodyChat.setMsgtitle(optdata.getString("dispatch_title"));
+                    msgBodyChat.setMsgmode(3);
+                    msgBodyChat.setContent(optdata.getString("dispatch_content"));
+//                    msgBodyChat.setApprove_account_id(optdata.getString("approve_account_id"));
+                    msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
+                    MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+                    messageDB.insertjdinfo(optdata.getString("dispatch_id"),
+                            optdata.getString("dispatch_title"),
+                            optdata.getString("is_top"),
+                            jsonObject.getString("sendTime"));
+                    return msgBodyChat;
+                }
+                if (msgBodyChat.getMsgtype()==2)
+                {
+                    msgBodyChat.setMsgScope(2);
+                    msgBodyChat.setMsgmode(3);
+                    optdata = msgBody.getJSONObject("optData");
+                    msgBodyChat.setMsgtitle(optdata.getString("dispatch_title"));
+                    msgBodyChat.setContent(optdata.getString("dispatch_content"));
+                    msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
+                    return msgBodyChat;
 
-                MessageDB messageDB=new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
-                messageDB.insertjdinfo( msgBody.getString("dispatch_id"),
-                        msgBody.getString("dispatch_title"),
-                        msgBody.getString("is_top"),
-                        msgBody.getString("send_time"));
+                }
+                if (msgBodyChat.getMsgtype()==5)
+                {
+                    msgBodyChat.setMsgScope(5);
+                    msgBodyChat.setMsgmode(3);
+                    optdata = msgBody.getJSONObject("optData");
+                    msgBodyChat.setMsgtitle(optdata.getString("approve_user_name"));
+                    msgBodyChat.setContent(optdata.getString("approve_desc"));
+                    return msgBodyChat;
 
-
-
+                }
             } else {
                 //单聊
-                if (jsonObject.isNull("receiverGroupType")) {
-                    msgBodyChat.setMsgid(jsonObject.getString("senderUserId"));
-                    msgBodyChat.setMsgtitle(jsonObject.getString("senderUserName"));
-                    msgBodyChat.setMsgmode(1);
-                    msgBodyChat.setSender(jsonObject.getString("senderUserName"));
-                    msgBodyChat.setSenderid(jsonObject.getString("senderUserId"));
-                }
+//                if (jsonObject.isNull("receiverGroupType")) {
+//                    msgBodyChat.setMsgid(jsonObject.getString("senderUserId"));
+//                    msgBodyChat.setMsgtitle(jsonObject.getString("senderUserName"));
+//                    msgBodyChat.setMsgmode(1);
+//                    msgBodyChat.setSender(jsonObject.getString("senderUserName"));
+//                    msgBodyChat.setSenderid(jsonObject.getString("senderUserId"));
+//                }
                 //群聊
-                if (jsonObject.getString("receiverGroupType").equals("02")) {
-                    msgBodyChat.setMsgid(jsonObject.getString("receiverGroupId"));
-                    msgBodyChat.setMsgtitle(jsonObject.getString("receiverGroupName"));
-                    msgBodyChat.setMsgmode(2);
-                    msgBodyChat.setSender(jsonObject.getString("senderUserName"));
-                    msgBodyChat.setSenderid(jsonObject.getString("senderUserId"));
-                }
+//                if (jsonObject.getString("receiverGroupType").equals("02")) {
+//
+//                }
+                msgBodyChat.setMsgScope(10);
+                msgBodyChat.setMsgid(jsonObject.getString("receiverDispatchId"));
+                msgBodyChat.setMsgtitle("");
+                msgBodyChat.setMsgmode(2);
+                msgBodyChat.setSender(jsonObject.getString("sendUserName"));
+                msgBodyChat.setSenderid(jsonObject.getString("sendAccountId"));
+                msgBodyChat.setMsgtitle(jsonObject.getString("receiverDispatchTitle"));
+
                 JSONObject msgBody = jsonObject.getJSONObject("msgBody");
                 String msgContent = msgBody.getString("content");
                 msgBodyChat.setMsgtype(Integer.valueOf(msgBody.getString("msgType")));
                 msgBodyChat.setContent(msgContent);
-                msgBodyChat.setId(jsonObject.getString("msgId"));
+                msgBodyChat.setId("");
                 msgBodyChat.setSendtime(jsonObject.getString("sendTime"));
                 if (msgBodyChat.getSenderid().equals(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strUserId))
                     return null;

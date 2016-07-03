@@ -312,18 +312,19 @@ public class PhoneBookAdapter extends BaseAdapter {
 
 
                 }
-                if (!CommonPlugin.checkFileIsExits(phoneBookItem.contacts.getNickimgurl(), ".jpg")) {
+                if (!CommonPlugin.checkFileIsExits(phoneBookItem.contacts.getNickimgurl(), "40.jpg")) {
 
                     FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                     fileDownload.mediaid = phoneBookItem.contacts.getNickimgurl();
                     fileDownload.mediatype = ".jpg";
+                    fileDownload.suffix="40";
                     fileDownload.startTask();
                 } else {
                     System.gc();
                     Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir()+ "/" +
-                            phoneBookItem.contacts.getNickimgurl() + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                            phoneBookItem.contacts.getNickimgurl() + "40.jpg"); //将图片的长和宽缩小味原来的1/2
                     nickimg.setImageBitmap(bitmap);
-                    nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 }
                 name.setText(phoneBookItem.contacts.getName());
                 if (sortEnum == SortEnum.AZ) {

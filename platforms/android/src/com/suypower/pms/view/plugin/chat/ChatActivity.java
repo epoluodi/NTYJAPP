@@ -54,6 +54,7 @@ import com.suypower.pms.server.ControlCenter;
 import com.suypower.pms.server.MsgBodyChat;
 import com.suypower.pms.server.NotificationClass;
 import com.suypower.pms.view.BaseActivityPlugin;
+import com.suypower.pms.view.JDDetailActivity;
 import com.suypower.pms.view.contacts.Contacts;
 import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
@@ -135,6 +136,7 @@ public class ChatActivity extends BaseActivityPlugin {
 
         //jd
         btnjd = (RelativeLayout) findViewById(R.id.jdinfo);
+        btnjd.setOnClickListener(onClickListenerbtnjd);
         jdtitle = (TextView) findViewById(R.id.jdtitle);
         jdcontent = (TextView) findViewById(R.id.jdcontent);
         jddate = (TextView) findViewById(R.id.jddate);
@@ -187,7 +189,7 @@ public class ChatActivity extends BaseActivityPlugin {
                 im.setParams(groupid);
                 im.startTask();
                 NotificationClass.Clear_Notify(10000);
-
+                NotificationClass.Clear_Notify(10001);
 
             }
         }
@@ -209,6 +211,16 @@ public class ChatActivity extends BaseActivityPlugin {
 
     }
 
+
+    View.OnClickListener onClickListenerbtnjd = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent=new Intent(ChatActivity.this,JDDetailActivity.class);
+            intent.putExtra("json",jdjsobj.toString());
+            intent.putExtra("mode",2);
+            startActivity(intent);
+        }
+    };
 
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
         @Override
@@ -307,37 +319,36 @@ public class ChatActivity extends BaseActivityPlugin {
                 MsgBodyChat msgBodyChat = MsgBodyChat.decodeJson(jsonObject);
                 ChatMessage chatMessage = new ChatMessage();
 
-                if (msgBodyChat.getMsgmode() == 1 && ChatType == 1) {
-                    chatMessage.setMsgMode(1);
-                    if (contacts.getId().equals(msgBodyChat.getMsgid())) {
-                        chatMessage.setMsgSendState(1);
-
-                        if (msgBodyChat.getMsgtype() == 1) {
-                            chatMessage.setMsg(msgBodyChat.getContent());
-                            chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.TEXT);
-                        }
-                        if (msgBodyChat.getMsgtype() == 2) {
-                            chatMessage.setMediaid(msgBodyChat.getContent());
-                            chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.PICTURE);
-                        }
-                        if (msgBodyChat.getMsgtype() == 3) {
-                            chatMessage.setMediaid(msgBodyChat.getContent());
-                            chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.AUDIO);
-                            chatMessage.setMsgSendState(1);
-                        }
-                        chatMessage.setMsgid(msgBodyChat.getId());
-                        chatMessage.setMessageid(msgBodyChat.getMsgid());
-                        chatMessage.setSenderid(msgBodyChat.getSenderid());
-                        chatMessage.setSender(msgBodyChat.getSender());
-                        chatMessage.setSelf(false);
-                        chatMessage.setMsgdate(msgBodyChat.getSendtime());
-                        chatAdpter.chatMessageList.add(chatMessage);
-                        chatAdpter.notifyDataSetChanged();
-                        messageDB.updateMessageList(contacts.getId(), 0);
-                        listView.smoothScrollToPosition(chatAdpter.getCount() - 1);
-                        return;
-                    }
-                }
+//                if (msgBodyChat.getMsgmode() == 1 && ChatType == 1) {
+//                    chatMessage.setMsgMode(1);
+//                    if (contacts.getId().equals(msgBodyChat.getMsgid())) {
+//                        chatMessage.setMsgSendState(1);
+//
+//                        if (msgBodyChat.getMsgtype() == 1) {
+//                            chatMessage.setMsg(msgBodyChat.getContent());
+//                            chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.TEXT);
+//                        }
+//                        if (msgBodyChat.getMsgtype() == 2) {
+//                            chatMessage.setMediaid(msgBodyChat.getContent());
+//                            chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.PICTURE);
+//                        }
+//                        if (msgBodyChat.getMsgtype() == 3) {
+//                            chatMessage.setMediaid(msgBodyChat.getContent());
+//                            chatMessage.setMessageTypeEnum(ChatMessage.MessageTypeEnum.AUDIO);
+//                        }
+//                        chatMessage.setMsgid(msgBodyChat.getId());
+//                        chatMessage.setMessageid(msgBodyChat.getMsgid());
+//                        chatMessage.setSenderid(msgBodyChat.getSenderid());
+//                        chatMessage.setSender(msgBodyChat.getSender());
+//                        chatMessage.setSelf(false);
+//                        chatMessage.setMsgdate(msgBodyChat.getSendtime());
+//                        chatAdpter.chatMessageList.add(chatMessage);
+//                        chatAdpter.notifyDataSetChanged();
+//                        messageDB.updateMessageList(contacts.getId(), 0);
+//                        listView.smoothScrollToPosition(chatAdpter.getCount() - 1);
+//                        return;
+//                    }
+//                }
 
                 if (msgBodyChat.getMsgmode() == 2 && ChatType == 2) {
                     chatMessage.setMsgMode(2);
@@ -357,7 +368,7 @@ public class ChatActivity extends BaseActivityPlugin {
                             chatMessage.setMsgSendState(1);
                         }
                         chatMessage.setMessageid(msgBodyChat.getMsgid());
-
+                        chatMessage.setSenderid(msgBodyChat.getSenderid());
                         chatMessage.setSender(msgBodyChat.getSender());
                         chatMessage.setSelf(false);
                         chatMessage.setMsgdate(msgBodyChat.getSendtime());
@@ -373,7 +384,7 @@ public class ChatActivity extends BaseActivityPlugin {
                         msgBodyChat.getMsgtitle(),
                         msgBodyChat.getContent(),
                         msgBodyChat.getMsgid(),
-                        (int) (Long.valueOf(msgBodyChat.getMsgid()) - ControlCenter.msgidoffet)
+                        10001
                 );
             } catch (Exception e) {
                 e.printStackTrace();
@@ -385,22 +396,24 @@ public class ChatActivity extends BaseActivityPlugin {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (intent.getStringExtra("chattype").equals("1")) {
-            btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_people_selector));
-            LoadChaterInfo(intent.getStringExtra("msgid"));
-            ChatType = 1;
-            messageDB.updateMessageList(contacts.getId(), 0);
-            NotificationClass.Clear_Notify((int) (Long.valueOf(contacts.getId()) -
-                    ControlCenter.controlCenter.msgidoffet));
-            NotificationClass.Clear_Notify((int) (Long.valueOf(contacts.getId()) - ControlCenter.msgidoffet));
-        }
+//        if (intent.getStringExtra("chattype").equals("1")) {
+//            btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_people_selector));
+//            LoadChaterInfo(intent.getStringExtra("msgid"));
+//            ChatType = 1;
+//            messageDB.updateMessageList(contacts.getId(), 0);
+//            NotificationClass.Clear_Notify((int) (Long.valueOf(contacts.getId()) -
+//                    ControlCenter.controlCenter.msgidoffet));
+//            NotificationClass.Clear_Notify((int) (Long.valueOf(contacts.getId()) - ControlCenter.msgidoffet));
+//        }
+
+
+
         if (intent.getStringExtra("chattype").equals("2")) {
             btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_peoples_selector));
             groupid = intent.getStringExtra("msgid");
-            NotificationClass.Clear_Notify((int) (Long.valueOf(groupid) - ControlCenter.msgidoffet));
+            NotificationClass.Clear_Notify(10000);
             chattitle.setText(messageDB.getGroupName(groupid));
-            NotificationClass.Clear_Notify((int) (Long.valueOf(groupid) -
-                    ControlCenter.controlCenter.msgidoffet));
+            NotificationClass.Clear_Notify(10001);
             messageDB.updateMessageList(groupid, 0);
             ChatType = 2;
             btnchatinfo.setEnabled(false);//没有获取到群信息的时候不启用
@@ -408,6 +421,9 @@ public class ChatActivity extends BaseActivityPlugin {
             im.setParams(groupid);
             im.startTask();
         }
+        ChatDB chatDB=new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
+        pagescount = 0;
+        logcounts = chatDB.getChatlogCounts(groupid);
         chatAdpter.chatMessageList.clear();
         chatAdpter.chatMessageList = getHistoryChatlog();
         chatAdpter.notifyDataSetChanged();
@@ -419,20 +435,20 @@ public class ChatActivity extends BaseActivityPlugin {
         @Override
         public void onClick(View view) {
             isOpenChatmanger = true;
-            Intent intent = new Intent(ChatActivity.this, ChatsMangerActivity.class);
-            if (ChatType == 1) {
-                intent.putExtra("ShowMode", 1);//自己打开
-                intent.putExtra("Contacts", (Serializable) contacts);
-                startActivityForResult(intent, ChatsMangerActivity.REQUESTCODE);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-            if (ChatType == 2) {
-                intent.putExtra("ShowMode", 2);//自己打开
-                intent.putExtra("groupid", groupid);
-                intent.putExtra("groupinfo", groupjson);
-                startActivityForResult(intent, ChatsMangerActivity.REQUESTCODE);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
+//            Intent intent = new Intent(ChatActivity.this, ChatsMangerActivity.class);
+//            if (ChatType == 1) {
+//                intent.putExtra("ShowMode", 1);//自己打开
+//                intent.putExtra("Contacts", (Serializable) contacts);
+//                startActivityForResult(intent, ChatsMangerActivity.REQUESTCODE);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//            }
+//            if (ChatType == 2) {
+//                intent.putExtra("ShowMode", 2);//自己打开
+//                intent.putExtra("groupid", groupid);
+//                intent.putExtra("groupinfo", groupjson);
+//                startActivityForResult(intent, ChatsMangerActivity.REQUESTCODE);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//            }
         }
     };
 
@@ -493,7 +509,7 @@ public class ChatActivity extends BaseActivityPlugin {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 try {
                     FileOutputStream fileOutputStream = new FileOutputStream(SuyApplication.getApplication().getCacheDir()
-                            + "/" + mediaid + "_aumb.jpg");
+                            + "/" + mediaid + "aumb.jpg");
                     fileOutputStream.write(baos.toByteArray());
                     fileOutputStream.flush();
                     fileOutputStream.close();
@@ -522,6 +538,7 @@ public class ChatActivity extends BaseActivityPlugin {
                 FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                 fileUpLoad.mediaid = chatMessage.getMediaid();
                 fileUpLoad.flag = chatMessage;
+                fileUpLoad.mediatype="02";
                 fileUpLoad.startTask();
 
                 chatAdpter.notifyDataSetChanged();
@@ -587,6 +604,7 @@ public class ChatActivity extends BaseActivityPlugin {
                     FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                     fileUpLoad.mediaid = chatMessage.getMediaid();
                     fileUpLoad.flag = chatMessage;
+                    fileUpLoad.mediatype="02";
                     fileUpLoad.startTask();
 //                    IM im = new IM(interfaceTask, IM.SENDMSG);
 //                    im.setChatMessage(chatMessage);
@@ -765,6 +783,20 @@ public class ChatActivity extends BaseActivityPlugin {
     };
 
 
+    Handler handlershowimg =new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" +
+                    msg.obj.toString() + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
+            if (bitmap !=null) {
+                jdimg.setVisibility(View.VISIBLE);
+                jdimg.setImageBitmap(bitmap);
+            }
+
+        }
+    };
 
     InterfaceTask interfaceTask = new InterfaceTask() {
         @Override
@@ -772,6 +804,7 @@ public class ChatActivity extends BaseActivityPlugin {
             if (message.what == BaseTask.IMTask) {
                 if (message.arg2 == IM.SENDMSG) {
                     chatAdpter.notifyDataSetChanged();
+                    listView.smoothScrollToPosition(chatAdpter.getCount() - 1);
                 }
                 if (message.arg2 == IM.QUERYGROUPINFO) {
                     if (message.arg1 == BaseTask.SUCCESS) {
@@ -782,41 +815,47 @@ public class ChatActivity extends BaseActivityPlugin {
 
                         try {
                             jdjsobj = returnData.getReturnData();
-                            jdtitle.setText(jdjsobj.getString("DISPATCH_TITLE"));
-                            jdcontent.setText(jdjsobj.getString("DISPATCH_CONTENT"));
-                            String pics = jdjsobj.getString("PIC_IDS");
+                            jdtitle.setText(jdjsobj.getString("dispatch_title"));
+                            jdcontent.setText(jdjsobj.getString("dispatch_content"));
+                            IM im=new IM(null,IM.READMSG);
+                            im.setPostValuesForKey("dispatch_id",jdjsobj.getString("dispatch_id"));
+                            im.setPostValuesForKey("read_longitude","0");
+                            im.setPostValuesForKey("read_latitude","0");
+                            im.startTask();
+
+                            String pics = jdjsobj.getString("pic_ids");
                             if (pics.equals(""))
                                 jdimg.setVisibility(View.GONE);
                             else
                             {
 
+
                                 String _p1 = pics.split(",")[0];
-                                if (!CommonPlugin.checkFileIsExits(_p1,".jpg")) {
+                                if (!CommonPlugin.checkFileIsExits(_p1,"aumb.jpg")) {
 
                                     FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                                     fileDownload.mediaid =_p1;
                                     fileDownload.mediatype=".jpg";
-                                    fileDownload.imgamub = "";
+                                    fileDownload.imgamub = "aumb";
+                                    fileDownload.suffix="aumb";
                                     fileDownload.flag = _p1;
                                     fileDownload.startTask();
+                                    return;
                                 } else {
-                                    Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" + _p1 + ".jpg"); //将图片的长和宽缩小味原来的1/2
+                                    Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" + _p1 + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
                                     if (bitmap !=null) {
                                         jdimg.setVisibility(View.VISIBLE);
                                         jdimg.setImageBitmap(bitmap);
                                     }
                                     else
                                     {
-                                        File file= new File(getCacheDir() + "/" + _p1 + ".jpg");
+                                        File file= new File(getCacheDir() + "/" + _p1 + "aumb.jpg");
                                         file.delete();
                                     }
                                 }
-
-
                             }
-                            jddate.setText(MessageInfo.GetSysTime(jdjsobj.getString("SEND_TIME")));
-
-
+                            jddate.setText(MessageInfo.GetSysTime(jdjsobj.getString("send_time")));
+                            listView.smoothScrollToPosition(chatAdpter.getCount() - 1);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -845,13 +884,7 @@ public class ChatActivity extends BaseActivityPlugin {
             if (message.what == BaseTask.DownloadFILETask) {
                 if (message.arg2 == FileDownload.StreamFile) {
                     if (message.arg1 == BaseTask.SUCCESS) {
-
-                        Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" +
-                                message.obj.toString() + ".jpg"); //将图片的长和宽缩小味原来的1/2
-                        if (bitmap !=null) {
-                            jdimg.setVisibility(View.VISIBLE);
-                            jdimg.setImageBitmap(bitmap);
-                        }
+                        handlershowimg.sendMessage(message);
 
                     }
                 }

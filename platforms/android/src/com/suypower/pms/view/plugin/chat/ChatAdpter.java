@@ -156,18 +156,19 @@ public class ChatAdpter extends BaseAdapter {
                         msgdate.setText(chatMessage.getMsgdate());
                     }
                 }
-                if (!CommonPlugin.checkFileIsExits(chatMessage.getMediaid() + "_aumb",".jpg")) {
-                    Log.i("不图片id", chatMessage.getMediaid() + "_aumb");
+                if (!CommonPlugin.checkFileIsExits(chatMessage.getMediaid() + "aumb",".jpg")) {
+                    Log.i("不图片id", chatMessage.getMediaid() + "aumb");
                     FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                     fileDownload.mediaid = chatMessage.getMediaid();
                     fileDownload.mediatype=".jpg";
-                    fileDownload.imgamub = "_aumb";
+                    fileDownload.suffix="aumb";
+
                     fileDownload.flag = picture;
                     fileDownload.startTask();
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    Log.i("存图片id", chatMessage.getMediaid() + "_aumb");
-                    Bitmap bitmap = BitmapFactory.decodeFile(context.getCacheDir() + "/" + chatMessage.getMediaid() + "_aumb.jpg"); //将图片的长和宽缩小味原来的1/2
+                    Log.i("存图片id", chatMessage.getMediaid() + "aumb");
+                    Bitmap bitmap = BitmapFactory.decodeFile(context.getCacheDir() + "/" + chatMessage.getMediaid() + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
                     Bitmap result = CommonPlugin.MaskImage(bitmap, bitmapDrawable.getBitmap());
                     picture.setImageBitmap(result);
                     picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -219,6 +220,7 @@ public class ChatAdpter extends BaseAdapter {
                     FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                     fileDownload.mediaid = chatMessage.getMediaid();
                     fileDownload.mediatype=".aac";
+                    fileDownload.suffix="";
                     fileDownload.startTask();
                 } else {
                     progressBar.setVisibility(View.GONE);
@@ -244,28 +246,30 @@ public class ChatAdpter extends BaseAdapter {
         if (chatMessage.getSelf()) {
             Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir() +
                     File.separator + SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult
-                    .m_strPhoto + ".jpg");
-            if (bitmap != null)
+                    .m_strPhoto + "40.jpg");
+            if (bitmap != null) {
                 nickimg.setImageBitmap(bitmap);
+            }
         }
         else
         {
             Contacts contacts = contactsDB.LoadChaterInfo(chatMessage.getSenderid());
-            if (CommonPlugin.checkFileIsExits(contacts.getNickimgurl(), ".jpg")) {
+            if (CommonPlugin.checkFileIsExits(contacts.getNickimgurl(), "40.jpg")) {
                 Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir()
-                        + File.separator + contacts.getNickimgurl() + ".jpg");
+                        + File.separator + contacts.getNickimgurl() + "40.jpg");
                 if (bitmap != null) {
                     nickimg.setImageBitmap(bitmap);
-                    nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 } else {
                     File file = new File(SuyApplication.getApplication().getCacheDir()
-                            + File.separator + contacts.getNickimgurl() + ".jpg");
+                            + File.separator + contacts.getNickimgurl() + "40.jpg");
                     file.delete();
                 }
             } else {
                 FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                 fileDownload.mediaid = contacts.getNickimgurl();
                 fileDownload.mediatype = ".jpg";
+                fileDownload.suffix="40";
                 fileDownload.imgamub = "";
                 fileDownload.flag = contacts.getNickimgurl();
                 fileDownload.startTask();

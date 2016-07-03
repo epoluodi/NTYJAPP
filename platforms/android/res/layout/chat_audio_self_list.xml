@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/default_avatar" />
+            android:src="@drawable/default_avatar" />
 
 
         <RelativeLayout

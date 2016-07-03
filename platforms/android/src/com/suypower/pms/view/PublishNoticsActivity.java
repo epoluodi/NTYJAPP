@@ -103,10 +103,10 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         btnsp.setOnClickListener(onClickListenersp);
 
         chkzd = (CheckBox) findViewById(R.id.checkzd);
-//        if (!SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
-//                .m_loginResult.auths.contains("DISPATCH_APPROVE")
-//                )
-//            btnsp.setVisibility(View.GONE);
+        if (SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
+                .m_loginResult.auths.contains("DISPATCH_APPROVE")
+                )
+            btnsp.setVisibility(View.GONE);
         if (!SuyApplication.getApplication().getSuyClient().getSuyUserInfo()
                 .m_loginResult.auths.contains("DISPATCH_TOP"))
             chkzd.setVisibility(View.GONE);
@@ -468,6 +468,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                 fileUpLoad.mediaid = recordfile;
                 fileUpLoad.mediaidtype = ".aac";
+                fileUpLoad.mediatype="03";
                 fileUpLoad.flag = recordfile;
                 fileUpLoad.IsNotics = true;
                 fileUpLoad.startTask();
@@ -478,6 +479,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                     FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                     fileUpLoad.mediaid = listmediaid.get(i);
                     fileUpLoad.flag = listmediaid.get(i);
+                    fileUpLoad.mediatype="02";
                     fileUpLoad.IsNotics = true;
                     fileUpLoad.startTask();
                 }
@@ -492,6 +494,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                 fileUpLoad.mediaid = listmediaid.get(i);
                 fileUpLoad.flag = listmediaid.get(i);
+                fileUpLoad.mediatype="02";
                 fileUpLoad.IsNotics = true;
                 fileUpLoad.startTask();
             }
