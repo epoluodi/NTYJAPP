@@ -28,23 +28,23 @@ public class GlobalConfig {
     /**
      * 服务器地址
      */
-//    public static final String AuthUrl = "http://om.suypower.com/stereo-webapp/auth/";
-//    public static final String AppUrl = "http://om.suypower.com/stereo-webapp/app/";
-//    public static final String IMUrl = "http://om.suypower.com/stereo-webapp/im/";
-//    public static final String MQTTServer = "tcp://218.94.111.38:61613";
-//    public static final String ApiUrl = "http://om.suypower.com/stereo-webapp/api/";
-//    public static final String AppUpgrade = "http://om.suypower.com/stereo-webapp/upgrade/";
-//    public static final String ServerHost = "http://om.suypower.com/stereo-webapp/";
-//    public static final String ArticleUrl = "http://om.suypower.com/stereo-webapp/article/";
+    public static final String AuthUrl = "http://192.168.0.122:8080/ntyj/auth/";
+    public static final String AppUrl = "http://192.168.0.122:8080/ntyj/app/";
+    public static final String IMUrl = "http://192.168.0.122:8080/ntyj/im/";
+    public static final String MQTTServer = "tcp://192.168.0.122:61613";
+    public static final String ApiUrl = "http://192.168.0.122:8080/ntyj/api/";
+    public static final String AppUpgrade = "http://192.168.0.122:8080/ntyj/upgrade/";
+    public static final String ServerHost = "http://192.168.0.122:8080/ntyj";
+    public static final String ArticleUrl = "http://192.168.0.122:8080/ntyj/article/";
 //    测试
-    public static final String AuthUrl = "http://15b2060o22.iask.in:18080/ntyj/auth/";
-    public static final String AppUrl = "http://15b2060o22.iask.in:18080/ntyj/app/";
-    public static final String IMUrl = "http://15b2060o22.iask.in:18080/ntyj/im/";
-    public static final String MQTTServer = "tcp://222.95.131.64:61613";
-    public static final String ApiUrl = "http://15b2060o22.iask.in:18080/ntyj/api/";
-    public static final String AppUpgrade = "http://15b2060o22.iask.in:18080/ntyj/upgrade/";
-    public static final String ServerHost = "http://15b2060o22.iask.in:18080/ntyj";
-    public static final String ArticleUrl = "http://15b2060o22.iask.in:18080/ntyj/article/";
+//    public static final String AuthUrl = "http://15b2060o22.iask.in:18080/ntyj/auth/";
+//    public static final String AppUrl = "http://15b2060o22.iask.in:18080/ntyj/app/";
+//    public static final String IMUrl = "http://15b2060o22.iask.in:18080/ntyj/im/";
+//    public static final String MQTTServer = "tcp://222.95.131.64:61613";
+//    public static final String ApiUrl = "http://15b2060o22.iask.in:18080/ntyj/api/";
+//    public static final String AppUpgrade = "http://15b2060o22.iask.in:18080/ntyj/upgrade/";
+//    public static final String ServerHost = "http://15b2060o22.iask.in:18080/ntyj";
+//    public static final String ArticleUrl = "http://15b2060o22.iask.in:18080/ntyj/article/";
 
     public static final String AUDIO_CACHE_PATH = SuyApplication.getApplication().getCacheDir().getAbsolutePath();
 

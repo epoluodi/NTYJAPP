@@ -83,8 +83,8 @@ public class AppoveActivity extends Activity {
             {
                 JSONObject jsonObject1=jsonArray.getJSONObject(i);
                 Map<String,String> map =new HashMap<>();
-                map.put("DISPATCH_TITLE",jsonObject1.getString("DISPATCH_TITLE"));
-                map.put("CREATE_TIME",jsonObject1.getString("CREATE_TIME"));
+                map.put("DISPATCH_TITLE",jsonObject1.getString("dispatch_title"));
+                map.put("CREATE_TIME",jsonObject1.getString("create_time"));
                 map.put("json",jsonObject1.toString());
                 maps.add(map);
             }

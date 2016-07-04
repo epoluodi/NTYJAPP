@@ -143,6 +143,8 @@ public class MsgBodyChat {
 
                 JSONObject msgBody = jsonObject.getJSONObject("msgBody");
                 msgBodyChat.setMsgtype(Integer.valueOf(msgBody.getString("optCode")));
+
+                //创建
                 if (msgBodyChat.getMsgtype()==1) {
                     msgBodyChat.setMsgScope(1);
                     optdata = msgBody.getJSONObject("optData");
@@ -160,6 +162,20 @@ public class MsgBodyChat {
                             jsonObject.getString("sendTime"));
                     return msgBodyChat;
                 }
+
+                //提醒重发
+                if (msgBodyChat.getMsgtype()==6)
+                {
+                    msgBodyChat.setMsgScope(6);
+                    msgBodyChat.setMsgmode(3);
+                    optdata = msgBody.getJSONObject("optData");
+                    msgBodyChat.setMsgtitle(optdata.getString("dispatch_title"));
+                    msgBodyChat.setContent(optdata.getString("dispatch_content"));
+                    msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
+                    return msgBodyChat;
+
+                }
+                //审批
                 if (msgBodyChat.getMsgtype()==2)
                 {
                     msgBodyChat.setMsgScope(2);
@@ -171,6 +187,7 @@ public class MsgBodyChat {
                     return msgBodyChat;
 
                 }
+                //审批拒绝
                 if (msgBodyChat.getMsgtype()==5)
                 {
                     msgBodyChat.setMsgScope(5);

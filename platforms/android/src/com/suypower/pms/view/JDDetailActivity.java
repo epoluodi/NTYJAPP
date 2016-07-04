@@ -73,15 +73,15 @@ public class JDDetailActivity extends Activity {
             menu_custom.addMenuItem(R.drawable.sp_no, "拒绝", 1);
             try {
                 JSONObject jsonObject=new JSONObject(json);
-                jdtitle.setText(jsonObject.getString("DISPATCH_TITLE"));
-                senddt.setText("发布时间:"+jsonObject.getString("CREATE_TIME"));
-                sender.setText("发布人:"+jsonObject.getString("SEND_USER_NAME"));
-                content.setText(jsonObject.getString("DISPATCH_CONTENT"));
-                DISPATCH_ID = jsonObject.getString("DISPATCH_ID");
-                send_account_id = jsonObject.getString("SEND_ACCOUNT_ID");
-                audioid = jsonObject.getString("AUDIO_ID");
+                jdtitle.setText(jsonObject.getString("dispatch_title"));
+                senddt.setText("发布时间:"+jsonObject.getString("create_time"));
+                sender.setText("发布人:"+jsonObject.getString("send_user_name"));
+                content.setText(jsonObject.getString("dispatch_content"));
+                DISPATCH_ID = jsonObject.getString("dispatch_id");
+                send_account_id = jsonObject.getString("send_account_id");
+                audioid = jsonObject.getString("audio_id");
                 audiodownload();
-                pic_ids = jsonObject.getString("PIC_IDS");
+                pic_ids = jsonObject.getString("pic_ids");
                 if (!pic_ids.equals(""))
                     pics = pic_ids.split(",");
 

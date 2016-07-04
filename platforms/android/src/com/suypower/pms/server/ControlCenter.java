@@ -248,6 +248,7 @@ public class ControlCenter extends Binder {
                             }
                             return;
                         }
+                        //审批
                         if (msgBodyChat.getMsgScope() == 2) {
                             notificationClass.add_Notification("调度信息审批", "审批:" + msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
                                     10000, null);
@@ -266,6 +267,13 @@ public class ControlCenter extends Binder {
                             return;
                         }
 
+                        //提醒
+                        if (msgBodyChat.getMsgScope() == 6) {
+                            notificationClass.add_Notification("调度信息提醒", msgBodyChat.getMsgtitle(),  msgBodyChat.getContent(),
+                                    10000, null);
+
+                            return;
+                        }
 
                         //聊天
                         if (msgBodyChat.getMsgScope() == 10) {

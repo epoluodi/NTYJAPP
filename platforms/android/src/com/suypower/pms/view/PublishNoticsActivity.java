@@ -291,7 +291,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 try {
                     FileOutputStream fileOutputStream = new FileOutputStream(getCacheDir()
-                            + "/" + mediaid + "_aumb.jpg");
+                            + "/" + mediaid + "aumb.jpg");
                     fileOutputStream.write(baos.toByteArray());
                     fileOutputStream.flush();
                     fileOutputStream.close();
@@ -316,7 +316,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                     Log.i("选择照片", files[i]);
                     listmediaid.add(files[i]);
                     Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir()
-                            + "/" + files[i] + "_aumb.jpg");
+                            + "/" + files[i] + "aumb.jpg");
                     addImage(bitmap, files[i]);
                 }
                 if (listmediaid.size() == 4) {
