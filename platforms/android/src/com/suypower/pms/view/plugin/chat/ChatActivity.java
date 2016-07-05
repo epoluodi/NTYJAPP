@@ -55,6 +55,7 @@ import com.suypower.pms.server.MsgBodyChat;
 import com.suypower.pms.server.NotificationClass;
 import com.suypower.pms.view.BaseActivityPlugin;
 import com.suypower.pms.view.JDDetailActivity;
+import com.suypower.pms.view.JDMemberStateActivity;
 import com.suypower.pms.view.contacts.Contacts;
 import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
@@ -215,9 +216,9 @@ public class ChatActivity extends BaseActivityPlugin {
     View.OnClickListener onClickListenerbtnjd = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent=new Intent(ChatActivity.this,JDDetailActivity.class);
-            intent.putExtra("json",jdjsobj.toString());
-            intent.putExtra("mode",2);
+            Intent intent = new Intent(ChatActivity.this, JDDetailActivity.class);
+            intent.putExtra("json", jdjsobj.toString());
+            intent.putExtra("mode", 2);
             startActivity(intent);
         }
     };
@@ -407,7 +408,6 @@ public class ChatActivity extends BaseActivityPlugin {
 //        }
 
 
-
         if (intent.getStringExtra("chattype").equals("2")) {
             btnchatinfo.setBackground(getResources().getDrawable(R.drawable.bar_peoples_selector));
             groupid = intent.getStringExtra("msgid");
@@ -421,7 +421,7 @@ public class ChatActivity extends BaseActivityPlugin {
             im.setParams(groupid);
             im.startTask();
         }
-        ChatDB chatDB=new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
+        ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
         pagescount = 0;
         logcounts = chatDB.getChatlogCounts(groupid);
         chatAdpter.chatMessageList.clear();
@@ -435,6 +435,10 @@ public class ChatActivity extends BaseActivityPlugin {
         @Override
         public void onClick(View view) {
             isOpenChatmanger = true;
+            Intent intent = new Intent(ChatActivity.this, JDMemberStateActivity.class);
+            intent.putExtra("groupid", groupid);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 //            Intent intent = new Intent(ChatActivity.this, ChatsMangerActivity.class);
 //            if (ChatType == 1) {
 //                intent.putExtra("ShowMode", 1);//自己打开
@@ -538,7 +542,7 @@ public class ChatActivity extends BaseActivityPlugin {
                 FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                 fileUpLoad.mediaid = chatMessage.getMediaid();
                 fileUpLoad.flag = chatMessage;
-                fileUpLoad.mediatype="02";
+                fileUpLoad.mediatype = "02";
                 fileUpLoad.startTask();
 
                 chatAdpter.notifyDataSetChanged();
@@ -604,7 +608,7 @@ public class ChatActivity extends BaseActivityPlugin {
                     FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                     fileUpLoad.mediaid = chatMessage.getMediaid();
                     fileUpLoad.flag = chatMessage;
-                    fileUpLoad.mediatype="02";
+                    fileUpLoad.mediatype = "02";
                     fileUpLoad.startTask();
 //                    IM im = new IM(interfaceTask, IM.SENDMSG);
 //                    im.setChatMessage(chatMessage);
@@ -783,14 +787,13 @@ public class ChatActivity extends BaseActivityPlugin {
     };
 
 
-    Handler handlershowimg =new Handler()
-    {
+    Handler handlershowimg = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" +
                     msg.obj.toString() + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
-            if (bitmap !=null) {
+            if (bitmap != null) {
                 jdimg.setVisibility(View.VISIBLE);
                 jdimg.setImageBitmap(bitmap);
             }
@@ -817,39 +820,36 @@ public class ChatActivity extends BaseActivityPlugin {
                             jdjsobj = returnData.getReturnData();
                             jdtitle.setText(jdjsobj.getString("dispatch_title"));
                             jdcontent.setText(jdjsobj.getString("dispatch_content"));
-                            IM im=new IM(null,IM.READMSG);
-                            im.setPostValuesForKey("dispatch_id",jdjsobj.getString("dispatch_id"));
-                            im.setPostValuesForKey("read_longitude","0");
-                            im.setPostValuesForKey("read_latitude","0");
+                            IM im = new IM(null, IM.READMSG);
+                            im.setPostValuesForKey("dispatch_id", jdjsobj.getString("dispatch_id"));
+                            im.setPostValuesForKey("read_longitude", "0");
+                            im.setPostValuesForKey("read_latitude", "0");
                             im.startTask();
 
                             String pics = jdjsobj.getString("pic_ids");
                             if (pics.equals(""))
                                 jdimg.setVisibility(View.GONE);
-                            else
-                            {
+                            else {
 
 
                                 String _p1 = pics.split(",")[0];
-                                if (!CommonPlugin.checkFileIsExits(_p1,"aumb.jpg")) {
+                                if (!CommonPlugin.checkFileIsExits(_p1, "aumb.jpg")) {
 
                                     FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
-                                    fileDownload.mediaid =_p1;
-                                    fileDownload.mediatype=".jpg";
+                                    fileDownload.mediaid = _p1;
+                                    fileDownload.mediatype = ".jpg";
                                     fileDownload.imgamub = "aumb";
-                                    fileDownload.suffix="aumb";
+                                    fileDownload.suffix = "aumb";
                                     fileDownload.flag = _p1;
                                     fileDownload.startTask();
                                     return;
                                 } else {
                                     Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" + _p1 + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
-                                    if (bitmap !=null) {
+                                    if (bitmap != null) {
                                         jdimg.setVisibility(View.VISIBLE);
                                         jdimg.setImageBitmap(bitmap);
-                                    }
-                                    else
-                                    {
-                                        File file= new File(getCacheDir() + "/" + _p1 + "aumb.jpg");
+                                    } else {
+                                        File file = new File(getCacheDir() + "/" + _p1 + "aumb.jpg");
                                         file.delete();
                                     }
                                 }
@@ -889,7 +889,6 @@ public class ChatActivity extends BaseActivityPlugin {
                     }
                 }
             }
-
 
 
         }

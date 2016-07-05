@@ -146,6 +146,7 @@
         <activity android:name=".view.seeting.Passwordset" />
         <activity android:name=".view.AppoveActivity" />
         <activity android:name=".view.JDDetailActivity" />
+        <activity android:name=".view.JDMemberStateActivity" />
         <!-- 应用服务中心 -->
         <!--<service  -->
     		<!--android:name=".app.SuyService"-->

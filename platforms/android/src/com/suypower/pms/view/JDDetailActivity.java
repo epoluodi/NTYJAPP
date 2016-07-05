@@ -3,14 +3,18 @@ package com.suypower.pms.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +43,13 @@ public class JDDetailActivity extends Activity {
     private Menu_Custom menu_custom;
     private int mode;
     private String json;
-    private TextView jdtitle,sender,senddt,content;
-    private String DISPATCH_ID,send_account_id;
+    private TextView jdtitle, sender, senddt, content;
+    private String DISPATCH_ID, send_account_id;
     private ImageView btnplay;
     private String audioid;
     private Boolean isplaying = false;
     private String[] pics = null;
+    private LinearLayout linearLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +61,12 @@ public class JDDetailActivity extends Activity {
         btnmore = (ImageView) findViewById(R.id.btnmore);
         btnmore.setOnClickListener(onClickListenermore);
 
-        jdtitle = (TextView)findViewById(R.id.jdtitle);
-        sender = (TextView)findViewById(R.id.sender);
-        senddt = (TextView)findViewById(R.id.senddt);
-        content = (TextView)findViewById(R.id.content);
-        btnplay = (ImageView)findViewById(R.id.play);
-
+        jdtitle = (TextView) findViewById(R.id.jdtitle);
+        sender = (TextView) findViewById(R.id.sender);
+        senddt = (TextView) findViewById(R.id.senddt);
+        content = (TextView) findViewById(R.id.content);
+        btnplay = (ImageView) findViewById(R.id.play);
+        linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
         json = getIntent().getStringExtra("json");
         mode = getIntent().getIntExtra("mode", 0);
 
@@ -72,65 +77,63 @@ public class JDDetailActivity extends Activity {
             menu_custom.addMenuItem(R.drawable.sp_ok, "审核通过", 0);
             menu_custom.addMenuItem(R.drawable.sp_no, "拒绝", 1);
             try {
-                JSONObject jsonObject=new JSONObject(json);
+                JSONObject jsonObject = new JSONObject(json);
                 jdtitle.setText(jsonObject.getString("dispatch_title"));
-                senddt.setText("发布时间:"+jsonObject.getString("create_time"));
-                sender.setText("发布人:"+jsonObject.getString("send_user_name"));
+                senddt.setText("发布时间:" + jsonObject.getString("create_time"));
+                sender.setText("发布人:" + jsonObject.getString("send_user_name"));
                 content.setText(jsonObject.getString("dispatch_content"));
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
                 send_account_id = jsonObject.getString("send_account_id");
                 audioid = jsonObject.getString("audio_id");
                 audiodownload();
                 pic_ids = jsonObject.getString("pic_ids");
-                if (!pic_ids.equals(""))
+                if (!pic_ids.equals("")) {
                     pics = pic_ids.split(",");
+                    picsdownload();
+                }
 
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e)
-            {e.printStackTrace();}
         }
         btnplay.setVisibility(View.GONE);
-        if (mode==2)
-        {
+        if (mode == 2) {
             btnmore.setVisibility(View.GONE);
             try {
-                JSONObject jsonObject=new JSONObject(json);
+                JSONObject jsonObject = new JSONObject(json);
                 jdtitle.setText(jsonObject.getString("dispatch_title"));
-                senddt.setText("发布时间:"+jsonObject.getString("send_time"));
-                sender.setText("发布人:"+jsonObject.getString("send_user_name"));
+                senddt.setText("发布时间:" + jsonObject.getString("send_time"));
+                sender.setText("发布人:" + jsonObject.getString("send_user_name"));
                 content.setText(jsonObject.getString("dispatch_content"));
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
                 send_account_id = jsonObject.getString("send_account_id");
                 audioid = jsonObject.getString("audio_id");
                 audiodownload();
                 pic_ids = jsonObject.getString("pic_ids");
-                if (!pic_ids.equals(""))
+                if (!pic_ids.equals("")) {
                     pics = pic_ids.split(",");
+                    picsdownload();
+                }
 
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e)
-            {e.printStackTrace();}
         }
     }
 
 
-    private void audiodownload()
-    {
+    private void audiodownload() {
         FileDownload fileDownload;
-        if (!audioid.equals(""))
-        {
-            if (!CommonPlugin.checkFileIsExits(audioid,".aac")) {
+        if (!audioid.equals("")) {
+            if (!CommonPlugin.checkFileIsExits(audioid, ".aac")) {
                 fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                 fileDownload.mediaid = audioid;
                 fileDownload.mediatype = ".aac";
                 fileDownload.suffix = "";
                 fileDownload.flag = "aac";
                 fileDownload.startTask();
-            }
-            else
-            {
+            } else {
                 btnplay.setVisibility(View.VISIBLE);
                 btnplay.setOnClickListener(onClickListenerplay);
             }
@@ -138,50 +141,58 @@ public class JDDetailActivity extends Activity {
     }
 
 
-
-    private void picsdownload()
-    {
+    private void picsdownload() {
         FileDownload fileDownload;
-        if (pics==null)
+        if (pics == null)
             return;
 
-        for ( int i=0;i<pics.length;i++  )
-        {
-            if (!CommonPlugin.checkFileIsExits(pics[i],"aumb.jpg")) {
+        for (int i = 0; i < pics.length; i++) {
+            if (!CommonPlugin.checkFileIsExits(pics[i], "aumb.jpg")) {
                 fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
                 fileDownload.mediaid = pics[i];
                 fileDownload.mediatype = ".jpg";
                 fileDownload.suffix = "aumb";
                 fileDownload.flag = "jpg";
                 fileDownload.startTask();
-            }
-            else
-            {
-
+            } else {
+                addimgview(pics[i]);
             }
         }
 
     }
 
 
-    private void addimgview(String picmediaid)
-    {
+    private void addimgview(String picmediaid) {
+        ImageView imageView=new ImageView(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                540);
 
+        Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + File.separator
+        + picmediaid + "aumb.jpg");
+        layoutParams.setMargins(10,20,10,0);
+        imageView.setImageBitmap(bitmap);
+        imageView.setLayoutParams(layoutParams);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+        linearLayout.addView(imageView);
     }
 
-    Handler handler=new Handler()
-    {
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            if (msg.what==0)
-            {
+            if (msg.what == 0) {
                 btnplay.setVisibility(View.VISIBLE);
                 btnplay.setOnClickListener(onClickListenerplay);
                 return;
             }
 
+            if (msg.what == 1) {
+                String mediaid = msg.obj.toString();
+                addimgview(mediaid);
+                return;
+            }
 
         }
     };
@@ -219,78 +230,74 @@ public class JDDetailActivity extends Activity {
 
     }
 
-    InterfaceTask interfaceTask=new InterfaceTask() {
+    InterfaceTask interfaceTask = new InterfaceTask() {
         @Override
         public void TaskResultForMessage(Message message) {
-            if (message.what== BaseTask.IMTask)
-            {
-                if (message.arg2 == IM.APPOVEMSG)
-                {
-                    if (message.arg1==BaseTask.SUCCESS)
-                    {
-                        Toast.makeText(JDDetailActivity.this,"提交成功",Toast.LENGTH_SHORT).show();
+            if (message.what == BaseTask.IMTask) {
+                if (message.arg2 == IM.APPOVEMSG) {
+                    if (message.arg1 == BaseTask.SUCCESS) {
+                        Toast.makeText(JDDetailActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         finish();
                         overridePendingTransition(R.anim.alpha, R.anim.slide_out_to_bottom);
-                    }
-                    else
-                    {
-                        Toast.makeText(JDDetailActivity.this,"提交失败",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(JDDetailActivity.this, "提交失败", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
-            if (message.what==BaseTask.DownloadFILETask)
-            {
-                if (message.arg2 == FileDownload.StreamFile)
-                {
-                    if (message.arg1 == BaseTask.SUCCESS)
-                    {
-                        if (message.obj.toString().equals("aac"))
-                        {
+            if (message.what == BaseTask.DownloadFILETask) {
+                if (message.arg2 == FileDownload.StreamFile) {
+                    if (message.arg1 == BaseTask.SUCCESS) {
+                        if (message.obj.toString().equals("aac")) {
                             handler.sendEmptyMessage(0);
                             return;
                         }
-                    }
-                    else
-                    {
-                        Toast.makeText(JDDetailActivity.this,"下载附件错误,请重新尝试",Toast.LENGTH_SHORT).show();
+                        if (message.obj.toString().equals("jpg")) {
+
+                            Message message1=handler.obtainMessage();
+                            message1.what=1;
+                            message1.obj=message.getData().getString("mediaid");
+                            handler.sendMessage(message1);
+                            return;
+                        }
+                    } else {
+                        Toast.makeText(JDDetailActivity.this, "下载附件错误,请重新尝试", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
             }
         }
     };
-    IMenu iMenu=new IMenu() {
+    IMenu iMenu = new IMenu() {
         @Override
         public void ClickMenu(int itemid) {
-            IM im=new IM(interfaceTask,IM.APPOVEMSG);
-            switch (itemid)
-            {
+            IM im = new IM(interfaceTask, IM.APPOVEMSG);
+            switch (itemid) {
                 case 0:
 
-                    im.setPostValuesForKey("dispatch_id",DISPATCH_ID);
-                    im.setPostValuesForKey("approve_result","01");
-                    im.setPostValuesForKey("approve_desc","");
-                    im.setPostValuesForKey("send_account_id",send_account_id);
+                    im.setPostValuesForKey("dispatch_id", DISPATCH_ID);
+                    im.setPostValuesForKey("approve_result", "01");
+                    im.setPostValuesForKey("approve_desc", "");
+                    im.setPostValuesForKey("send_account_id", send_account_id);
                     im.startTask();
                     break;
                 case 1:
-                    AlertDialog.Builder builder=new AlertDialog.Builder(JDDetailActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(JDDetailActivity.this);
                     builder.setTitle("拒绝原因");
-                    EditText editText=new EditText(JDDetailActivity.this);
+                    EditText editText = new EditText(JDDetailActivity.this);
                     builder.setView(editText);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            im.setPostValuesForKey("dispatch_id",DISPATCH_ID);
-                            im.setPostValuesForKey("approve_result","02");
-                            im.setPostValuesForKey("approve_desc",editText.getText().toString());
-                            im.setPostValuesForKey("send_account_id",send_account_id);
+                            im.setPostValuesForKey("dispatch_id", DISPATCH_ID);
+                            im.setPostValuesForKey("approve_result", "02");
+                            im.setPostValuesForKey("approve_desc", editText.getText().toString());
+                            im.setPostValuesForKey("send_account_id", send_account_id);
                             im.startTask();
                         }
                     });
-                    builder.setNegativeButton("取消",null);
-                    AlertDialog alertDialog=builder.create();
+                    builder.setNegativeButton("取消", null);
+                    AlertDialog alertDialog = builder.create();
                     alertDialog.show();
 
 
@@ -302,13 +309,11 @@ public class JDDetailActivity extends Activity {
     View.OnClickListener onClickListenermore = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (mode ==1)
-            {
+            if (mode == 1) {
                 menu_custom.ShowMenu(btnmore);
                 return;
             }
-            if (mode ==0 )
-            {
+            if (mode == 0) {
 
             }
         }

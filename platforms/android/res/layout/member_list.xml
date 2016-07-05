@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/userinfo_menu_selector"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="60dp">
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/nickimg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/check"
+        android:background="@drawable/default_avatar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/nickimg"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="人事部门"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/name"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/name"
+            android:text="主管"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/department"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="5dp"
+
+            android:text="调度组A"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ok_s"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+
+            />
+    </RelativeLayout>
+</RelativeLayout>
