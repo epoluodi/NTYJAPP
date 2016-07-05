@@ -146,16 +146,22 @@ public class MsgBodyChat {
 
                 //创建
                 if (msgBodyChat.getMsgtype()==1) {
+
+                    MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+
+
                     msgBodyChat.setMsgScope(1);
                     optdata = msgBody.getJSONObject("optData");
                     //系统组，公告，待办事项
                     msgBodyChat.setMsgid(optdata.getString("dispatch_id"));
+                    if (messageDB.isExitsjd(msgBodyChat.getMsgid()))
+                        return null;
                     msgBodyChat.setMsgtitle(optdata.getString("dispatch_title"));
                     msgBodyChat.setMsgmode(3);
                     msgBodyChat.setContent(optdata.getString("dispatch_content"));
 //                    msgBodyChat.setApprove_account_id(optdata.getString("approve_account_id"));
                     msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
-                    MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+
                     messageDB.insertjdinfo(optdata.getString("dispatch_id"),
                             optdata.getString("dispatch_title"),
                             optdata.getString("is_top"),

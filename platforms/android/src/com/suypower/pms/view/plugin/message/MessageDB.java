@@ -219,6 +219,27 @@ public class MessageDB {
         }
     }
 
+    //判断是否存在
+    public Boolean isExitsjd(String msgid) {
+        Cursor cursor=null;
+        int count=0;
+        try {
+            cursor = db.rawQuery("select * from t_jdinfo where jdif =?",
+                    new String[]{msgid});
+
+            count = cursor.getCount();
+            cursor.close();
+            if (count > 0)
+                return  true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
+
     public void deletejdinfo()
     {
        db.delete("t_jdinfo",null,null);

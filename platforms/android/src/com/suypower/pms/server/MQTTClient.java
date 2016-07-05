@@ -86,6 +86,14 @@ public class MQTTClient {
     }
 
 
+    //退出订阅
+    public void exitPublictopic(String strtopic)
+    {
+        Topic topic1 = new Topic(strtopic, QoS.EXACTLY_ONCE);
+        UTF8Buffer[] utf8Buffers=new UTF8Buffer[1];
+        utf8Buffers[0] = topic1.name();
+        callbackConnection.unsubscribe(utf8Buffers,null);
+    }
     /**
      * 订阅公告频道
      */

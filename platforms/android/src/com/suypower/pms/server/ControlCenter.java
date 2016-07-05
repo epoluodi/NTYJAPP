@@ -216,7 +216,6 @@ public class ControlCenter extends Binder {
                     jsonObjectmsg = returnData.getReturnData();
                     msgBodyChat = MsgBodyChat.decodeJson(jsonObjectmsg);
 
-
                     try {
                         messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
                         chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
@@ -231,6 +230,7 @@ public class ControlCenter extends Binder {
                             messageDB.insertGroupForSigle(msgBodyChat);
                         if (msgBodyChat == null)
                             return;
+
 
 
                         //公告
