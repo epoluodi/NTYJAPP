@@ -94,7 +94,7 @@
                     android:layout_width="95dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:background="@drawable/img_other" />
+                 />
 
 
                 <TextView

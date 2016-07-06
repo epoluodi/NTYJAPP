@@ -26,7 +26,10 @@ import com.suypower.pms.view.plugin.CommonPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,7 @@ public class JDMemberStateActivity extends Activity {
     private ListView listView;
     private List<Map<String,String>> mapList;
     private MyAdapter myAdapter;
+    private String sendtime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class JDMemberStateActivity extends Activity {
         btnreturn = (ImageView) findViewById(R.id.btnreturn);
         btnreturn.setOnClickListener(onClickListenerreturn);
         groupid = getIntent().getStringExtra("groupid");
+        sendtime = getIntent().getStringExtra("sendtime");
         listView = (ListView)findViewById(R.id.list);
         mapList = new ArrayList<>();
         myAdapter = new MyAdapter(this);
@@ -130,7 +135,7 @@ public class JDMemberStateActivity extends Activity {
     class MyAdapter extends BaseAdapter
     {
         private ImageView state,nickimg;
-        private TextView name,position,deparment;
+        private TextView name,position,deparment,times;
 
         private LayoutInflater layoutInflater;
         public MyAdapter(Context context)
@@ -162,11 +167,37 @@ public class JDMemberStateActivity extends Activity {
             position = (TextView) view.findViewById(R.id.position);
             deparment = (TextView) view.findViewById(R.id.department);
             nickimg = (ImageView) view.findViewById(R.id.nickimg);
+            times = (TextView) view.findViewById(R.id.times);
             Map<String, String> map = mapList.get(i);
-            if (map.get("READ_STATUS").equals("01"))
+            if (map.get("READ_STATUS").equals("01")) {
                 state.setBackground(getResources().getDrawable(R.drawable.ok_s));
-            else
+                long sencond=0;
+                String _readtime = map.get("READ_TIME");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    Date d1 = df.parse(sendtime);
+                    Date d2 = df.parse(_readtime);
+                    long diff = d2.getTime() - d1.getTime();//这样得到的差值是微秒级别
+
+
+                    sencond = diff / (1000 * 60 );
+
+
+//                long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+//                long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+
+
+                }catch (Exception e)
+                {e.printStackTrace();
+                    times.setText("0 分钟");
+                }
+                times.setText(String.valueOf(sencond) + " 分钟");
+            }
+            else {
                 state.setBackground(getResources().getDrawable(R.drawable.no_s));
+                times.setText("0 分钟");
+            }
+
 
             name.setText(map.get("USER_NAME"));
             position.setText(map.get("POSITION_NAME"));

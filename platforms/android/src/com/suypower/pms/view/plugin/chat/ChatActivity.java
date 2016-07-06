@@ -125,6 +125,7 @@ public class ChatActivity extends BaseActivityPlugin {
     private TextView jdtitle, jdcontent, jddate;
     private ImageView jdimg;
     private JSONObject jdjsobj;
+    private String sendtime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -437,6 +438,7 @@ public class ChatActivity extends BaseActivityPlugin {
             isOpenChatmanger = true;
             Intent intent = new Intent(ChatActivity.this, JDMemberStateActivity.class);
             intent.putExtra("groupid", groupid);
+            intent.putExtra("sendtime", sendtime);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 //            Intent intent = new Intent(ChatActivity.this, ChatsMangerActivity.class);
@@ -820,6 +822,7 @@ public class ChatActivity extends BaseActivityPlugin {
                             jdjsobj = returnData.getReturnData();
                             jdtitle.setText(jdjsobj.getString("dispatch_title"));
                             jdcontent.setText(jdjsobj.getString("dispatch_content"));
+                            sendtime=jdjsobj.getString("create_time");
                             IM im = new IM(null, IM.READMSG);
                             im.setPostValuesForKey("dispatch_id", jdjsobj.getString("dispatch_id"));
                             im.setPostValuesForKey("read_longitude", "0");

@@ -3,6 +3,7 @@ package com.suypower.pms.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class JDDetailActivity extends Activity {
     private Boolean isplaying = false;
     private String[] pics = null;
     private LinearLayout linearLayout;
+    private String sendtime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class JDDetailActivity extends Activity {
         mode = getIntent().getIntExtra("mode", 0);
 
         String pic_ids;
-
+        btnplay.setVisibility(View.GONE);
         if (mode == 1) {
             menu_custom = new Menu_Custom(this, iMenu);
             menu_custom.addMenuItem(R.drawable.sp_ok, "审核通过", 0);
@@ -80,6 +82,7 @@ public class JDDetailActivity extends Activity {
                 JSONObject jsonObject = new JSONObject(json);
                 jdtitle.setText(jsonObject.getString("dispatch_title"));
                 senddt.setText("发布时间:" + jsonObject.getString("create_time"));
+                sendtime = jsonObject.getString("create_time");
                 sender.setText("发布人:" + jsonObject.getString("send_user_name"));
                 content.setText(jsonObject.getString("dispatch_content"));
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
@@ -97,13 +100,15 @@ public class JDDetailActivity extends Activity {
                 e.printStackTrace();
             }
         }
-        btnplay.setVisibility(View.GONE);
+
+
         if (mode == 2) {
             btnmore.setVisibility(View.GONE);
             try {
                 JSONObject jsonObject = new JSONObject(json);
                 jdtitle.setText(jsonObject.getString("dispatch_title"));
                 senddt.setText("发布时间:" + jsonObject.getString("send_time"));
+                sendtime = jsonObject.getString("send_time");
                 sender.setText("发布人:" + jsonObject.getString("send_user_name"));
                 content.setText(jsonObject.getString("dispatch_content"));
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
@@ -120,6 +125,33 @@ public class JDDetailActivity extends Activity {
                 e.printStackTrace();
             }
         }
+
+        if (mode == 3) {
+            btnmore.setVisibility(View.VISIBLE);
+
+            try {
+                JSONObject jsonObject = new JSONObject(json);
+                jdtitle.setText(jsonObject.getString("DISPATCH_TITLE"));
+                senddt.setText("发布时间:" + jsonObject.getString("SEND_TIME"));
+                sendtime = jsonObject.getString("SEND_TIME");
+//                sender.setText("发布人:" + jsonObject.getString("send_user_name"));
+                content.setText(jsonObject.getString("DISPATCH_CONTENT"));
+                DISPATCH_ID = jsonObject.getString("DISPATCH_ID");
+//                send_account_id = jsonObject.getString("send_account_id");
+                audioid = jsonObject.getString("AUDIO_ID");
+                audiodownload();
+                pic_ids = jsonObject.getString("PIC_IDS");
+                if (!pic_ids.equals("")) {
+                    pics = pic_ids.split(",");
+                    picsdownload();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 
@@ -309,12 +341,13 @@ public class JDDetailActivity extends Activity {
     View.OnClickListener onClickListenermore = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (mode == 1) {
-                menu_custom.ShowMenu(btnmore);
-                return;
-            }
-            if (mode == 0) {
 
+            if (mode == 3) {
+                Intent intent = new Intent(JDDetailActivity.this, JDMemberStateActivity.class);
+                intent.putExtra("groupid", DISPATCH_ID);
+                intent.putExtra("sendtime", sendtime);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };

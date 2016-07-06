@@ -71,11 +71,23 @@
             android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="3dp"
             android:background="@drawable/ok_s"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
 
+            />
+        <TextView
+            android:id="@+id/times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5秒"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/state"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/blackTransparentA"
+            android:textSize="12dp"
             />
     </RelativeLayout>
 </RelativeLayout>
