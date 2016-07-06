@@ -73,7 +73,7 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     private EditText searchtxt;
     private FrameLayout frameLayout;
     private ListView listView;
-//    private Menu_Custom menu_custom;
+    private Menu_Custom menu_custom;
     private MyAdapter myAdapter;
     private List<MessageList> messageLists;
     private MessageDB messageDB = null;
@@ -188,9 +188,9 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
 
         aninenter = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha);
         animexit = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_exit);
-//        menu_custom = new Menu_Custom(getActivity(), iMenu);
-//        menu_custom.addMenuItem(R.drawable.menu_chat, "发起聊天", 0);
-//        menu_custom.addMenuItem(R.drawable.menu_notics, "发起公告", 1);
+        menu_custom = new Menu_Custom(getActivity(), iMenu);
+        menu_custom.addMenuItem(R.drawable.publishjd, "发布调度", 0);
+        menu_custom.addMenuItem(R.drawable.historyjd, "历史调度", 1);
 
         messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
 
@@ -363,12 +363,10 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         @Override
         public void onClick(View view) {
 
-            Intent intent = new Intent(getActivity(), PublishNoticsActivity.class);
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
+
 
 //            if (SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_userType==1)
-//                menu_custom.ShowMenu(topRightButton);
+                menu_custom.ShowMenu(topRightButton);
 //            else {
 //                Intent intent = new Intent(getActivity(), ContactsSelectActivity.class);
 //                startActivityForResult(intent, ContactsSelectActivity.RequestCode);
@@ -389,13 +387,13 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             Intent intent;
             switch (itemid) {
                 case 0://发起聊天
-                    intent = new Intent(getActivity(), ContactsSelectActivity.class);
-                    startActivityForResult(intent, ContactsSelectActivity.RequestCode);
-                    getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha);
+                    intent = new Intent(getActivity(), PublishNoticsActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
                     break;
                 case 1://发起公告
-                    intent = new Intent(getActivity(), PublishNoticsActivity.class);
-                    startActivityForResult(intent, ContactsSelectActivity.RequestCode);
+                    intent = new Intent(getActivity(), HistoryJDActivity.class);
+                    startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha);
                     break;
             }

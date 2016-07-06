@@ -40,6 +40,7 @@ public class IM extends BaseTask {
     public static final int QUERYAPPOVE = 6;//增加成员
     public static final int APPOVEMSG = 7;//审核信息
     public static final int READMSG = 8;//阅读反馈
+    public static final int GETUSERSTATE = 9;//获得用户反馈数据
 
 
     int type;
@@ -121,6 +122,9 @@ public class IM extends BaseTask {
                             break;
                         case READMSG:
                             readmsg();
+                            break;
+                        case GETUSERSTATE:
+                            getUserState();
                             break;
 
                     }
@@ -390,6 +394,84 @@ public class IM extends BaseTask {
 
         }
     }
+
+    void getUserState() {
+        Message message = handler.obtainMessage();
+        String url;
+        try {
+            //登录成功后，需要启动消息轮询机制
+            Looper.prepare();
+            url = String.format("%1$smsg/queryUsersByDispatchId/%2$S",
+                    GlobalConfig.globalConfig.getImUrl(),params);
+            m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
+            m_httpClient.setEntity(getPostData());
+            Log.i("url", url);
+            if (!m_httpClient.sendRequest()) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = GETUSERSTATE;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            byte[] buffer = m_httpClient.getRespBodyData();
+            if (buffer == null) {
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = GETUSERSTATE;
+                message.obj = "网络错误";
+                handler.sendMessage(message);
+                return;
+            }
+
+            String result = new String(buffer, "utf-8");
+            Log.i("信息返回:", result);
+            JSONObject jsonObject = null;
+            ReturnData returnData;
+            try {
+                //解析json
+                jsonObject = new JSONObject(result);
+                returnData = new ReturnData(jsonObject, false);
+                if (returnData.getReturnCode() != 0) {
+
+                    message.what = IMTask;
+                    message.arg1 = CREATEGROUP_FAIL;
+                    message.arg2 = GETUSERSTATE;
+                    message.obj = returnData.getReturnMsg();
+                    handler.sendMessage(message);
+
+                    return;
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                message.what = IMTask;
+                message.arg1 = FAILED;
+                message.arg2 = GETUSERSTATE;
+                message.obj = e.getLocalizedMessage();
+                handler.sendMessage(message);
+                return;
+            }
+            message.what = IMTask;
+            message.arg1 = SUCCESS;
+            message.arg2 = GETUSERSTATE;
+            message.obj = returnData;
+            handler.sendMessage(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.what = IMTask;
+            message.arg1 = FAILED;
+            message.arg2 = GETUSERSTATE;
+            message.obj = e.getLocalizedMessage();
+            handler.sendMessage(message);
+
+        }
+    }
+
 
 
     void readmsg() {

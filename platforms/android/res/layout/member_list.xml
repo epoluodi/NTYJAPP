@@ -21,7 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/check"
-        android:background="@drawable/default_avatar" />
+        android:src="@drawable/default_avatar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,11 +57,12 @@
         <TextView
             android:id="@+id/department"
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
             android:layout_marginTop="5dp"
-
+            android:layout_toLeftOf="@+id/state"
+            android:layout_marginRight="10dp"
             android:text="调度组A"
             android:textColor="@color/blackTransparentA"
             android:textSize="14dp" />

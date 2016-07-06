@@ -236,6 +236,7 @@ public class MessageDB {
             return false;
         }
 
+        return false;
 
     }
 
