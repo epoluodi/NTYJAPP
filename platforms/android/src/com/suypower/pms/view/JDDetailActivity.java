@@ -134,7 +134,7 @@ public class JDDetailActivity extends Activity {
                 jdtitle.setText(jsonObject.getString("DISPATCH_TITLE"));
                 senddt.setText("发布时间:" + jsonObject.getString("SEND_TIME"));
                 sendtime = jsonObject.getString("SEND_TIME");
-//                sender.setText("发布人:" + jsonObject.getString("send_user_name"));
+                sender.setText("发布人:" + jsonObject.getString("USER_NAME"));
                 content.setText(jsonObject.getString("DISPATCH_CONTENT"));
                 DISPATCH_ID = jsonObject.getString("DISPATCH_ID");
 //                send_account_id = jsonObject.getString("send_account_id");

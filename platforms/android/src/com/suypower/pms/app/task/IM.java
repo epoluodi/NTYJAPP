@@ -408,7 +408,7 @@ public class IM extends BaseTask {
             Looper.prepare();
             url = String.format("%1$smsg/queryHisDispatchMsgs",
                     GlobalConfig.globalConfig.getImUrl());
-            m_httpClient.setPostValuesForKey("timeType",params);
+            setPostValuesForKey("timeType",params);
             m_httpClient.openRequest(url, SuyHttpClient.REQ_METHOD_POST);
             m_httpClient.setEntity(getPostData());
             Log.i("url", url);

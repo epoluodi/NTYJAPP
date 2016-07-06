@@ -67,7 +67,7 @@ public class HistoryJDActivity extends Activity {
         menu_custom = new Menu_Custom(this, iMenu);
         menu_custom.addMenuItem(R.drawable.month, "一个月内", 0);
         menu_custom.addMenuItem(R.drawable.month3, "三个月内", 1);
-        menu_custom.addMenuItem(R.drawable.year, "一年内", 1);
+        menu_custom.addMenuItem(R.drawable.year, "一年内", 2);
         maps = new ArrayList<>();
         myadpter = new Myadpter(this);
         list.setAdapter(myadpter);
@@ -150,7 +150,7 @@ public class HistoryJDActivity extends Activity {
                                 map.put("DISPATCH_ID",jsonObject.getString("DISPATCH_ID"));
                                 map.put("STATUS_CODE",jsonObject.getString("STATUS_CODE"));
                                 map.put("SEND_TIME",jsonObject.getString("SEND_TIME"));
-
+                                map.put("USER_NAME",jsonObject.getString("USER_NAME"));
                                 map.put("CLOSE_TIME",jsonObject.getString("CLOSE_TIME"));
                                 map.put("PIC_IDS",jsonObject.getString("PIC_IDS"));
                                 map.put("json",jsonObject.toString());
