@@ -67,6 +67,7 @@ public class UserInfoActivity extends Activity {
             btnaddcontacts.setVisibility(View.INVISIBLE);
             txtname.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strUserName);
             txtphone.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strMobile);
+
             txtdepartment.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strDeparment);
             txtemail.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_strSex);
             txtpost.setText(SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_positionName);

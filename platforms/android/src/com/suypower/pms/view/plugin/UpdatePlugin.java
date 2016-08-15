@@ -217,7 +217,7 @@ public class UpdatePlugin extends BaseViewPlugin {
 
     public Boolean CheckVerison() {
 
-        String checkUrl = String.format("%1$snewVersion",
+        String checkUrl = String.format("%1$sgetNewVersion",
                 GlobalConfig.globalConfig.getAppUpgradeUrl());
         suyHttpClient.openRequest(checkUrl, SuyHttpClient.REQ_METHOD_GET);
         if (!suyHttpClient.sendRequest())//发送请求

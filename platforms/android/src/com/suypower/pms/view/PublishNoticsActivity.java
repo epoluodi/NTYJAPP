@@ -468,7 +468,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 FileUpLoad fileUpLoad = new FileUpLoad(interfaceTask, FileUpLoad.UPLOADFILE);
                 fileUpLoad.mediaid = recordfile;
                 fileUpLoad.mediaidtype = ".aac";
-                fileUpLoad.mediatype="03";
+                fileUpLoad.mediatype="02";
                 fileUpLoad.flag = recordfile;
                 fileUpLoad.IsNotics = true;
                 fileUpLoad.startTask();

@@ -73,7 +73,9 @@ public class UpdateUserInfo extends BaseTask {
         handler = null;
     }
 
-    void updateNickimg() {
+    void
+
+    updateNickimg() {
 
         String url;
         try {

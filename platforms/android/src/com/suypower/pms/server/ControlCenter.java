@@ -220,7 +220,8 @@ public class ControlCenter extends Binder {
                         messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
                         chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
 
-
+                        if (msgBodyChat == null)
+                            return;
                         if (messageDB.isExitsMsgid(msgBodyChat.getMsgid()) > 0) {
                             if (msgBodyChat.getMsgScope() != 1) {
                                 int mark = messageDB.getMsgMark(msgBodyChat.getMsgid());
@@ -228,8 +229,7 @@ public class ControlCenter extends Binder {
                             }
                         } else
                             messageDB.insertGroupForSigle(msgBodyChat);
-                        if (msgBodyChat == null)
-                            return;
+
 
 
 

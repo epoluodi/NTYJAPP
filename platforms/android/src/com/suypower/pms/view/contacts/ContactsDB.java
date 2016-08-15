@@ -79,6 +79,10 @@ public class ContactsDB {
                 groupids = groupids.substring(0, groupids.length() - 1);
             if (!groupname.equals(""))
                 groupname = groupname.substring(0, groupname.length() - 1);
+            if (SuyApplication.getApplication().getSuyClient().getSuyUserInfo().
+                    m_loginResult.m_strUserId.equals(jsonObject.getString("accountId")))
+                SuyApplication.getApplication().getSuyClient().getSuyUserInfo().
+                        m_loginResult.m_strDeparment = groupname;
             cv.put("groupid", groupids);//jsonObject.getString("nickimg")
             cv.put("groupname", groupname);
 
