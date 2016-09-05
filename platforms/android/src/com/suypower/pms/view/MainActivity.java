@@ -38,7 +38,7 @@ import com.suypower.pms.view.plugin.camera.CameraHelper;
 import com.suypower.pms.view.plugin.camera.CameraPlugin;
 import com.suypower.pms.view.plugin.camera.PreviewPhotoViewPlugin;
 import com.suypower.pms.view.plugin.scan.ScanActivity;
-import com.suypower.pms.view.plugin.word.SignaturepadViewPlugin;
+
 
 
 import org.apache.cordova.Config;
@@ -616,28 +616,7 @@ public class MainActivity extends Activity implements CordovaInterface,
                         break;
                 }
             }
-            if (SignaturepadViewPlugin.SIGNATUREPADRESULTREQUEST == requestCode)
-            {
-                switch (resultCode)
-                {
-                    case 1://签字确认
 
-                        if (cordovaPlugin !=null)
-                        {
-                            jsonObject.put("file", data.getExtras().getString("file"));
-                            jsonObject.put("fileType", data.getExtras().getString("fileType"));
-                            cordovaPlugin.callbackContext.success(jsonObject);
-                            cordovaPlugin=null;
-
-                        }
-
-//                        jsonObject.put("SignResult", "ok");
-//                        baseViewPlugin.CallBackCordovaJS("SignResult",jsonObject);
-                        break;
-                    case 0:
-                        break;
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

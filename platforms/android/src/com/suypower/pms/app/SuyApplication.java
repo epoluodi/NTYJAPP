@@ -35,6 +35,7 @@ public class SuyApplication  extends Application {
 
 	public String getAbsluteAppPath;//业务应用绝对路径
 	public String getRelAppPath;//业务应用相对路径
+//	public LocBaidu locBaidu;
 
 
 	public String AppVerName() {

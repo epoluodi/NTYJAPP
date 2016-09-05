@@ -18,10 +18,11 @@
     <orderEntry type="module" module-name="CordovaLib" />
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="library" name="zxing-core-2.0" level="project" />
-    <orderEntry type="library" name="Aspose.Words.jdk16" level="project" />
     <orderEntry type="library" name="mqtt-client-1.12" level="project" />
     <orderEntry type="library" name="hawtbuf-1.10" level="project" />
     <orderEntry type="library" name="hawtdispatch-transport-1.21" level="project" />
     <orderEntry type="library" name="hawtdispatch-1.21" level="project" />
+    <orderEntry type="library" exported="" name="org.apache.http.legacy" level="project" />
+    <orderEntry type="library" name="BaiduLBS_Android (2)" level="project" />
   </component>
 </module>

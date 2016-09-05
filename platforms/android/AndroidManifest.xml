@@ -12,11 +12,12 @@
         android:resizeable="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -29,35 +30,38 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!--TODO:debug 模式-->
     <application
-        android:debuggable="true"
         android:name=".app.SuyApplication"
+        android:debuggable="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/i_launch"
         android:label="@string/app_name"
-        android:supportsRtl="true" android:theme="@style/AppTheme"
-      >
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
 
         <service
             android:name=".server.StereoService"
             android:enabled="true"
             android:exported="true"
-            android:label="消息服务"
-            android:icon="@drawable/i_launch"/>
+            android:icon="@drawable/i_launch"
+            android:label="消息服务" />
         <service
             android:name=".server.StereoServiceMonitor"
             android:enabled="true"
             android:exported="true"
-            android:label="监控服务"
-            android:icon="@drawable/i_launch"/>
-        <receiver android:name=".server.BroadcastClass" >
+            android:icon="@drawable/i_launch"
+            android:label="监控服务" />
+
+        <receiver android:name=".server.BroadcastClass">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
@@ -66,75 +70,74 @@
         </receiver>
         <activity
             android:name=".view.MainActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/activity_name"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:windowSoftInputMode="adjustResize" >
-        </activity>
-        
+            android:windowSoftInputMode="adjustResize"></activity>
+
         <!-- 闪屏界面 -->
 
         <!-- 用户登陆 -->
         <activity
             android:name=".view.LoginActivity"
-            android:label="@string/app_name" 
             android:configChanges="locale|keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="portrait">
-        </activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
         <activity
             android:name=".view.plugin.scan.ScanActivity"
-            android:label=""
             android:configChanges="locale|keyboardHidden|orientation"
-            android:screenOrientation="portrait">
-        </activity>
+            android:label=""
+            android:screenOrientation="portrait"></activity>
         <!-- 主界面 -->
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.plugin.camera.PreviewPhotoViewPlugin" />
+            android:name=".view.plugin.camera.PreviewPhotoViewPlugin"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.plugin.camera.PreviewPhotoViewPager" />
+            android:name=".view.plugin.camera.PreviewPhotoViewPager"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".view.plugin.word.SignaturepadViewPlugin"
-            />
+            android:screenOrientation="landscape" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.plugin.word.WordPreviewForImage" />
+            android:name=".view.plugin.word.WordPreviewForImage"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.NavigationActivity" />
 
-        <activity android:name=".view.splitMainView.MainSplit"
+        <activity
+            android:name=".view.splitMainView.MainSplit"
             android:screenOrientation="landscape">
 
         </activity>
         <activity android:name=".view.plugin.message.MessageMainView" />
         <activity android:name=".view.plugin.message.MessageDetailView" />
         <activity android:name=".view.plugin.message.MessageInfoView" />
-        <activity android:name=".view.MainTabView" >
+        <activity android:name=".view.MainTabView">
 
 
         </activity>
-        <activity android:name=".view.LoginView" >
+        <activity android:name=".view.LoginView">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
 
         </activity>
         <activity android:name=".view.CordovaWebActivity" />
-        <activity android:name=".view.plugin.chat.ChatActivity"
-                  android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified">
-        </activity>
+        <activity
+            android:name=".view.plugin.chat.ChatActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified"></activity>
         <activity android:name=".view.user.UserInfoActivity" />
         <activity android:name=".view.seeting.NotificationConfigActivity" />
         <activity android:name=".view.contacts.ContactsSelectActivity" />
         <activity android:name=".view.plugin.chat.ChatsMangerActivity" />
-        <activity android:name=".view.SplashActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity
+            android:name=".view.SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -150,16 +153,16 @@
         <activity android:name=".view.HistoryJDActivity" />
         <!-- 应用服务中心 -->
         <!--<service  -->
-    		<!--android:name=".app.SuyService"-->
-    		<!--android:exported="false"-->
-            <!--android:label="系统服务">-->
-    		<!--<intent-filter>-->
-        		<!--<action android:name="com.suypower.stereo.SuyService" />  -->
-    		<!--</intent-filter>-->
-		<!--</service>-->
+        <!--android:name=".app.SuyService"-->
+        <!--android:exported="false"-->
+        <!--android:label="系统服务">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.suypower.stereo.SuyService" />  -->
+        <!--</intent-filter>-->
+        <!--</service>-->
     </application>
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="15"
         android:targetSdkVersion="21" />
 </manifest>

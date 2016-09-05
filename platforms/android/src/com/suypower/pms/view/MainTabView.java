@@ -26,6 +26,7 @@ import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.app.SuyService;
 import com.suypower.pms.app.configxml.GlobalConfig;
 import com.suypower.pms.server.ControlCenter;
+
 import com.suypower.pms.server.NotificationClass;
 import com.suypower.pms.server.StereoService;
 import com.suypower.pms.server.StereoServiceMonitor;
@@ -70,6 +71,9 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maintabview);
 
+//
+//        LocBaidu locBaidu=new LocBaidu();
+//        SuyApplication.getApplication().locBaidu=locBaidu;
 
 
 
@@ -285,6 +289,8 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
     protected void onDestroy() {
 //        cdvWebviewfragment.close();
 
+//        SuyApplication.getApplication().locBaidu.CloseLoc();
+//        SuyApplication.getApplication().locBaidu=null;
         unregisterReceiver(broadcastReceiver);
         iMessageControl=null;
         ControlCenter.controlCenter.setiMessageControl(null);

@@ -22,7 +22,6 @@ import com.suypower.pms.view.plugin.InterFace.iOptionmenu_Item_Select;
 import com.suypower.pms.view.plugin.camera.CameraPlugin;
 import com.suypower.pms.view.plugin.fileEx.FilePlugin;
 import com.suypower.pms.view.plugin.scan.ScanPlugin;
-import com.suypower.pms.view.plugin.word.WordPlugin;
 import com.suypower.pms.view.splitMainView.MainSplit;
 
 import org.apache.cordova.CordovaPlugin;
@@ -69,7 +68,7 @@ public class CordovaWebViewPlugin extends BaseViewPlugin implements
 
     View view;//灰度view
     ScanPlugin scanPlugin; //扫描插件
-    WordPlugin wordPlugin;
+
     FilePlugin filePlugin;
 
 
@@ -331,23 +330,7 @@ public class CordovaWebViewPlugin extends BaseViewPlugin implements
             scanPlugin.showScanActivity();
         }
 
-        if (id.equals(WORD_ACTION)) //如果是菜单进行加载
-        {
-            wordPlugin = new WordPlugin(mainActivity,this);
-//            CustomPopWindowPlugin.ShowPopWindow(cordovaWebView,
-//                    mainActivity.getLayoutInflater(),"正在处理...");
-            wordPlugin.makeWord((CordovaPlugin) data);
-        }
-        if (id.equals(SIGNATURE_ACTION)) //如果是菜单进行加载
-        {
-            wordPlugin = new WordPlugin(mainActivity,this);
-            wordPlugin.showSignaturePad((CordovaPlugin) data);
-        }
-        if (id.equals(WORDPREVIEW_ACTION)) //如果是菜单进行加载
-        {
-            wordPlugin = new WordPlugin(mainActivity,this);
-            wordPlugin.showPreviewWord((CordovaPlugin) data);
-        }
+
         if (id.equals(UPLOADFILE_ACTION)) //文件上传
         {
             filePlugin = new FilePlugin(mainActivity,this,(CordovaPlugin)data);

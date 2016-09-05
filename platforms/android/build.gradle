@@ -19,7 +19,7 @@
 
 // GENERATED FILE! DO NOT EDIT!
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
@@ -148,7 +148,7 @@ android {
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
-
+            jniLibs.srcDirs = ['libs']
         }
     }
 
@@ -208,10 +208,10 @@ android {
         signingConfigs {
             release {
                 // These must be set or Gradle will complain (even if they are overridden).
-                keyAlias = ""
-                keyPassword = "__unset" // And these must be set to non-empty in order to have the signing step added to the task graph.
-                storeFile = null
-                storePassword = "__unset"
+                keyAlias = "key"
+                keyPassword = "123456" // And these must be set to non-empty in order to have the signing step added to the task graph.
+                storeFile = file('/Volumes/文件/Android/NTYJAPP/key.jks')
+                storePassword = "123456"
             }
         }
         buildTypes {

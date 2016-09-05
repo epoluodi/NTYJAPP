@@ -133,8 +133,8 @@ public class Login extends BaseTask {
                 //获取mqtt 信息
                 GlobalConfig.globalConfig.setMqttUserName(mqtt.getString("username"));
                 GlobalConfig.globalConfig.setMqttPwd(mqtt.getString("password"));
-                GlobalConfig.globalConfig.setMqttServer(mqtt.getString("mqttserver"));
-
+                GlobalConfig.globalConfig.setMqttServer("tcp://" + mqtt.getString("mqttaddress") + ":"
+                        + mqtt.getString("mqttport"));
 
                 return loginResult.m_strSKey;
             } catch (Exception e) {
@@ -243,7 +243,8 @@ public class Login extends BaseTask {
                 //获取mqtt 信息
                 GlobalConfig.globalConfig.setMqttUserName(mqtt.getString("username"));
                 GlobalConfig.globalConfig.setMqttPwd(mqtt.getString("password"));
-                GlobalConfig.globalConfig.setMqttServer(mqtt.getString("mqttserver"));
+                GlobalConfig.globalConfig.setMqttServer("tcp://" + mqtt.getString("mqttaddress") + ":"
+                        + mqtt.getString("mqttport"));
 
 
                 suyUserInfo.m_loginResult = loginResult;

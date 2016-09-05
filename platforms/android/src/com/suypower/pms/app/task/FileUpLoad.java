@@ -124,7 +124,8 @@ public class FileUpLoad extends BaseTask {
 
         String filetype = "";
         String PREFIX = "--", LINE_END = "\r\n";
-        String CONTENT_TYPE = "multipart/form-data";   //内容类型
+        String CONTENT_TYPE = "multipart/form-data";
+
 
         String BOUNDARY = UUID.randomUUID().toString();  //边界标识   随机生成
 
@@ -197,9 +198,15 @@ public class FileUpLoad extends BaseTask {
              * name里面的值为服务器端需要key   只有这个key 才可以得到对应的文件
              * filename是文件的名字，包含后缀名的   比如:abc.png
              */
+            String CONTENTTYPE="";
+            if (filetype.equals(".jpg"))
+                CONTENTTYPE = "image/jpg";   //内容类型
+            else if (filetype.equals(".aac"))
+                CONTENTTYPE = "audio/vnd.dlna.adts";   //内容类型
+
 
             sb.append("Content-Disposition: form-data; name=\"img\";filename=\"" + mediaid + filetype + "\"" + LINE_END);
-            sb.append("Content-Type: application/octet-stream; charset=" + CHARSET + LINE_END);
+            sb.append("Content-Type: " + CONTENTTYPE + "; charset=" + CHARSET + LINE_END);
             sb.append(LINE_END);
             dos.write(sb.toString().getBytes());
 
