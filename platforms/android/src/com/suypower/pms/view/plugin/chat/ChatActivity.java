@@ -60,6 +60,7 @@ import com.suypower.pms.view.contacts.Contacts;
 import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
 import com.suypower.pms.view.plugin.CommonPlugin;
+import com.suypower.pms.view.plugin.GPS.BDGps;
 import com.suypower.pms.view.plugin.Gifview;
 import com.suypower.pms.view.plugin.camera.CameraHelper;
 import com.suypower.pms.view.plugin.camera.CameraPlugin;
@@ -126,6 +127,7 @@ public class ChatActivity extends BaseActivityPlugin {
     private ImageView jdimg;
     private JSONObject jdjsobj;
     private String sendtime;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -825,8 +827,8 @@ public class ChatActivity extends BaseActivityPlugin {
                             sendtime=jdjsobj.getString("create_time");
                             IM im = new IM(null, IM.READMSG);
                             im.setPostValuesForKey("dispatch_id", jdjsobj.getString("dispatch_id"));
-                            im.setPostValuesForKey("read_longitude", "0");
-                            im.setPostValuesForKey("read_latitude", "0");
+                            im.setPostValuesForKey("read_longitude", String.valueOf(BDGps.bdGps.getBdLocation().getLongitude()));
+                            im.setPostValuesForKey("read_latitude", String.valueOf(BDGps.bdGps.getBdLocation().getLatitude()));
                             im.startTask();
 
                             String pics = jdjsobj.getString("pic_ids");
@@ -850,6 +852,7 @@ public class ChatActivity extends BaseActivityPlugin {
                                     Bitmap bitmap = BitmapFactory.decodeFile(getCacheDir() + "/" + _p1 + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
                                     if (bitmap != null) {
                                         jdimg.setVisibility(View.VISIBLE);
+                                        jdimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                         jdimg.setImageBitmap(bitmap);
                                     } else {
                                         File file = new File(getCacheDir() + "/" + _p1 + "aumb.jpg");
@@ -1263,6 +1266,12 @@ public class ChatActivity extends BaseActivityPlugin {
         }
     };
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     /**
      * 返回

@@ -32,6 +32,7 @@ import com.suypower.pms.server.StereoService;
 import com.suypower.pms.server.StereoServiceMonitor;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
 import com.suypower.pms.view.plugin.CustomPopWindowPlugin;
+import com.suypower.pms.view.plugin.GPS.BDGps;
 import com.suypower.pms.view.plugin.chat.Emoji;
 import com.suypower.pms.view.plugin.fragmeMager.FragmentMangerX;
 import com.suypower.pms.view.plugin.fragmeMager.FragmentName;
@@ -65,11 +66,13 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
 
     public static FragmentMangerX fragmentMangerX;
     private final ExecutorService threadPool = Executors.newCachedThreadPool();
-
+    private BDGps bdGps;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maintabview);
+        bdGps = new BDGps();
+        BDGps.bdGps=bdGps;
 
 //
 //        LocBaidu locBaidu=new LocBaidu();
@@ -127,6 +130,7 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
         IntentFilter intentFilter=new IntentFilter(RECEIVERSTARTUPSERVER);
         registerReceiver(broadcastReceiver,intentFilter);
     }
+
 
 
     BroadcastReceiver broadcastReceiver=new BroadcastReceiver() {
@@ -244,6 +248,7 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
     @Override
     protected void onResume() {
         super.onResume();
+        bdGps.StartGps(this);
         if (ControlCenter.controlCenter != null) {
             if (fragmentnow == messageCenterfragment) {
                 messageCenterfragment.startIMessageControl();
@@ -256,9 +261,11 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
     @Override
     protected void onPause() {
         super.onPause();
+        bdGps.StopGps();
         if (messageCenterfragment !=null)
             messageCenterfragment.stopIMessageControl();
     }
+
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -287,13 +294,17 @@ public class MainTabView extends BaseActivityPlugin implements CordovaInterface 
     }
     @Override
     protected void onDestroy() {
+
+        bdGps.StopGps();
+        bdGps=null;
 //        cdvWebviewfragment.close();
 
 //        SuyApplication.getApplication().locBaidu.CloseLoc();
 //        SuyApplication.getApplication().locBaidu=null;
         unregisterReceiver(broadcastReceiver);
         iMessageControl=null;
-        ControlCenter.controlCenter.setiMessageControl(null);
+        if(ControlCenter.controlCenter !=null)
+            ControlCenter.controlCenter.setiMessageControl(null);
         ControlCenter.controlCenter=null;
         unbindService(serviceConnection);
         serviceConnection=null;

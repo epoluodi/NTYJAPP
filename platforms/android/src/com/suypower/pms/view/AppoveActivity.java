@@ -133,6 +133,7 @@ public class AppoveActivity extends Activity {
     class Myadpter extends BaseAdapter {
         LayoutInflater layoutInflater;
         TextView title,dt;
+        ImageView jdimg;
 
         public Myadpter(Context context) {
             layoutInflater = LayoutInflater.from(context);
@@ -159,6 +160,8 @@ public class AppoveActivity extends Activity {
         public View getView(int i, View view, ViewGroup viewGroup) {
 
             view = layoutInflater.inflate(R.layout.appove_list,null);
+            jdimg = (ImageView)view.findViewById(R.id.jdimg);
+            jdimg.setVisibility(View.GONE);
             title = (TextView)view.findViewById(R.id.title);
             dt = (TextView)view.findViewById(R.id.dt);
             Map<String,String> map= maps.get(i);
