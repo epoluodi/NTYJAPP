@@ -342,6 +342,11 @@ public class JDDetailActivity extends Activity {
         @Override
         public void onClick(View view) {
 
+            if (mode ==1)
+            {
+                menu_custom.ShowMenu(btnmore);
+                return;
+            }
             if (mode == 3) {
                 Intent intent = new Intent(JDDetailActivity.this, JDMemberStateActivity.class);
                 intent.putExtra("groupid", DISPATCH_ID);

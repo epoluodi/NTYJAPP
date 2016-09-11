@@ -32,7 +32,9 @@ public class MQTTClient {
     CallbackConnection callbackConnection;
     MQTT mqtt;
     MQTTCallBack mqttCallBack;
-
+    public String offlineTopic = "topic/offline";
+    public String onlineTopic = "topic/online";
+    public String lineMessage;
 
     Boolean IsConnected=false;
 
@@ -56,9 +58,18 @@ public class MQTTClient {
         mqtt.setKeepAlive((short) 30);//定义客户端传来消息的最大时间间隔秒数，服务器可以据此判断与客户端的连接是否已经断开，从而避免TCP/IP超时的长时间等待
         mqtt.setUserName(GlobalConfig.globalConfig.getMqttUserName());//服务器认证用户名
         mqtt.setPassword(GlobalConfig.globalConfig.getMqttPwd());//服务器认证密码
+        JSONObject jsonObject =new JSONObject();
+        try {
+            jsonObject.put("userId", SuyApplication.getApplication().getUuid());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-        mqtt.setWillTopic(myTopic);//设置“遗嘱”消息的话题，若客户端与服务器之间的连接意外中断，服务器将发布客户端的“遗嘱”消息
-        mqtt.setWillMessage("{\"clientID\":"+SuyApplication.getApplication().getUuid()+",\"status\":\"offline\"}");//设置“遗嘱”消息的内容，默认是长度为零的消息
+        lineMessage =jsonObject.toString();
+        mqtt.setWillTopic(offlineTopic);//设置“遗嘱”消息的话题，若客户端与服务器之间的连接意外中断，服务器将发布客户端的“遗嘱”消息
+        mqtt.setWillMessage(lineMessage);//设置“遗嘱”消息的内容，默认是长度为零的消息
         mqtt.setWillQos(QoS.AT_LEAST_ONCE);//设置“遗嘱”消息的QoS，默认为QoS.ATMOSTONCE
         mqtt.setWillRetain(false);//若想要在发布“遗嘱”消息时拥有retain选项，则为true
         mqtt.setVersion("3.1.1");
@@ -161,12 +172,14 @@ public class MQTTClient {
         callbackConnection.publish(receiver, msgjson.getBytes(), QoS.EXACTLY_ONCE, false, new Callback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                imqttSendCallBack.SendSuccess();
+                if (imqttSendCallBack != null)
+                    imqttSendCallBack.SendSuccess();
             }
 
             @Override
             public void onFailure(Throwable throwable) {
-                imqttSendCallBack.Sendfail();
+                if (imqttSendCallBack != null)
+                    imqttSendCallBack.Sendfail();
             }
         });
     }
@@ -179,6 +192,7 @@ public class MQTTClient {
 
 //        UTF8Buffer[] utf8Buffers=new UTF8Buffer[]{topic.name()};
 //        callbackConnection.unsubscribe(utf8Buffers,null);
+
         callbackConnection.disconnect(null);
         mqttCallBack=null;
     }
@@ -200,12 +214,11 @@ public class MQTTClient {
                 callbackConnection.connect(new Callback<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
                         callbackConnection.subscribe(topics, new Callback<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {
                                 System.out.println("========订阅成功=======");
-                                Log.i("订阅1000", "1111111");
-                                setPublictopic("10000");
                                 if (mqttCallBack != null)
                                     mqttCallBack.OnStartReceive();
                             }
@@ -216,6 +229,7 @@ public class MQTTClient {
                                     mqttCallBack.OnConnectServerFail();
                             }
                         });
+                        sendMessage(onlineTopic,lineMessage,null);
                     }
                     @Override
                     public void onFailure(Throwable throwable) {
@@ -236,6 +250,7 @@ public class MQTTClient {
         @Override
         public void onConnected() {
             IsConnected=true;
+
             if (mqttCallBack != null)
                 mqttCallBack.OnConnected();
 

@@ -52,6 +52,7 @@ public class ControlCenter extends Binder {
     private NotificationClass notificationClass; //全局通知类
     private MQTTClient mqttClient;//mqtt 服务对象
     private Boolean isNotification = false;//是否通知
+    private Boolean isDisConnected = true;
 
     public void publishNotics(String strtopic) {
         mqttClient.setPublictopic(strtopic);
@@ -90,7 +91,7 @@ public class ControlCenter extends Binder {
 
     public boolean init(String token) {
 
-
+        isDisConnected = true;
         user = Config.getKeyShareVarForString(SuyApplication.getApplication(), "username");
         pwd = Config.getKeyShareVarForString(SuyApplication.getApplication(), "userpwd");
         disturb = Config.getKeyShareVarForBoolean(SuyApplication.getApplication(), "disturb");
@@ -231,13 +232,11 @@ public class ControlCenter extends Binder {
                             messageDB.insertGroupForSigle(msgBodyChat);
 
 
-
-
                         //公告
                         if (msgBodyChat.getMsgScope() == 1) {
 
 
-                            publishNotics(msgBodyChat.getMsgid());
+//                            publishNotics(msgBodyChat.getMsgid());
                             notificationClass.add_Notification("调度信息", msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
                                     10000
                                     , getpendingIntentSys(msgBodyChat.getMsgid(), 3));
@@ -269,7 +268,7 @@ public class ControlCenter extends Binder {
 
                         //提醒
                         if (msgBodyChat.getMsgScope() == 6) {
-                            notificationClass.add_Notification("调度信息提醒", msgBodyChat.getMsgtitle(),  msgBodyChat.getContent(),
+                            notificationClass.add_Notification("调度信息提醒", msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),
                                     10000, null);
 
                             return;
@@ -384,6 +383,7 @@ public class ControlCenter extends Binder {
         @Override
         public void OnConnected() {
             Log.i("接收到MQTT的数据", "连接成功============");
+            isDisConnected = false;
             new Thread(runnable).start();//获取群消息列表
 
         }
@@ -391,6 +391,7 @@ public class ControlCenter extends Binder {
         @Override
         public void OnDisConnected() {
             Log.i("接收到MQTT的数据", "连接断开============");
+            isDisConnected = true;
             new Thread(checkMqttstate).start();
         }
     };
@@ -418,7 +419,7 @@ public class ControlCenter extends Binder {
                             Log.i("群组编号", jsonObject1.getString("GROUP_ID"));
                             strings.add(jsonObject1.getString("GROUP_ID"));
                         }
-                        mqttClient.setGrouptopic(strings);
+//                        mqttClient.setGrouptopic(strings);
 
                         jsonArray = jsonObject.getJSONArray("dispatchs");
                         if (jsonArray.length() == 0)
@@ -438,7 +439,7 @@ public class ControlCenter extends Binder {
 
                         }
                         handler.sendEmptyMessage(2);
-                        mqttClient.setGrouptopic(strings);
+//                        mqttClient.setGrouptopic(strings);
                         return;
                     }
                     Thread.sleep(3000);
@@ -451,7 +452,10 @@ public class ControlCenter extends Binder {
 
 
     public void disconnecetMQTT() {
+        mqttClient.sendMessage(mqttClient.offlineTopic,
+                mqttClient.lineMessage, null);
         mqttClient.disConnectServer();
+        isDisConnected = true;
         mqttClient = null;
     }
 
@@ -462,16 +466,19 @@ public class ControlCenter extends Binder {
         @Override
         public void run() {
             int i = 0;
-            while (mqttClient.getConnected()) {
+            while (isDisConnected) {
                 i++;
                 try {
-
+                    if (mqttClient.getConnected()) {
+                        isDisConnected = false;
+                        return;
+                    }
                     if (i > 10) {
                         mqttClient.disConnectServer();
                         mqttClient = null;
                         mqttClient = new MQTTClient(mqttCallBack);
                         mqttClient.connecetServer();
-
+                        i = 0;
                         Thread.sleep(5000);
                     } else
                         Thread.sleep(3000);
