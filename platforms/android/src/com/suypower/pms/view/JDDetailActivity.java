@@ -43,7 +43,7 @@ public class JDDetailActivity extends Activity {
     private ImageView btnmore, btncancel;
     private Menu_Custom menu_custom;
     private int mode;
-    private String json;
+    private String json,strsender;
     private TextView jdtitle, sender, senddt, content;
     private String DISPATCH_ID, send_account_id;
     private ImageView btnplay;
@@ -84,6 +84,7 @@ public class JDDetailActivity extends Activity {
                 senddt.setText("发布时间:" + jsonObject.getString("create_time"));
                 sendtime = jsonObject.getString("create_time");
                 sender.setText("发布人:" + jsonObject.getString("send_user_name"));
+                strsender = jsonObject.getString("send_user_name");
                 content.setText(jsonObject.getString("dispatch_content"));
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
                 send_account_id = jsonObject.getString("send_account_id");
@@ -325,6 +326,8 @@ public class JDDetailActivity extends Activity {
                             im.setPostValuesForKey("approve_result", "02");
                             im.setPostValuesForKey("approve_desc", editText.getText().toString());
                             im.setPostValuesForKey("send_account_id", send_account_id);
+                            im.setPostValuesForKey("send_user_name", strsender);
+
                             im.startTask();
                         }
                     });
