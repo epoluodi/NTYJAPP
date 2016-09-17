@@ -170,8 +170,13 @@ public class ChatAdpter extends BaseAdapter {
                     Log.i("存图片id", chatMessage.getMediaid() + "aumb");
                     Bitmap bitmap = BitmapFactory.decodeFile(context.getCacheDir() + "/" + chatMessage.getMediaid() + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
                     Bitmap result = CommonPlugin.MaskImage(bitmap, bitmapDrawable.getBitmap());
-                    picture.setImageBitmap(result);
-                    picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    if (result!=null) {
+                        picture.setImageBitmap(result);
+                        picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+                    }
+                    else
+
                     bitmap.recycle();
                 }
 

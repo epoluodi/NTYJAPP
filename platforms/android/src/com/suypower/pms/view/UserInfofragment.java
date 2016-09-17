@@ -354,26 +354,10 @@ public class UserInfofragment extends Fragment implements FragmentName {
                         file.delete();
                     }
                     CustomPopWindowPlugin.CLosePopwindow();
-                    MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
-                    messageDB.delMessage();
-
-                    //添加公告
-                    MsgBodyChat msgBodyChat = new MsgBodyChat();
-                    msgBodyChat.setMsgid("10000");
-                    msgBodyChat.setMsgtitle("公司公告");
-                    msgBodyChat.setMsgmode(3);
-                    msgBodyChat.setSender("");
-                    msgBodyChat.setSenderid("");
-                    msgBodyChat.setaList(null);
-                    msgBodyChat.setMsgtype(5);
-                    msgBodyChat.setContent("");
-                    msgBodyChat.setSendtime("");
-                    msgBodyChat.setMsgid("10000");
-                    messageDB.insertGroupForSigle(msgBodyChat);
-                    messageDB.updateMessageList("10000", 0);
-
-                    ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
-                    chatDB.delChatLog();
+//                    MessageDB messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
+//                    messageDB.delMessage();
+//                    ChatDB chatDB = new ChatDB(SuyApplication.getApplication().getSuyDB().getDb());
+//                    chatDB.delChatLog();
                     Toast.makeText(getActivity(), "清理完成", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.menu_checkupdate:

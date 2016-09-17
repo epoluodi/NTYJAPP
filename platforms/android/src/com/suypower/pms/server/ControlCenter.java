@@ -265,7 +265,14 @@ public class ControlCenter extends Binder {
 
                             return;
                         }
+                        if (msgBodyChat.getMsgScope() == 3) {
+                            notificationClass.add_Notification("调度信息关闭", "调度信息关闭(审批人):" + msgBodyChat.getSender(), "调度标题：" + msgBodyChat.getMsgtitle(),
+                                    10001, null);
+                            new Thread(runnable).start();//获取群消息列表
 
+
+                            return;
+                        }
                         //提醒
                         if (msgBodyChat.getMsgScope() == 6) {
                             notificationClass.add_Notification("调度信息提醒", msgBodyChat.getMsgtitle(), msgBodyChat.getContent(),

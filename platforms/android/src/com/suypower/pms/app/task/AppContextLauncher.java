@@ -84,17 +84,17 @@ public class AppContextLauncher {
                         }
                     }
                 });
-//                boolean r = updatePlugin.CheckVerison();
-//                if (r) {
-//                    try {
-//                        JSONObject jsonObject = (JSONObject) updatePlugin.getData();
-//                        Log.i("url", jsonObject.getString("versionNum"));
-//                        handler.sendEmptyMessage(0);
-//                        return;
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                boolean r = updatePlugin.CheckVerison();
+                if (r) {
+                    try {
+                        JSONObject jsonObject = (JSONObject) updatePlugin.getData();
+                        Log.i("url", jsonObject.getString("versionNum"));
+                        handler.sendEmptyMessage(0);
+                        return;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 login = new Login(interfaceTask);
                 login.startTask();
             }

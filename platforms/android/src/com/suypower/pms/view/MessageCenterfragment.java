@@ -213,6 +213,8 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         super.onResume();
 
 
+        if (ControlCenter.controlCenter !=null)
+            ControlCenter.controlCenter.setiMessageControl(iMessageControl);
         Cursor cursor = messageDB.getMessageList();
         getMessageList(cursor);
         cursor.close();
@@ -222,8 +224,13 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     }
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
 
-
+        if (ControlCenter.controlCenter !=null)
+            ControlCenter.controlCenter.setiMessageControl(null);
+    }
 
     public void refreshList()
     {

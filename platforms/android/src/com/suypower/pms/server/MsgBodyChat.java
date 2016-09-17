@@ -204,6 +204,20 @@ public class MsgBodyChat {
                     return msgBodyChat;
 
                 }
+                //关闭调度
+                if (msgBodyChat.getMsgtype()==3)
+                {
+                    msgBodyChat.setMsgScope(3);
+                    msgBodyChat.setMsgmode(3);
+                    optdata = msgBody.getJSONObject("optData");
+                    msgBodyChat.setMsgtitle(optdata.getString("dispatch_title"));
+                    msgBodyChat.setSender(optdata.getString("send_user_name"));
+
+                    return msgBodyChat;
+
+                }
+
+
             } else {
                 //单聊
 //                if (jsonObject.isNull("receiverGroupType")) {
