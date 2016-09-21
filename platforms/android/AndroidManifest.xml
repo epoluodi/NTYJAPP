@@ -49,7 +49,7 @@
         android:name=".app.SuyApplication"
         android:debuggable="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/i_launch"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
