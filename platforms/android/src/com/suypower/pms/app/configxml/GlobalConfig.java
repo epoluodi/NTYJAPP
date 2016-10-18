@@ -45,6 +45,7 @@ public class GlobalConfig {
     public static final String AppUpgrade = "http://15b2060o22.iask.in:18080/ntyj/upgrade/";
     public static final String ServerHost = "http://15b2060o22.iask.in:18080/ntyj";
     public static final String ArticleUrl = "http://15b2060o22.iask.in:18080/ntyj/article/";
+    public static final String UpdateAPP= "http://15b2060o22.iask.in:18080/ntyj/android.apk";
 
     public static final String AUDIO_CACHE_PATH = SuyApplication.getApplication().getCacheDir().getAbsolutePath();
 

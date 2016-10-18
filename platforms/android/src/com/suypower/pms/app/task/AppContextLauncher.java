@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.suypower.pms.app.Config;
 import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.app.SuyUserInfo;
+import com.suypower.pms.app.configxml.GlobalConfig;
 import com.suypower.pms.view.LoginView;
 import com.suypower.pms.view.MainTabView;
 import com.suypower.pms.view.plugin.CustomPopWindowPlugin;
@@ -72,7 +73,7 @@ public class AppContextLauncher {
                     public void DownloadResult(int state, String msg) {
                         //更新
                         if (state == 1) {
-                            updatePlugin.downloadAPK(UpdatePlugin.UPDATEURL);
+                            updatePlugin.downloadAPK(GlobalConfig.UpdateAPP);
                             Toast.makeText(SuyApplication.getApplication(),"正在下载请稍后",Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -88,7 +89,7 @@ public class AppContextLauncher {
                 if (r) {
                     try {
                         JSONObject jsonObject = (JSONObject) updatePlugin.getData();
-                        Log.i("url", jsonObject.getString("versionNum"));
+                        Log.i("url", jsonObject.getString("verNum"));
                         handler.sendEmptyMessage(0);
                         return;
                     } catch (Exception e) {
@@ -106,11 +107,8 @@ public class AppContextLauncher {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             try {
-                String _verstr = ((JSONObject) updatePlugin.getData()).getString("versionStr");
-                if (((JSONObject) updatePlugin.getData()).getString("isForce").equals("1"))
-                    updatePlugin.showAlertDialog(context, _verstr, true);
-                else
-                    updatePlugin.showAlertDialog(context, _verstr, false);
+                String _verstr = ((JSONObject) updatePlugin.getData()).getString("verNo");
+                updatePlugin.showAlertDialog(context, _verstr, true);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -99,7 +99,7 @@ public class UpdatePlugin extends BaseViewPlugin {
                 down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
                 down.setVisibleInDownloadsUi(true);
                 down.setDestinationInExternalFilesDir(context,
-                        Environment.DIRECTORY_DOWNLOADS, "pms.apk");
+                        Environment.DIRECTORY_DOWNLOADS, "南通调度.apk");
                 downloadManager.enqueue(down);
 
                 return downloadManager;
@@ -247,7 +247,7 @@ public class UpdatePlugin extends BaseViewPlugin {
                 return false;
             }
 
-            int _vercode = Integer.valueOf(returnData.getReturnData().getString("versionNum"));
+            int _vercode = Integer.valueOf(returnData.getReturnData().getString("verNum"));
 
             if (vercode < _vercode) {
                 data = returnData.getReturnData();
