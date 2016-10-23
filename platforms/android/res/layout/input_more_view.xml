@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         android:paddingTop="10dp">
         <include layout="@layout/input_item_view"
             android:id="@+id/item_picture"/>
@@ -21,6 +22,7 @@
             android:id="@+id/item_createvote"/>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"

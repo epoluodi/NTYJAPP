@@ -169,15 +169,15 @@ public class ChatAdpter extends BaseAdapter {
                     progressBar.setVisibility(View.GONE);
                     Log.i("存图片id", chatMessage.getMediaid() + "aumb");
                     Bitmap bitmap = BitmapFactory.decodeFile(context.getCacheDir() + "/" + chatMessage.getMediaid() + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
-                    Bitmap result = CommonPlugin.MaskImage(bitmap, bitmapDrawable.getBitmap());
-                    if (result!=null) {
-                        picture.setImageBitmap(result);
-                        picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    if (bitmap !=null) {
+                        Bitmap result = CommonPlugin.MaskImage(bitmap, bitmapDrawable.getBitmap());
+                        if (result != null) {
+                            picture.setImageBitmap(result);
+                            picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+                        }
+                        bitmap.recycle();
                     }
-                    else
-
-                    bitmap.recycle();
                 }
 
 

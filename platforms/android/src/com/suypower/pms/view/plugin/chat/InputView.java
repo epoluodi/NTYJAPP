@@ -330,6 +330,9 @@ public class InputView {
         item7 = (LinearLayout) linearLayout.findViewById(R.id.item_mpty1);
         item8 = (LinearLayout) linearLayout.findViewById(R.id.item_mpty2);
 
+        item3.setVisibility(View.INVISIBLE);
+        item4.setVisibility(View.INVISIBLE);
+
         item7.setVisibility(View.INVISIBLE);
         item8.setVisibility(View.INVISIBLE);
 

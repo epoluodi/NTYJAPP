@@ -281,7 +281,7 @@ public class CameraPlugin extends BaseViewPlugin {
         if (!CommonPlugin.checkFileIsExits(mediaid,".jpg"))
         {
             bundle.putInt("model",3);//全部照片预览模式
-            urlfiles[0] = String.format("%1$s", GlobalConfig.globalConfig.getApiUrl() +"download?mediatype=.jpg&isaumb=&mediaid="+mediaid);
+            urlfiles[0] = String.format("%1$s", GlobalConfig.globalConfig.getApiUrl() +"download?suffix=&mediaId="+mediaid);
         }
         else
         {
