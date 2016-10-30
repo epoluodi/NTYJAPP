@@ -365,7 +365,8 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
 
     private void addImage(Bitmap bitmap, String mediaid) {
         ImageView imageView = new ImageView(this);
-        imageView.setOnClickListener(onClickListenerimg);
+//        imageView.setOnClickListener(onClickListenerimg);
+        imageView.setOnLongClickListener(onLongClickListenerimg);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(CommonPlugin.dip2px(80), CommonPlugin.dip2px(80));
         imageView.setImageBitmap(bitmap);
         params.setMargins(5, 5, 10, 5);
@@ -384,6 +385,23 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         linearLayout.removeView(v);
         images--;
     }
+
+
+    View.OnLongClickListener onLongClickListenerimg=new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+
+            listmediaid.remove(view.getTag().toString());
+            linearLayout.removeView(view);
+            images--;
+            if (listmediaid.size()<4)
+            {
+                if (imageViewadd != null)
+                    imageViewadd.setVisibility(View.VISIBLE);
+            }
+            return true;
+        }
+    };
 
     View.OnClickListener onClickListeneradd = new View.OnClickListener() {
         @Override

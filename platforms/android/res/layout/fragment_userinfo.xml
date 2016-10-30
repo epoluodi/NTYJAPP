@@ -17,7 +17,7 @@
             android:layout_marginTop="20dp"
             android:background="@color/white"
             android:clickable="true"
-            android:src="@drawable/default_avatar_big" />
+            android:src="@drawable/default_avatar" />
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -321,6 +321,7 @@
 
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/menu_aboutsoft"
         android:layout_width="match_parent"
         android:layout_height="55dp"
