@@ -169,15 +169,15 @@ public class ChatAdpter extends BaseAdapter {
                     progressBar.setVisibility(View.GONE);
                     Log.i("存图片id", chatMessage.getMediaid() + "aumb");
                     Bitmap bitmap = BitmapFactory.decodeFile(context.getCacheDir() + "/" + chatMessage.getMediaid() + "aumb.jpg"); //将图片的长和宽缩小味原来的1/2
-                    if (bitmap !=null) {
-                        Bitmap result = CommonPlugin.MaskImage(bitmap, bitmapDrawable.getBitmap());
-                        if (result != null) {
-                            picture.setImageBitmap(result);
-                            picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    Bitmap result = CommonPlugin.MaskImage(bitmap, bitmapDrawable.getBitmap());
+                    if (result!=null) {
+                        picture.setImageBitmap(result);
+                        picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                        }
-                        bitmap.recycle();
                     }
+                    else
+
+                    bitmap.recycle();
                 }
 
 
@@ -258,26 +258,31 @@ public class ChatAdpter extends BaseAdapter {
         }
         else
         {
+            contactsDB= new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
+
             Contacts contacts = contactsDB.LoadChaterInfo(chatMessage.getSenderid());
-            if (CommonPlugin.checkFileIsExits(contacts.getNickimgurl(), "40.jpg")) {
-                Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir()
-                        + File.separator + contacts.getNickimgurl() + "40.jpg");
-                if (bitmap != null) {
-                    nickimg.setImageBitmap(bitmap);
-                    nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                } else {
-                    File file = new File(SuyApplication.getApplication().getCacheDir()
+
+            if (contacts != null) {
+                if (CommonPlugin.checkFileIsExits(contacts.getNickimgurl(), "40.jpg")) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(SuyApplication.getApplication().getCacheDir()
                             + File.separator + contacts.getNickimgurl() + "40.jpg");
-                    file.delete();
+                    if (bitmap != null) {
+                        nickimg.setImageBitmap(bitmap);
+                        nickimg.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    } else {
+                        File file = new File(SuyApplication.getApplication().getCacheDir()
+                                + File.separator + contacts.getNickimgurl() + "40.jpg");
+                        file.delete();
+                    }
+                } else {
+                    FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
+                    fileDownload.mediaid = contacts.getNickimgurl();
+                    fileDownload.mediatype = ".jpg";
+                    fileDownload.suffix = "40";
+                    fileDownload.imgamub = "";
+                    fileDownload.flag = contacts.getNickimgurl();
+                    fileDownload.startTask();
                 }
-            } else {
-                FileDownload fileDownload = new FileDownload(interfaceTask, FileDownload.StreamFile);
-                fileDownload.mediaid = contacts.getNickimgurl();
-                fileDownload.mediatype = ".jpg";
-                fileDownload.suffix="40";
-                fileDownload.imgamub = "";
-                fileDownload.flag = contacts.getNickimgurl();
-                fileDownload.startTask();
             }
         }
 

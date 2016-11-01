@@ -32,6 +32,9 @@ public class ContactsDB {
         Contacts contacts = new Contacts();
 
         Cursor cursor = getContactsForUserid(msgid);
+        if (cursor == null) {
+            return null;
+        }
         cursor.moveToNext();
         contacts.setId(cursor.getString(0));
         contacts.setName(cursor.getString(1));
@@ -158,6 +161,11 @@ public class ContactsDB {
         try {
             Cursor cursor = db.rawQuery("select * from contacts where userid =?",
                     new String[]{userid});
+            if (cursor.getCount()==0)
+            {
+                cursor.close();
+                return null;
+            }
             return cursor;
         } catch (Exception e) {
             e.printStackTrace();
