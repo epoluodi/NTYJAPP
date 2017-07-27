@@ -53,6 +53,7 @@ public class SelectActivity extends Activity {
     private ListView list;
     private Mydapter mydapter;
     private List<Map<String, String>> mapList;
+    private String selectlist;
     private int showmode;
 
     @Override
@@ -77,6 +78,7 @@ public class SelectActivity extends Activity {
 
         //选择群组
         if (showmode == 1) {
+            selectlist = getIntent().getStringExtra("selectlist");
             title.setText("选择调度组");
             btnok.setOnClickListener(onClickListenerbtnok);
             ContactsDB contactsDB = new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
@@ -85,7 +87,18 @@ public class SelectActivity extends Activity {
                 Map<String, String> map = new HashMap<>();
                 map.put("name", cursor.getString(0));
                 map.put("id", cursor.getString(1));
-                map.put("check", "0");
+                Cursor cursor1 = contactsDB.getContacts(cursor.getString(1));
+                String s = "";
+                while (cursor1.moveToNext()) {
+                    s += cursor1.getString(1) + ",";
+                }
+                cursor1.close();
+                ;
+                map.put("all", s.substring(0, s.length() - 1));
+                if (selectlist.contains(cursor.getString(1)))
+                    map.put("check", "1");
+                else
+                    map.put("check", "0");
                 mapList.add(map);
             }
             mydapter.notifyDataSetChanged();
@@ -111,12 +124,19 @@ public class SelectActivity extends Activity {
             for (int i = 0; i < mapList.size(); i++) {
                 Map<String, String> map = mapList.get(i);
                 if (map.get("check").equals("1")) {
-                    groupid+=map.get("id")+",";
+                    groupid += map.get("id") + ",";
                     groupname += map.get("name") + ",";
                 }
             }
+            if (groupid.equals(""))
+            {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+                return;
+            }
             Intent intent = new Intent();
-            intent.putExtra("groupid",groupid.substring(0,groupid.length()-1));
+            intent.putExtra("groupid", groupid.substring(0, groupid.length() - 1));
             intent.putExtra("name", groupname.substring(0, groupname.length() - 1));
             setResult(2, intent);
             finish();
@@ -286,7 +306,7 @@ public class SelectActivity extends Activity {
                     nickimg.setImageBitmap(bitmap);
                     nickimg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
-                name.setText(map.get("name"));
+                name.setText(map.get("name") + ":\n" + map.get("all"));
             }
             if (showmode == 2) {
                 v = layoutInflater.inflate(R.layout.phonebook_list_personal, null);

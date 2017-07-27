@@ -165,7 +165,9 @@ public class MsgBodyChat {
                     messageDB.insertjdinfo(optdata.getString("dispatch_id"),
                             optdata.getString("dispatch_title"),
                             optdata.getString("is_top"),
-                            jsonObject.getString("sendTime"));
+                            jsonObject.getString("sendTime"),
+                            ""//todo 增加人
+                            );
                     return msgBodyChat;
                 }
 

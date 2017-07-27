@@ -168,6 +168,7 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
         public void onClick(View view) {
             Intent intent = new Intent(PublishNoticsActivity.this, SelectActivity.class);
             intent.putExtra("mode", 1);
+            intent.putExtra("selectlist", sendlists);
             startActivityForResult(intent, SelectActivity.GroupInfo);
             overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha_exit);
         }
@@ -436,10 +437,10 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 Toast.makeText(PublishNoticsActivity.this, "请输入标题", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (editText.getText().toString().equals("")) {
-                Toast.makeText(PublishNoticsActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if (editText.getText().toString().equals("")) {
+//                Toast.makeText(PublishNoticsActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
             if (sendlists.equals("")) {
                 Toast.makeText(PublishNoticsActivity.this, "请选择发送目标", Toast.LENGTH_SHORT).show();
                 return;
@@ -452,10 +453,10 @@ public class PublishNoticsActivity extends BaseActivityPlugin {
                 }
             }
 
-            if (editText.getText().toString().equals("")) {
-                Toast.makeText(PublishNoticsActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if (editText.getText().toString().equals("")) {
+//                Toast.makeText(PublishNoticsActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
             if (!recordfile.equals("")) {
                 AlertDlg alertDlg = new AlertDlg(PublishNoticsActivity.this, AlertDlg.AlertEnum.TIPS);
                 alertDlg.setContentText("是否包含录音信息");

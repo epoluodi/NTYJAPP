@@ -36,6 +36,7 @@ public class MessageList implements Serializable {
     int msgType;
 
 
+    String sender;
 
     public String getMediaid() {
         return mediaid;
@@ -133,6 +134,11 @@ public class MessageList implements Serializable {
     }
 
 
+    public String getSender() {
+        return sender;
+    }
 
-
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 }

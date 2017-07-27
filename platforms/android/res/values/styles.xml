@@ -4,9 +4,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="android:colorPrimary">@color/bluebtn</item>
-        <item name="android:colorPrimaryDark">@color/bluebtn</item>
-        <item name="android:colorAccent">@color/bluebtn</item>
+        <!--<item name="android:colorPrimary">@color/bluebtn</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/bluebtn</item>-->
+        <!--<item name="android:colorAccent">@color/bluebtn</item>-->
     </style>
     
     <style name="dialog" parent="@android:style/Theme.Dialog">

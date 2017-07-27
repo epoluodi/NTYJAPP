@@ -33,6 +33,7 @@ import com.suypower.pms.app.task.IM;
 import com.suypower.pms.app.task.InterfaceTask;
 import com.suypower.pms.app.task.PublishNotics;
 import com.suypower.pms.server.ControlCenter;
+import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.contacts.ContactsSelectActivity;
 import com.suypower.pms.view.dlg.IMenu;
 import com.suypower.pms.view.dlg.Menu_Custom;
@@ -189,8 +190,8 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         aninenter = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha);
         animexit = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_exit);
         menu_custom = new Menu_Custom(getActivity(), iMenu);
-        menu_custom.addMenuItem(R.drawable.publishjd, "发布调度", 0);
-        menu_custom.addMenuItem(R.drawable.historyjd, "历史调度", 1);
+        menu_custom.addMenuItem(R.drawable.publishjd, "发布消息", 0);
+        menu_custom.addMenuItem(R.drawable.historyjd, "历史消息", 1);
 
         messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
 
@@ -342,8 +343,9 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             messageList.setMessageEnum(MessageList.MessageEnum.CHATS);
             messageList.setMsgid(cursor.getString(0));
             messageList.setTitle(cursor.getString(2));
-            int mark = messageDB.getMsgMark(cursor.getString(0));
-            messageList.setMsgmark(mark);
+            messageList.setSender(cursor.getString(1));
+//            int mark = messageDB.getMsgMark(cursor.getString(0));
+//            messageList.setMsgmark(mark);
             messageList.setMsgdate(cursor.getString(4));
 //            messageList.setMsgType(cursor.getInt(3));
 //
@@ -649,11 +651,15 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             msgimg = (ImageView) v.findViewById(R.id.msgimg);
             msgmark = (TextView) v.findViewById(R.id.txtmark);
             msgtitle = (TextView) v.findViewById(R.id.title);
-//            msgsubcontent = (TextView) v.findViewById(R.id.subcontent);
+            msgsubcontent = (TextView) v.findViewById(R.id.sender);
             msgdate = (TextView) v.findViewById(R.id.dt);
             MessageList messageList = messageLists.get(i);
 //            msgimg.setBackground(getResources().getDrawable(.));
-//            msgsubcontent.setText(messageList.getContent());
+            ContactsDB contactsDB=new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
+            Cursor cursor=  contactsDB.getContactsForUserid(messageList.getSender());
+            cursor.moveToNext();
+
+            msgsubcontent.setText(cursor.getString(1));
             if (messageList.getMsgmark() > 0) {
                 msgmark.setVisibility(View.VISIBLE);
             } else

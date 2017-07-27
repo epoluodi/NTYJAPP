@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 圆角 -->
+    <corners
+        android:bottomRightRadius="13dp"
+        android:bottomLeftRadius="13dp"
+        android:topRightRadius="0dp"
+        android:topLeftRadius="0dp"
+        />
+    <solid
+
+        android:color="@color/blackTransparent1"
+        /><!-- 填充的颜色 -->
+
+    <!--<gradient android:startColor="@color/red"-->
+        <!--android:centerColor="@color/red"-->
+        <!--android:endColor="@color/salmon"-->
+        <!--android:angle="270"-->
+        <!--/>-->
+    <!-- 描边 -->
+
+
+
+</shape>

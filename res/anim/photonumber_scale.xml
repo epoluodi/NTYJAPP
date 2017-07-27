@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:fillAfter="true">
+    <!--
+        起始x轴坐标
+            止x轴坐标
+            始y轴坐标
+            止y轴坐标
+            轴的坐标
+            轴的坐标
+      -->
+    <scale
+        android:fromXScale="0.5"
+        android:toXScale="0.8"
+        android:fromYScale="0.5"
+        android:toYScale="0.8"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="0"
+        android:duration="100" />
+    <scale
+        android:fromXScale="0.8"
+        android:toXScale="1.2"
+        android:fromYScale="0.8"
+        android:toYScale="1.2"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="100"
+        android:duration="100" />
+    <scale
+        android:fromXScale="1.2"
+        android:toXScale="1"
+        android:fromYScale="1.2"
+        android:toYScale="1"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="200"
+        android:duration="100" />
+
+</set>

@@ -202,13 +202,13 @@ public class MessageDB {
     }
 
 
-    public void insertjdinfo(String jdid,String title,String istop,String senddt)
+    public void insertjdinfo(String jdid,String title,String istop,String senddt,String sender)
     {
         try {
 
             ContentValues cv = new ContentValues();
             cv.put("jdif",jdid);
-            cv.put("json", "");
+            cv.put("json", sender);
             cv.put("title",title);
             cv.put("istop", istop);
             cv.put("senddt",senddt);

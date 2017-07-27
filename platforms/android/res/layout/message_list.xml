@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/userinfo_menu_selector"
     android:descendantFocusability="blocksDescendants"
+
     android:minHeight="60dp">
 
     <FrameLayout
@@ -64,20 +65,18 @@
         android:textColor="@color/blackTransparentA"
         android:textSize="12dp" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/subcontent"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/title"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="20dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_toRightOf="@+id/nickview"-->
-        <!--android:ellipsize="end"-->
-        <!--android:lines="2"-->
-        <!--android:text=""-->
-        <!--android:textColor="@color/blackTransparentA"-->
-        <!--android:textSize="14dp" />-->
+    <TextView
+        android:id="@+id/sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:lines="1"
+        android:text="11111123"
+        android:textColor="@color/blackTransparentA"
+        android:textSize="14dp" />
 
 
 </RelativeLayout>

@@ -442,7 +442,8 @@ public class ControlCenter extends Binder {
                             messageDB.insertjdinfo(jsonObject1.getString("DISPATCH_ID"),
                                     jsonObject1.getString("DISPATCH_TITLE"),
                                     jsonObject1.getString("IS_TOP"),
-                                    jsonObject1.getString("SEND_TIME"));
+                                    jsonObject1.getString("SEND_TIME"),
+                                    jsonObject1.getString("SEND_ACCOUNT_ID"));
 
                         }
                         handler.sendEmptyMessage(2);

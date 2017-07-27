@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="历史调度"
+            android:text="历史信息"
             android:textColor="@color/white"
             android:textSize="20dp" />
         <ImageView
