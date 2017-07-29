@@ -26,6 +26,7 @@
             android:textColor="@color/white"
             android:id="@+id/title" />
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/btnmore"
             android:layout_width="30dp"
             android:layout_height="30dp"

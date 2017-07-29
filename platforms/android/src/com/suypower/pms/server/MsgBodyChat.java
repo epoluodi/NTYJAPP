@@ -158,7 +158,7 @@ public class MsgBodyChat {
                         return null;
                     msgBodyChat.setMsgtitle(optdata.getString("dispatch_title"));
                     msgBodyChat.setMsgmode(3);
-                    msgBodyChat.setContent(optdata.getString("dispatch_content"));
+//                    msgBodyChat.setContent(optdata.getString("dispatch_content"));
 //                    msgBodyChat.setApprove_account_id(optdata.getString("approve_account_id"));
                     msgBodyChat.setSendtime(CommonPlugin.GetSysTime());
 
@@ -166,7 +166,7 @@ public class MsgBodyChat {
                             optdata.getString("dispatch_title"),
                             optdata.getString("is_top"),
                             jsonObject.getString("sendTime"),
-                            ""//todo 增加人
+                            optdata.getString("send_account_id") //
                             );
                     return msgBodyChat;
                 }

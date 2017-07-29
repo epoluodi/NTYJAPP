@@ -58,9 +58,6 @@ import java.util.List;
 public class MessageCenterfragment extends Fragment implements FragmentName {
 
 
-
-
-
     private String Fragment_Name = "";
     private ImageView topRightButton;
     private Animation animationEnter;
@@ -80,7 +77,7 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     private MessageDB messageDB = null;
 
 
-    private String appovejson="";//审批json
+    private String appovejson = "";//审批json
 
 
     @Override
@@ -191,7 +188,7 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         animexit = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_exit);
         menu_custom = new Menu_Custom(getActivity(), iMenu);
         menu_custom.addMenuItem(R.drawable.publishjd, "发布消息", 0);
-        menu_custom.addMenuItem(R.drawable.historyjd, "历史消息", 1);
+        menu_custom.addMenuItem(R.drawable.historyjd, "历史信息", 1);
 
         messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
 
@@ -206,20 +203,17 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     }
 
 
-
-
-
     @Override
     public void onResume() {
         super.onResume();
 
 
-        if (ControlCenter.controlCenter !=null)
+        if (ControlCenter.controlCenter != null)
             ControlCenter.controlCenter.setiMessageControl(iMessageControl);
         Cursor cursor = messageDB.getMessageList();
         getMessageList(cursor);
         cursor.close();
-        IM im = new IM(interfaceTask,IM.QUERYAPPOVE);
+        IM im = new IM(interfaceTask, IM.QUERYAPPOVE);
         im.startTask();
 
     }
@@ -229,13 +223,12 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     public void onPause() {
         super.onPause();
 
-        if (ControlCenter.controlCenter !=null)
+        if (ControlCenter.controlCenter != null)
             ControlCenter.controlCenter.setiMessageControl(null);
     }
 
-    public void refreshList()
-    {
-        IM im = new IM(interfaceTask,IM.QUERYAPPOVE);
+    public void refreshList() {
+        IM im = new IM(interfaceTask, IM.QUERYAPPOVE);
         im.startTask();
         Cursor cursor = messageDB.getMessageList();
         getMessageList(cursor);
@@ -261,9 +254,8 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (ContactsSelectActivity.RequestCode == requestCode)
-        {
-            if (resultCode==0)
+        if (ContactsSelectActivity.RequestCode == requestCode) {
+            if (resultCode == 0)
                 return;
             String[] stringlist = data.getStringArrayExtra("contactslist");
             addChatGroup(stringlist);
@@ -274,7 +266,6 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
 
 
             return false;
@@ -303,10 +294,10 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE ||
                     messageList.getMessageEnum() == MessageList.MessageEnum.CHATS) {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
-                bundle.putString("msgid",messageList.getMsgid());
+                bundle.putString("msgid", messageList.getMsgid());
                 intent.putExtras(bundle);
                 getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 //            if (messageList.getMessageEnum() == MessageList.MessageEnum.PUBLICNOTICE)  {
 //
@@ -322,7 +313,6 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     };
 
 
-
     /**
      * 获取消息信息
      * 通过本地数据库中获得
@@ -330,6 +320,8 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
      */
     void getMessageList(Cursor cursor) {
 
+        if (cursor == null)
+            return;
         messageLists.clear();
         if (cursor.getCount() == 0) {
             myAdapter.notifyDataSetChanged();
@@ -350,10 +342,10 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
 //            messageList.setMsgType(cursor.getInt(3));
 //
 //            messageList.setContent(cursor.getString(3));
-            if (cursor.getString(3).equals("01"))
-                messageLists.add(0,messageList);
-            else
-                messageLists.add(messageList);
+//            if (cursor.getString(3).equals("01"))
+//                messageLists.add(0,messageList);
+//            else
+            messageLists.add(messageList);
         }
         cursor.close();
         myAdapter.notifyDataSetChanged();
@@ -368,14 +360,13 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     /**
      * 点击更多
      */
-   View.OnClickListener onClickListenercreatechat = new View.OnClickListener() {
+    View.OnClickListener onClickListenercreatechat = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
 
-
 //            if (SuyApplication.getApplication().getSuyClient().getSuyUserInfo().m_loginResult.m_userType==1)
-                menu_custom.ShowMenu(topRightButton);
+            menu_custom.ShowMenu(topRightButton);
 //            else {
 //                Intent intent = new Intent(getActivity(), ContactsSelectActivity.class);
 //                startActivityForResult(intent, ContactsSelectActivity.RequestCode);
@@ -384,7 +375,6 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         }
 
     };
-
 
 
     /**
@@ -418,12 +408,10 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
         @Override
         public void onClick(View view) {
 
-            Intent intent=new Intent(getActivity(),AppoveActivity.class);
-            intent.putExtra("json",appovejson);
+            Intent intent = new Intent(getActivity(), AppoveActivity.class);
+            intent.putExtra("json", appovejson);
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.alpha);
-
-
 
 
 //            searchtxt.setText("");
@@ -510,78 +498,68 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
     /**
      * 添加群组聊天
      */
-    public void addChatGroup(String[] contactslist)
-    {
-        if (contactslist.length ==0)
+    public void addChatGroup(String[] contactslist) {
+        if (contactslist.length == 0)
             return;
 
         Bundle bundle = new Bundle();
-        if(contactslist.length==1)
-        {
+        if (contactslist.length == 1) {
             //单聊
             messageDB = new MessageDB(SuyApplication.getApplication().getSuyDB().getDb());
-            if (messageDB.isExitsMsgid(contactslist[0])>0)//判断是否存在
+            if (messageDB.isExitsMsgid(contactslist[0]) > 0)//判断是否存在
                 messageDB.updateMessageDate(contactslist[0]);//存在更新列表时间
             else
-                messageDB.insertGroup(contactslist[0],1);//没有插入新的记录
+                messageDB.insertGroup(contactslist[0], 1);//没有插入新的记录
             getMessageList(messageDB.getMessageList());
 
             //传递信息到聊天窗口
             bundle.putString("chattype", "1");
             Intent intent = new Intent(getActivity(), ChatActivity.class);
-            bundle.putString("msgid",contactslist[0]);
+            bundle.putString("msgid", contactslist[0]);
             intent.putExtras(bundle);
             getActivity().startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             return;
         }
 
         //创建群聊
-        String str="";
-        for (int i=0; i<contactslist.length;i++)
-        {
-            str += contactslist[i]+",";
+        String str = "";
+        for (int i = 0; i < contactslist.length; i++) {
+            str += contactslist[i] + ",";
         }
 
-        str = str.substring(0,str.length()-1);
-        Log.i("选择的人：",str);
+        str = str.substring(0, str.length() - 1);
+        Log.i("选择的人：", str);
 
-        CustomPopWindowPlugin.ShowPopWindow(listView,getActivity().getLayoutInflater(),"请稍后");
-        IM im=new IM(interfaceTask,IM.CREATEGROUP);
+        CustomPopWindowPlugin.ShowPopWindow(listView, getActivity().getLayoutInflater(), "请稍后");
+        IM im = new IM(interfaceTask, IM.CREATEGROUP);
         im.setParams(str);
         im.startTask();
 
     }
 
 
-
-
-    InterfaceTask interfaceTask=new InterfaceTask() {
+    InterfaceTask interfaceTask = new InterfaceTask() {
         @Override
         public void TaskResultForMessage(Message message) {
             CustomPopWindowPlugin.CLosePopwindow();
 
 
-            if (message.what==BaseTask.IMTask)
-            {
-                if (message.arg2 == IM.QUERYAPPOVE)
-                {
-                    if (message.arg1 == BaseTask.SUCCESS)
-                    {
+            if (message.what == BaseTask.IMTask) {
+                if (message.arg2 == IM.QUERYAPPOVE) {
+                    if (message.arg1 == BaseTask.SUCCESS) {
                         appovejson = message.obj.toString();
-                        Log.i("json ",appovejson);
+                        Log.i("json ", appovejson);
                         try {
-                            JSONObject jsonObject=new JSONObject(appovejson);
+                            JSONObject jsonObject = new JSONObject(appovejson);
                             ReturnData returnData = new ReturnData(jsonObject, false);
-                            JSONArray jsonArray=returnData.getJsonArray();
-                            if (jsonArray.length()>0)
+                            JSONArray jsonArray = returnData.getJsonArray();
+                            if (jsonArray.length() > 0)
                                 btnsearch.setVisibility(View.VISIBLE);
                             else
                                 btnsearch.setVisibility(View.GONE);
 
-                        }
-                        catch (Exception e)
-                        {
+                        } catch (Exception e) {
                             btnsearch.setVisibility(View.GONE);
                         }
 
@@ -616,6 +594,7 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
 //            }
         }
     };
+
     class MyAdapter extends BaseAdapter {
         LayoutInflater mInflater;
         ImageView msgimg;
@@ -655,8 +634,9 @@ public class MessageCenterfragment extends Fragment implements FragmentName {
             msgdate = (TextView) v.findViewById(R.id.dt);
             MessageList messageList = messageLists.get(i);
 //            msgimg.setBackground(getResources().getDrawable(.));
-            ContactsDB contactsDB=new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
-            Cursor cursor=  contactsDB.getContactsForUserid(messageList.getSender());
+            ContactsDB contactsDB = new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
+            Cursor cursor = contactsDB.getContactsForUserid(messageList.getSender());
+
             cursor.moveToNext();
 
             msgsubcontent.setText(cursor.getString(1));

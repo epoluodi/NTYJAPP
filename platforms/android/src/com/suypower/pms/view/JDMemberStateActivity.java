@@ -89,7 +89,7 @@ public class JDMemberStateActivity extends Activity {
                                 map.put("USER_NAME",jsonObject.getString("USER_NAME"));
                                 map.put("SEX",jsonObject.getString("SEX"));
                                 map.put("GROUP_NAMES",jsonObject.getString("GROUP_NAMES"));
-                                map.put("PICTURE",jsonObject.getString("PICTURE"));
+//                                map.put("PICTURE",jsonObject.getString("PICTURE"));
                                 mapList.add(map);
                             }
                             catch (Exception e)
