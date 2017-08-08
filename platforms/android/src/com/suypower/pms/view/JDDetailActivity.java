@@ -20,16 +20,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.suypower.pms.R;
+import com.suypower.pms.app.SuyApplication;
 import com.suypower.pms.app.task.BaseTask;
 import com.suypower.pms.app.task.FileDownload;
 import com.suypower.pms.app.task.IM;
 import com.suypower.pms.app.task.InterfaceTask;
+import com.suypower.pms.view.contacts.ContactsDB;
 import com.suypower.pms.view.dlg.IMenu;
 import com.suypower.pms.view.dlg.Menu_Custom;
 import com.suypower.pms.view.plugin.CommonPlugin;
 import com.suypower.pms.view.plugin.CustomPopWindowPlugin;
 import com.suypower.pms.view.plugin.chat.MediaSupport;
+import com.suypower.pms.view.plugin.message.MessageDB;
 
+import org.apache.cordova.App;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -44,7 +48,7 @@ public class JDDetailActivity extends Activity {
     private Menu_Custom menu_custom;
     private int mode;
     private String json,strsender;
-    private TextView jdtitle, sender, senddt, content;
+    private TextView jdtitle, sender, senddt, content,groupname;
     private String DISPATCH_ID, send_account_id;
     private ImageView btnplay;
     private String audioid;
@@ -68,10 +72,12 @@ public class JDDetailActivity extends Activity {
         senddt = (TextView) findViewById(R.id.senddt);
         content = (TextView) findViewById(R.id.content);
         btnplay = (ImageView) findViewById(R.id.play);
+        groupname = (TextView)findViewById(R.id.groupname);
+
         linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
         json = getIntent().getStringExtra("json");
         mode = getIntent().getIntExtra("mode", 0);
-
+        ContactsDB contactsDB = new ContactsDB(SuyApplication.getApplication().getSuyDB().getDb());
         String pic_ids;
         btnplay.setVisibility(View.GONE);
         if (mode == 1) {
@@ -89,6 +95,8 @@ public class JDDetailActivity extends Activity {
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
                 send_account_id = jsonObject.getString("send_account_id");
                 audioid = jsonObject.getString("audio_id");
+                String groupinfo = contactsDB.getDepartmentname(jsonObject.getString("group_ids"));
+                groupname.setText("目标小组:" + groupinfo);
                 audiodownload();
                 pic_ids = jsonObject.getString("pic_ids");
                 if (!pic_ids.equals("")) {
@@ -115,6 +123,8 @@ public class JDDetailActivity extends Activity {
                 DISPATCH_ID = jsonObject.getString("dispatch_id");
                 send_account_id = jsonObject.getString("send_account_id");
                 audioid = jsonObject.getString("audio_id");
+                String groupinfo = contactsDB.getDepartmentname(jsonObject.getString("group_ids"));
+                groupname.setText("目标小组:" + groupinfo);
                 audiodownload();
                 pic_ids = jsonObject.getString("pic_ids");
                 if (!pic_ids.equals("")) {
@@ -139,6 +149,8 @@ public class JDDetailActivity extends Activity {
                 content.setText(jsonObject.getString("DISPATCH_CONTENT"));
                 DISPATCH_ID = jsonObject.getString("DISPATCH_ID");
 //                send_account_id = jsonObject.getString("send_account_id");
+                String groupinfo = contactsDB.getDepartmentname(jsonObject.getString("group_ids"));
+                groupname.setText("目标小组:" + groupinfo);
                 audioid = jsonObject.getString("AUDIO_ID");
                 audiodownload();
                 pic_ids = jsonObject.getString("PIC_IDS");
